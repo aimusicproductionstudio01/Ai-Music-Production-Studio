@@ -17,14 +17,10 @@
   "upcoming": [
     {
       "title": "Mon Pakhir Dana",
-      "language": "Bangla",
-      "category": "Baul",
       "releaseDate": "2026-06-20"
     },
     {
       "title": "Mera Bajranbali",
-      "language": "Hindi",
-      "category": "Bhakti",
       "releaseDate": "2026-06-21"
     }
   ],
@@ -38,7 +34,7 @@
     },
     {
       "title": "Mera Kanha Aao",
-      "language": "Hindi",
+      "language": "Bhakti",
       "category": "Bhakti",
       "youtubeId": "_WI9MV3gMPo"
     }
@@ -75,7 +71,7 @@
     "Bhakti": [
       {
         "title": "Bhakti Hit",
-        "language": "Hindi",
+        "language": "Bhakti",
         "category": "Bhakti",
         "youtubeId": "vrewfh3XxSs"
       }
@@ -85,7 +81,7 @@
       {
         "title": "English Hit",
         "language": "English",
-        "category": "English",
+        "category": "Romantic",
         "youtubeId": "XRgIlkySbTw"
       }
     ]
