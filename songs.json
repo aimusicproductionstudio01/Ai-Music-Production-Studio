@@ -1,0 +1,75 @@
+{
+  "newReleases": [
+    {
+      "title": "New Hindi Song",
+      "language": "Hindi",
+      "youtubeId": "VIDEO_ID_1"
+    },
+    {
+      "title": "New Bangla Song",
+      "language": "Bangla",
+      "youtubeId": "VIDEO_ID_2"
+    }
+  ],
+
+  "upcoming": [
+    {
+      "title": "Upcoming Romantic Song",
+      "releaseDate": "2026-07-15"
+    },
+    {
+      "title": "Upcoming DJ Remix",
+      "releaseDate": "2026-08-01"
+    }
+  ],
+
+  "latest": [
+    {
+      "title": "Latest Bhojpuri Song",
+      "language": "Bhojpuri",
+      "youtubeId": "VIDEO_ID_3"
+    },
+    {
+      "title": "Latest Bhakti Song",
+      "language": "Bhakti",
+      "youtubeId": "VIDEO_ID_4"
+    }
+  ],
+
+  "languages": {
+    "Hindi": [
+      {
+        "title": "Hindi Hit",
+        "youtubeId": "VIDEO_ID_1"
+      }
+    ],
+
+    "Bangla": [
+      {
+        "title": "Bangla Hit",
+        "youtubeId": "VIDEO_ID_2"
+      }
+    ],
+
+    "Bhojpuri": [
+      {
+        "title": "Bhojpuri Hit",
+        "youtubeId": "VIDEO_ID_3"
+      }
+    ],
+
+    "Bhakti": [
+      {
+        "title": "Bhakti Hit",
+        "youtubeId": "VIDEO_ID_4"
+      }
+    ],
+
+    "English": [
+      {
+        "title": "English Hit",
+        "youtubeId": "VIDEO_ID_5"
+      }
+    ]
+  }
+}
