@@ -3,7 +3,7 @@
     {
       "title": "Dil Tera Naam",
       "language": "Hindi",
-      "category": "Romantic",
+      "category": "Love",
       "youtubeId": "KlgRleUO2AY"
     },
     {
@@ -29,13 +29,13 @@
     {
       "title": "Lal Lipistikwa",
       "language": "Bhojpuri",
-      "category": "DJ Remix",
+      "category": "Party",
       "youtubeId": "RF2b7HA-Hm0"
     },
     {
       "title": "Mera Kanha Aao",
       "language": "Bhakti",
-      "category": "Bhakti",
+      "category": "Devotional",
       "youtubeId": "_WI9MV3gMPo"
     }
   ],
@@ -45,7 +45,7 @@
       {
         "title": "Hindi Hit",
         "language": "Hindi",
-        "category": "Romantic",
+        "category": "Love",
         "youtubeId": "PZTy8QjLwRs"
       }
     ],
@@ -54,7 +54,7 @@
       {
         "title": "Bangla Hit",
         "language": "Bangla",
-        "category": "Romantic",
+        "category": "Love",
         "youtubeId": "rzA0QJsJhpk"
       }
     ],
@@ -63,7 +63,7 @@
       {
         "title": "Bhojpuri Hit",
         "language": "Bhojpuri",
-        "category": "DJ Remix",
+        "category": "Party",
         "youtubeId": "15CDSWpRC2w"
       }
     ],
@@ -72,7 +72,7 @@
       {
         "title": "Bhakti Hit",
         "language": "Bhakti",
-        "category": "Bhakti",
+        "category": "Devotional",
         "youtubeId": "vrewfh3XxSs"
       }
     ],
@@ -81,9 +81,19 @@
       {
         "title": "English Hit",
         "language": "English",
-        "category": "Romantic",
+        "category": "Love",
         "youtubeId": "XRgIlkySbTw"
       }
     ]
-  }
+  },
+
+  "categories": [
+    "Love",
+    "DJ Remix",
+    "Sad",
+    "Baul",
+    "Party",
+    "Motivational",
+    "Devotional"
+  ]
 }
