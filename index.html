@@ -320,7 +320,23 @@ background:#2196f3;
 .devotional{
 background:#4caf50;
 }
-  
+.search-nav{
+display:flex;
+align-items:center;
+}
+
+#songSearch{
+width:40px;
+padding:8px;
+border-radius:20px;
+cursor:pointer;
+transition:.3s;
+}
+
+#songSearch:focus{
+width:220px;
+cursor:text;
+}
 @media(max-width:768px){
 
 nav{
@@ -371,6 +387,11 @@ gtag('config', 'G-83PJJ7R54E');
 <li><a href="#languages">Languages</a></li>
 <li><a href="#channels">Channels</a></li>
 <li><a href="#contact">Contact</a></li>
+
+<li class="search-nav">
+<input type="text" id="songSearch" placeholder="🔍 Search">
+</li>
+
 </ul>
 </nav>
   
