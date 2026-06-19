@@ -259,7 +259,40 @@ text-align:center;
 background:#000;
 border-top:1px solid rgba(255,255,255,.08);
 }
+.filter-buttons{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+margin-bottom:30px;
+}
 
+.filter-buttons button{
+padding:12px 20px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+background:linear-gradient(45deg,#ff9900,#ff00cc);
+color:white;
+transition:.3s;
+}
+
+.filter-buttons button:hover{
+transform:translateY(-3px);
+box-shadow:0 0 15px rgba(255,0,204,.5);
+}
+
+.song-category{
+display:inline-block;
+margin-top:10px;
+padding:6px 12px;
+border-radius:20px;
+background:rgba(255,0,204,.15);
+border:1px solid rgba(255,0,204,.4);
+font-size:14px;
+}
+  
 @media(max-width:768px){
 
 nav{
@@ -547,7 +580,7 @@ const newReleases = document.getElementById('newReleasesContainer');
 data.newReleases.forEach(song => {
 
 newReleases.innerHTML += `
-<div class="card">
+<div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
 
 <iframe
@@ -558,6 +591,7 @@ allowfullscreen>
 </iframe>
 
 <p>${song.language}</p>
+<p class="song-category">${song.category}</p>
 
 </div>
 `;
@@ -585,7 +619,7 @@ const latest = document.getElementById('latestContainer');
 data.latest.forEach(song => {
 
 latest.innerHTML += `
-<div class="card">
+<div class="card song-card" data-category="${song.category}">
 
 <h3>${song.title}</h3>
 
@@ -622,7 +656,7 @@ document.getElementById(language);
 data.languages[language].forEach(song => {
 
 section.innerHTML += `
-<div class="card">
+<div class="card song-card" data-category="${song.category}">
 
 <h3>${song.title}</h3>
 
@@ -668,6 +702,32 @@ text.includes(filter)
 });
 
 });
+
+<script>
+
+function filterSongs(category){
+
+const songs =
+document.querySelectorAll('.song-card');
+
+songs.forEach(song=>{
+
+if(category === 'all'){
+
+song.style.display='block';
+
+}else{
+
+song.style.display =
+song.dataset.category === category
+? 'block'
+: 'none';
+
+}
+
+});
+
+}
 
 </script>
   <script async src="https://api.countapi.xyz/hit/aimusicps.in/visits"></script>
