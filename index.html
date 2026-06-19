@@ -581,6 +581,7 @@ data.newReleases.forEach(song => {
 
 newReleases.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
+
 <h3>${song.title}</h3>
 
 <iframe
@@ -631,6 +632,7 @@ allowfullscreen>
 </iframe>
 
 <p>${song.language}</p>
+<p class="song-category">${song.category}</p>
 
 </div>
 `;
@@ -666,6 +668,8 @@ height="315"
 src="https://www.youtube.com/embed/${song.youtubeId}"
 allowfullscreen>
 </iframe>
+
+<p class="song-category">${song.category}</p>
 
 </div>
 `;
