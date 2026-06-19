@@ -544,28 +544,12 @@ music branding, thumbnails, cover art and YouTube growth solutions.
 <div id="languagesContainer"></div>
 
 </section>
+  
 <section id="playlists">
 
 <h2 class="section-title">🎧 Featured Playlists</h2>
 
-<div class="grid">
-
-<div class="card">
-<h3>❤️ Best Love Songs</h3>
-<p>Hindi, Bangla and English romantic hits.</p>
-</div>
-
-<div class="card">
-<h3>🎉 Party & DJ Remix</h3>
-<p>Dance, Remix and Viral Party Tracks.</p>
-</div>
-
-<div class="card">
-<h3>🙏 Devotional Collection</h3>
-<p>Bhakti songs and spiritual music.</p>
-</div>
-
-</div>
+<div id="playlist-container" class="grid"></div>
 
 </section>
   
@@ -630,26 +614,10 @@ AI English Songs
 
 <h2 class="section-title">📰 Latest Updates</h2>
 
-<div class="grid">
-
-<div class="card">
-<h3>🎵 New Release</h3>
-<p>Rongila Jhumka is now available on YouTube.</p>
-</div>
-
-<div class="card">
-<h3>🚀 Upcoming</h3>
-<p>Mon Pakhir Dana releasing on 20 June 2026.</p>
-</div>
-
-<div class="card">
-<h3>🔥 Trending</h3>
-<p>AI Hindi Gaana channel crossed new milestones.</p>
-</div>
-
-</div>
+<div id="news-container" class="grid"></div>
 
 </section>
+  
 <section id="contact">
 
 <h2 class="section-title">Contact Us</h2>
@@ -711,9 +679,43 @@ ${song.category}
 
 </div>
 `;
+const playlistContainer =
+document.getElementById('playlist-container');
+
+if(data.playlists){
+
+data.playlists.forEach(item => {
+
+playlistContainer.innerHTML += `
+<div class="card">
+<h3>${item.title}</h3>
+<p>${item.description}</p>
+</div>
+`;
 
 });
 
+}
+  
+const newsContainer =
+document.getElementById('news-container');
+
+if(data.news){
+
+data.news.forEach(item => {
+
+newsContainer.innerHTML += `
+<div class="card">
+<h3>${item.title}</h3>
+<p>${item.content}</p>
+</div>
+`;
+
+});
+
+} 
+  
+});
 
 const upcoming = document.getElementById('upcomingContainer');
 
