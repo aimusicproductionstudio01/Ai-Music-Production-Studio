@@ -374,7 +374,11 @@ music branding, thumbnails, cover art and YouTube growth solutions.
 </div>
 
 </div>
-
+<input
+type="text"
+id="songSearch"
+placeholder="Search Songs..."
+style="width:100%;padding:15px;margin-bottom:20px;">
 </section>
   <!-- New Releases -->
 <section id="new-releases">
@@ -431,40 +435,47 @@ AI Bangla Gaan
 <i class="fab fa-youtube"></i>
 AI English Songs
 </a>
+<div class="channel-buttons">
+
+<a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">
+🔴 Subscribe Hindi Channel
+</a>
+
+<a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">
+🔴 Subscribe Bangla Channel
+</a>
+
+<a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">
+🔴 Subscribe Bhojpuri Channel
+</a>
+
+<a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">
+🔴 Subscribe Bhakti Channel
+</a>
+
+<a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">
+🔴 Subscribe English Channel
+</a>
 
 </div>
 </section>
 
 <section id="contact">
+
 <h2 class="section-title">Contact Us</h2>
 
-<div class="contact-box">
+<form action="https://formsubmit.co/aimusicproductionstudio01@gmail.com" method="POST">
 
-<div class="contact-item">
-📱 +91 9064941269
-</div>
+<input type="text" name="name" placeholder="Your Name" required>
 
-<div class="contact-item">
-✉️ aimusicproductionstudio01@gmail.com
-</div>
+<input type="email" name="email" placeholder="Your Email" required>
 
-<div class="social">
+<textarea name="message" rows="5" placeholder="Your Message"></textarea>
 
-<a href="https://www.facebook.com/profile.php?id=61591008745101" target="_blank">
-<i class="fab fa-facebook"></i>
-</a>
+<button type="submit">Send Message</button>
 
-<a href="https://www.instagram.com/ai_hindigaana/" target="_blank">
-<i class="fab fa-instagram"></i>
-</a>
+</form>
 
-<a href="https://wa.me/919064941269" target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
-
-</div>
-
-</div>
 </section>
 
 <a href="https://wa.me/919064941269" class="whatsapp" target="_blank">
@@ -472,9 +483,14 @@ AI English Songs
 </a>
 
 <footer>
-<h3>AI Music Production Studio</h3>
-<p>Feel The Music • Live The Moment</p>
-<p>© 2026 All Rights Reserved</p>
+
+<p>© 2026 AI Music Production Studio. All Rights Reserved.</p>
+
+<p>
+Visitors:
+<img src="https://visitor-badge.laobi.icu/badge?page_id=aimusicps.in" alt="Visitor Counter">
+</p>
+
 </footer>
 <script>
 
@@ -582,8 +598,33 @@ allowfullscreen>
 
 });
 
+<script>
+
+document.getElementById('songSearch')
+.addEventListener('keyup', function(){
+
+let filter =
+this.value.toLowerCase();
+
+let cards =
+document.querySelectorAll('.card');
+
+cards.forEach(card => {
+
+let text =
+card.innerText.toLowerCase();
+
+card.style.display =
+text.includes(filter)
+? 'block'
+: 'none';
+
+});
+
+});
+
 </script>
-  
+  <script async src="https://api.countapi.xyz/hit/aimusicps.in/visits"></script>
 </body>
 </html>
 ```
