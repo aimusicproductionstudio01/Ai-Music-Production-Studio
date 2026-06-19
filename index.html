@@ -234,6 +234,27 @@ transition:.3s;
 .social a:hover{
 color:#ff00cc;
 }
+.channel-buttons{
+text-align:center;
+margin-top:30px;
+}
+
+.channel-buttons a{
+display:inline-block;
+margin:10px;
+padding:12px 20px;
+background:#ff0000;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.channel-buttons a:hover{
+transform:translateY(-3px);
+box-shadow:0 0 15px rgba(255,0,0,0.5);
+}
 
 .whatsapp{
 position:fixed;
@@ -327,16 +348,19 @@ align-items:center;
 
 #songSearch{
 width:40px;
-padding:8px;
+padding:8px 12px;
 border-radius:20px;
-cursor:pointer;
-transition:.3s;
+border:none;
+outline:none;
+background:white;
+color:black;
+transition:0.3s;
 }
 
 #songSearch:focus{
-width:220px;
-cursor:text;
+width:200px;
 }
+  
 @media(max-width:768px){
 
 nav{
@@ -394,25 +418,7 @@ gtag('config', 'G-83PJJ7R54E');
 
 </ul>
 </nav>
-  
-<section id="top-search" style="padding:20px;max-width:1200px;margin:auto;">
-
-<input
-type="text"
-id="songSearch"
-placeholder="🔍 Search Songs, Artists, Categories..."
-style="
-width:100%;
-padding:15px 20px;
-font-size:18px;
-border-radius:30px;
-border:2px solid #ff00cc;
-outline:none;
-box-sizing:border-box;
-">
-
-</section>
-  
+   
 <section class="hero" id="home">
 <div>
 <img src="logo.png" class="hero-logo" alt="AI Music Production Studio">
@@ -458,6 +464,7 @@ AI Music Production Studio creates AI-powered Hindi, Bengali, Bhojpuri,
 Bhakti and English songs. We specialize in AI vocals, DJ remixes,
 music branding, thumbnails, cover art and YouTube growth solutions.
 </div>
+  
 </section>
 
 <section id="services">
@@ -490,11 +497,7 @@ music branding, thumbnails, cover art and YouTube growth solutions.
 </div>
 
 </div>
-<input
-type="text"
-id="songSearch"
-placeholder="Search Songs..."
-style="width:100%;padding:15px;margin-bottom:20px;">
+  
 </section>
   
 <section id="song-filters">
@@ -652,8 +655,9 @@ allowfullscreen>
 </iframe>
 
 <p>${song.language}</p>
-<p class="song-category">${song.category}</p>
-<p>${song.language}</p>
+<p class="song-category ${song.category.toLowerCase().replace(' ','-')}">
+${song.category}
+</p>
 
 </div>
 `;
@@ -693,8 +697,9 @@ allowfullscreen>
 </iframe>
 
 <p>${song.language}</p>
-<p class="song-category">${song.category}</p>
-<p>${song.language}</p>
+<p class="song-category ${song.category.toLowerCase().replace(' ','-')}">
+${song.category}
+</p>
 
 </div>
 `;
