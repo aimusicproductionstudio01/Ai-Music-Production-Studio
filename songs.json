@@ -97,3 +97,35 @@
     "Devotional"
   ]
 }
+
+"news": [
+  {
+    "title": "🎵 New Release",
+    "content": "Rongila Jhumka is now available on YouTube."
+  },
+  {
+    "title": "🚀 Upcoming Release",
+    "content": "Mon Pakhir Dana releasing on 20 June 2026."
+  },
+  {
+    "title": "🔥 Trending",
+    "content": "AI Bangla Gaan channel reached a new milestone."
+  }
+]
+},
+
+"playlists": [
+  {
+    "title": "❤️ Best Love Songs",
+    "description": "Hindi, Bangla and English romantic hits."
+  },
+  {
+    "title": "🎉 Party & DJ Remix",
+    "description": "Dance, remix and viral party tracks."
+  },
+  {
+    "title": "🙏 Devotional Collection",
+    "description": "Bhakti songs and spiritual music."
+  }
+]
+ },
