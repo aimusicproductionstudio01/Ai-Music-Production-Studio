@@ -2,37 +2,37 @@
   "newReleases": [
     {
       "title": "New Hindi Song",
-      "language": "Hindi",
-      "youtubeId": "VIDEO_ID_1"
+      "language": "Dil Tera Naam",
+      "youtubeId": "https://youtu.be/KlgRleUO2AY?si=W8CC95wy0YTC2SX8"
     },
     {
-      "title": "New Bangla Song",
+      "title": "Rongila Jhumka",
       "language": "Bangla",
-      "youtubeId": "VIDEO_ID_2"
+      "youtubeId": "https://youtu.be/bnujIEHuvRY?si=aKgbU2H739ad52X3"
     }
   ],
 
   "upcoming": [
     {
-      "title": "Upcoming Romantic Song",
-      "releaseDate": "2026-07-15"
+      "title": "Mon Pakhir Dana",
+      "releaseDate": "2026-06-20"
     },
     {
-      "title": "Upcoming DJ Remix",
-      "releaseDate": "2026-08-01"
+      "title": "Mera Bajranbali",
+      "releaseDate": "2026-06-21"
     }
   ],
 
   "latest": [
     {
-      "title": "Latest Bhojpuri Song",
+      "title": "Lal Lipistikwa",
       "language": "Bhojpuri",
-      "youtubeId": "VIDEO_ID_3"
+      "youtubeId": "https://youtu.be/RF2b7HA-Hm0?si=3A4Nmd_4p7ICBduE"
     },
     {
-      "title": "Latest Bhakti Song",
+      "title": "Mera Kanha Aao",
       "language": "Bhakti",
-      "youtubeId": "VIDEO_ID_4"
+      "youtubeId": "https://youtu.be/_WI9MV3gMPo?si=84_8w6-Ys0NzeT48"
     }
   ],
 
@@ -40,35 +40,35 @@
     "Hindi": [
       {
         "title": "Hindi Hit",
-        "youtubeId": "VIDEO_ID_1"
+        "youtubeId": "https://youtu.be/PZTy8QjLwRs?si=SqLV0qYDXjPLqDrc"
       }
     ],
 
     "Bangla": [
       {
         "title": "Bangla Hit",
-        "youtubeId": "VIDEO_ID_2"
+        "youtubeId": "https://youtu.be/rzA0QJsJhpk?si=lgvjFvaX9bJRJXy_"
       }
     ],
 
     "Bhojpuri": [
       {
         "title": "Bhojpuri Hit",
-        "youtubeId": "VIDEO_ID_3"
+        "youtubeId": "https://youtu.be/15CDSWpRC2w?si=4Te9mddk8Gq_ZRUe"
       }
     ],
 
     "Bhakti": [
       {
         "title": "Bhakti Hit",
-        "youtubeId": "VIDEO_ID_4"
+        "youtubeId": "https://youtu.be/vrewfh3XxSs?si=tW3QQCNgPwu-lHX2"
       }
     ],
 
     "English": [
       {
         "title": "English Hit",
-        "youtubeId": "VIDEO_ID_5"
+        "youtubeId": "https://youtu.be/XRgIlkySbTw?si=bV_mE-KAYX4TUSDA"
       }
     ]
   }
