@@ -3,12 +3,12 @@
     {
       "title": "New Hindi Song",
       "language": "Dil Tera Naam",
-      "youtubeId": "https://youtu.be/KlgRleUO2AY?si=W8CC95wy0YTC2SX8"
+      "youtubeId": "KlgRleUO2AY"
     },
     {
       "title": "Rongila Jhumka",
       "language": "Bangla",
-      "youtubeId": "https://youtu.be/bnujIEHuvRY?si=aKgbU2H739ad52X3"
+      "youtubeId": "bnujIEHuvRY"
     }
   ],
 
@@ -27,12 +27,12 @@
     {
       "title": "Lal Lipistikwa",
       "language": "Bhojpuri",
-      "youtubeId": "https://youtu.be/RF2b7HA-Hm0?si=3A4Nmd_4p7ICBduE"
+      "youtubeId": "RF2b7HA-Hm0"
     },
     {
       "title": "Mera Kanha Aao",
       "language": "Bhakti",
-      "youtubeId": "https://youtu.be/_WI9MV3gMPo?si=84_8w6-Ys0NzeT48"
+      "youtubeId": "_WI9MV3gMPo"
     }
   ],
 
@@ -40,35 +40,35 @@
     "Hindi": [
       {
         "title": "Hindi Hit",
-        "youtubeId": "https://youtu.be/PZTy8QjLwRs?si=SqLV0qYDXjPLqDrc"
+        "youtubeId": "PZTy8QjLwRs"
       }
     ],
 
     "Bangla": [
       {
         "title": "Bangla Hit",
-        "youtubeId": "https://youtu.be/rzA0QJsJhpk?si=lgvjFvaX9bJRJXy_"
+        "youtubeId": "rzA0QJsJhpk"
       }
     ],
 
     "Bhojpuri": [
       {
         "title": "Bhojpuri Hit",
-        "youtubeId": "https://youtu.be/15CDSWpRC2w?si=4Te9mddk8Gq_ZRUe"
+        "youtubeId": "15CDSWpRC2w"
       }
     ],
 
     "Bhakti": [
       {
         "title": "Bhakti Hit",
-        "youtubeId": "https://youtu.be/vrewfh3XxSs?si=tW3QQCNgPwu-lHX2"
+        "youtubeId": "vrewfh3XxSs"
       }
     ],
 
     "English": [
       {
         "title": "English Hit",
-        "youtubeId": "https://youtu.be/XRgIlkySbTw?si=bV_mE-KAYX4TUSDA"
+        "youtubeId": "XRgIlkySbTw"
       }
     ]
   }
