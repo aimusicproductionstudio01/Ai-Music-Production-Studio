@@ -3,11 +3,13 @@
     {
       "title": "Dil Tera Naam",
       "language": "New Hindi Song",
+      "category": "Romantic",
       "youtubeId": "KlgRleUO2AY"
     },
     {
       "title": "Rongila Jhumka",
       "language": "New Bangla DJ Remix",
+      "category": "DJ Remix",
       "youtubeId": "bnujIEHuvRY"
     }
   ],
@@ -27,11 +29,13 @@
     {
       "title": "Lal Lipistikwa",
       "language": "Bhojpuri",
+      "category": "DJ Remix",
       "youtubeId": "RF2b7HA-Hm0"
     },
     {
       "title": "Mera Kanha Aao",
       "language": "Bhakti",
+      "category": "Bhakti",
       "youtubeId": "_WI9MV3gMPo"
     }
   ],
@@ -40,6 +44,7 @@
     "Hindi": [
       {
         "title": "Hindi Hit",
+        "category": "Hindi",
         "youtubeId": "PZTy8QjLwRs"
       }
     ],
@@ -47,6 +52,7 @@
     "Bangla": [
       {
         "title": "Bangla Hit",
+        "category": "Romantic",
         "youtubeId": "rzA0QJsJhpk"
       }
     ],
@@ -54,6 +60,7 @@
     "Bhojpuri": [
       {
         "title": "Bhojpuri Hit",
+        "category": "Bhojpuri",
         "youtubeId": "15CDSWpRC2w"
       }
     ],
@@ -61,6 +68,7 @@
     "Bhakti": [
       {
         "title": "Bhakti Hit",
+        "category": "Bhakti",
         "youtubeId": "vrewfh3XxSs"
       }
     ],
@@ -68,6 +76,7 @@
     "English": [
       {
         "title": "English Hit",
+        "category": "English",
         "youtubeId": "XRgIlkySbTw"
       }
     ]
