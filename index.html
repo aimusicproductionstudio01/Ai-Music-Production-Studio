@@ -614,6 +614,7 @@ allowfullscreen>
 
 <p>${song.language}</p>
 <p class="song-category">${song.category}</p>
+<p>${song.language}</p>
 
 </div>
 `;
@@ -654,6 +655,7 @@ allowfullscreen>
 
 <p>${song.language}</p>
 <p class="song-category">${song.category}</p>
+<p>${song.language}</p>
 
 </div>
 `;
@@ -728,6 +730,8 @@ text.includes(filter)
 
 });
 
+</script>
+
 <script>
 
 function filterSongs(category){
@@ -744,7 +748,7 @@ song.style.display='block';
 }else{
 
 song.style.display =
-song.dataset.category === category
+song.dataset.category.toLowerCase() === category.toLowerCase()
 ? 'block'
 : 'none';
 
