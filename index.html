@@ -89,6 +89,11 @@ color:#ff00cc;
 
 .hero{
 min-height:100vh;
+background:
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.85)),
+url('banner.jpg');
+background-size:cover;
+background-position:center;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -118,7 +123,36 @@ max-width:700px;
 margin:auto;
 color:#ddd;
 }
+<section id="stats">
 
+<h2 class="section-title">Our Journey</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>500+</h3>
+<p>Songs Created</p>
+</div>
+
+<div class="card">
+<h3>5</h3>
+<p>YouTube Channels</p>
+</div>
+
+<div class="card">
+<h3>5</h3>
+<p>Languages</p>
+</div>
+
+<div class="card">
+<h3>24/7</h3>
+<p>AI Music Production</p>
+</div>
+
+</div>
+
+</section>
+  
 .btn-group{
 margin-top:30px;
 }
@@ -360,9 +394,43 @@ transition:0.3s;
 #songSearch:focus{
 width:160px;
 }
+.mobile-nav{
+display:none;
+}
   
 @media(max-width:768px){
+.mobile-nav{
+display:flex;
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#000;
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(255,255,255,.1);
+justify-content:space-around;
+padding:10px 0;
+z-index:9999;
+}
 
+.mobile-nav a{
+color:white;
+text-decoration:none;
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:12px;
+}
+
+.mobile-nav i{
+font-size:20px;
+margin-bottom:4px;
+color:#ff0000;
+}
+
+body{
+padding-bottom:80px;
+}
 nav{
 padding:10px;
 flex-direction:column;
@@ -563,6 +631,17 @@ music branding, thumbnails, cover art and YouTube growth solutions.
 <div id="languagesContainer"></div>
 
 </section>
+<section id="shorts">
+
+<h2 class="section-title">
+🔥 Latest Shorts
+</h2>
+
+<div class="grid">
+<div id="shorts-container"></div>
+</div>
+
+</section>
   
 <section id="playlists">
 
@@ -637,6 +716,21 @@ AI English Songs
 </div>
 
 </section>
+<section id="social">
+
+<h2 class="section-title">Follow Us</h2>
+
+<div class="channel-buttons">
+
+<a href="YOUR_FACEBOOK_LINK">Facebook</a>
+
+<a href="YOUR_INSTAGRAM_LINK">Instagram</a>
+
+<a href="YOUR_YOUTUBE_LINK">YouTube</a>
+
+</div>
+
+</section>
   
 <section id="contact">
 
@@ -662,14 +756,30 @@ AI English Songs
 
 <footer>
 
-<p>© 2026 AI Music Production Studio. All Rights Reserved.</p>
+<h3>AI Music Production Studio</h3>
 
 <p>
-Visitors:
-<img src="https://visitor-badge.laobi.icu/badge?page_id=aimusicps.in" alt="Visitor Counter">
+Hindi • Bangla • Bhojpuri • Bhakti • English
+</p>
+
+<p>
+🌐 aimusicps.in
+</p>
+
+<p>
+📧 aimusicproductionstudio01@gmail.com
+</p>
+
+<p>
+📱 +91 90649 41269
+</p>
+
+<p>
+© 2026 AI Music Production Studio
 </p>
 
 </footer>
+  
 <script>
 
 fetch('songs.json')
@@ -876,6 +986,35 @@ song.dataset.category.toLowerCase() === category.toLowerCase()
 
 </script>
   <script async src="https://api.countapi.xyz/hit/aimusicps.in/visits"></script>
+<div class="mobile-nav">
+
+<a href="#home">
+<i class="fas fa-home"></i>
+<span>Home</span>
+</a>
+
+<a href="#new-releases">
+<i class="fas fa-music"></i>
+<span>Songs</span>
+</a>
+
+<a href="#featured-song">
+<i class="fas fa-fire"></i>
+<span>Trending</span>
+</a>
+
+<a href="#channels">
+<i class="fab fa-youtube"></i>
+<span>Channels</span>
+</a>
+
+<a href="#contact">
+<i class="fas fa-phone"></i>
+<span>Contact</span>
+</a>
+
+</div>
+
 </body>
 </html>
 ```
