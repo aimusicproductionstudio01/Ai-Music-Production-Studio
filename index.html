@@ -347,7 +347,7 @@ align-items:center;
 }
 
 #songSearch{
-width:40px;
+width:120px;
 padding:8px 12px;
 border-radius:20px;
 border:none;
@@ -358,28 +358,47 @@ transition:0.3s;
 }
 
 #songSearch:focus{
-width:200px;
+width:160px;
 }
   
 @media(max-width:768px){
 
 nav{
+padding:10px;
 flex-direction:column;
-gap:10px;
 }
 
 nav ul{
+display:flex;
 flex-wrap:wrap;
 justify-content:center;
+gap:10px;
+}
+
+nav a{
+font-size:14px;
+}
+
+.logo span{
+font-size:16px;
+}
+
+.hero{
+padding-top:180px;
 }
 
 .hero h1{
-font-size:2.4rem;
+font-size:2rem;
+}
+
+.hero p{
+font-size:1rem;
 }
 
 .section-title{
-font-size:30px;
+font-size:28px;
 }
+
 }
 </style>
 
