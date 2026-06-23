@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Music Production Studio</title>
 
-<meta name="description" content="AI Music Production Studio - Showcasing original music tracks, official YouTube video releases, and regional studio productions.">
+<meta name="description" content="AI Music Production Studio - Official music video releases, original regional studio productions, and track streams.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -89,17 +89,17 @@ color:#ff00cc;
 }
 
 .hero{
-min-height:90vh;
+min-height:85vh;
 background: linear-gradient(rgba(5,5,5,.75),rgba(5,5,5,.95));
 display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:140px 20px 60px;
+padding:140px 20px 40px;
 }
 
 .hero-logo{
-width:180px;
+width:160px;
 max-width:80%;
 border-radius:50%;
 box-shadow:0 0 40px rgba(255,0,204,.4);
@@ -172,7 +172,7 @@ box-shadow: 0 5px 15px rgba(255,0,204,.3);
 }
 
 section{
-padding:70px 8%;
+padding:60px 8%;
 }
 
 .section-title{
@@ -292,21 +292,6 @@ width:180px;
 border-color: #ff00cc;
 }
 
-.channel-card{
-text-decoration:none;
-color:white;
-text-align:center;
-font-weight:600;
-padding: 25px;
-}
-
-.channel-card i{
-display:block;
-font-size:40px;
-margin-bottom:12px;
-color:red;
-}
-
 .channel-buttons{
 text-align:center;
 margin-top:25px;
@@ -387,6 +372,38 @@ box-shadow:0 0 15px #25D366;
 z-index:999;
 }
 
+/* Footer FAQ Accordion Stylings */
+.footer-faq {
+margin-top: 25px;
+border-top: 1px solid rgba(255,255,255,0.1);
+padding-top: 15px;
+}
+.faq-item {
+margin-bottom: 8px;
+background: rgba(255,255,255,0.02);
+border-radius: 6px;
+overflow: hidden;
+}
+.faq-question {
+padding: 10px 15px;
+font-size: 13px;
+font-weight: 500;
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color: #ff00cc;
+}
+.faq-answer {
+padding: 0 15px;
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease-out;
+color: #ccc;
+font-size: 12px;
+line-height: 1.5;
+}
+
 .footer{
 background:#000;
 padding:60px 8% 20px;
@@ -395,7 +412,7 @@ border-top:1px solid rgba(255,255,255,.08);
 
 .footer-container{
 display:grid;
-grid-template-columns:2fr 1fr 1fr;
+grid-template-columns:1.5fr 1fr 1fr;
 gap:40px;
 }
 
@@ -498,7 +515,6 @@ padding-bottom:70px;
 }
 </style>
 
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-83PJJ7R54E"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -523,7 +539,6 @@ gtag('config', 'G-83PJJ7R54E');
 <li><a href="#song-filters">Browse Tracks</a></li>
 <li><a href="#new-releases">New Releases</a></li>
 <li><a href="#languages">Languages</a></li>
-<li><a href="#channels">Channels</a></li>
 <li><a href="#contact">Contact</a></li>
 <li class="search-nav">
 <input type="text" id="songSearch" placeholder="🔍 Search">
@@ -561,7 +576,6 @@ gtag('config', 'G-83PJJ7R54E');
 </div>
 </section>
 
-<!-- FEATURED SECTION -->
 <section id="featured-song">
 <h2 class="section-title">⭐ Featured Release</h2>
 <div class="card" style="max-width: 850px; margin: 0 auto; padding: 25px;">
@@ -573,11 +587,9 @@ style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
 allowfullscreen>
 </iframe>
 </div>
-<p style="text-align: center; margin-top: 15px;">Watch our top trending music release of the week directly from our studio channel.</p>
 </div>
 </section>
   
-<!-- FILTERS SECTION -->
 <section id="song-filters" style="background: rgba(255,255,255,0.01);">
 <h2 class="section-title">🎵 Browse by Genre</h2>
 <div class="filter-buttons">
@@ -592,7 +604,6 @@ allowfullscreen>
 </div>
 </section>
 
-<!-- DYNAMIC SONG CONTAINERS -->
 <section id="new-releases">
 <h2 class="section-title">🔥 New Releases & Latest Hits</h2>
 <div id="newReleasesContainer" class="grid"></div>
@@ -608,42 +619,6 @@ allowfullscreen>
 <div id="languagesContainer"></div>
 </section>
 
-<section id="playlists" style="background: rgba(255,255,255,0.01);">
-<h2 class="section-title">🎧 Curated Studio Playlists</h2>
-<div id="playlist-container" class="grid"></div>
-</section>
-
-<!-- NETWORK CHANNELS SECTION -->
-<section id="channels">
-<h2 class="section-title">Our Video Channels</h2>
-<div class="grid">
-<a class="card channel-card" href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">
-<i class="fab fa-youtube"></i>AI Hindi Gaana
-</a>
-<a class="card channel-card" href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">
-<i class="fab fa-youtube"></i>AI Bhojpuri Gaana
-</a>
-<a class="card channel-card" href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">
-<i class="fab fa-youtube"></i>AI Bhakti Gaana
-</a>
-<a class="card channel-card" href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">
-<i class="fab fa-youtube"></i>AI Bangla Gaan
-</a>
-<a class="card channel-card" href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">
-<i class="fab fa-youtube"></i>AI English Songs
-</a>
-</div>
-  
-<div class="channel-buttons">
-<a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">🔴 Subscribe Hindi</a>
-<a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">🔴 Subscribe Bangla</a>
-<a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">🔴 Subscribe Bhojpuri</a>
-<a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">🔴 Subscribe Bhakti</a>
-<a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">🔴 Subscribe English</a>
-</div>
-</section>
-
-<!-- CONTACT SECTION -->
 <section id="contact" style="background: rgba(255,255,255,0.01)">
 <h2 class="section-title">Get in Touch</h2>
 <form action="https://formsubmit.co/aimusicproductionstudio01@gmail.com" method="POST">
@@ -654,36 +629,53 @@ allowfullscreen>
 </form>
 </section>
 
-<!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/919064941269" class="whatsapp" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
 
-<!-- FOOTER -->
 <footer class="footer">
 <div class="footer-container">
 <div class="footer-about">
 <h3>AI Music Production Studio</h3>
-<p>Dedicated to creating and distributing innovative track releases across Hindi, Bangla, Bhojpuri, Bhakti, and English language landscapes.</p>
+<p>Official digital music channel dedicated to building creative workflows and distributing modern musical content across multi-regional Indian language platforms.</p>
+<div class="channel-buttons" style="text-align: left; margin-top: 15px;">
+  <a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank" style="background: #e60000; font-size: 12px; padding: 6px 14px;">Hindi Channel</a>
+  <a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank" style="background: #e60000; font-size: 12px; padding: 6px 14px;">Bangla Channel</a>
+  <a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank" style="background: #e60000; font-size: 12px; padding: 6px 14px;">Bhojpuri Channel</a>
+</div>
+
+<div class="footer-faq">
+  <h4 style="font-size:14px; margin-bottom:10px;">Channel FAQs</h4>
+  <div class="faq-item">
+    <div class="faq-question">Are these songs free to listen to? <i class="fas fa-chevron-down"></i></div>
+    <div class="faq-answer"><p style="padding: 10px 0;">Yes! All songs are streamed directly via our official YouTube player embed elements completely free of charge.</p></div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question">How often are channels updated? <i class="fas fa-chevron-down"></i></div>
+    <div class="faq-answer"><p style="padding: 10px 0;">We upload new multi-lingual content drops weekly across our network handles. Keep tabs via the Track Release container.</p></div>
+  </div>
+</div>
 </div>
   
 <div class="footer-links">
-<h4>Quick Links</h4>
+<h4>Quick Menu</h4>
 <ul>
-<li><a href="#home">Home</a></li>
+<li><a href="#home">Home Base</a></li>
 <li><a href="#featured-song">Featured Video</a></li>
+<li><a href="#song-filters">Browse Genres</a></li>
 <li><a href="#new-releases">Track Showcase</a></li>
-<li><a href="#channels">YouTube Network</a></li>
+<li><a href="#languages">Regional Audio</a></li>
 </ul>
 </div>
 
 <div class="footer-links">
-<h4>Official Network</h4>
+<h4>YouTube Network</h4>
 <ul>
 <li><a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">AI Hindi Gaana</a></li>
 <li><a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">AI Bangla Gaan</a></li>
 <li><a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">AI Bhojpuri Gaana</a></li>
 <li><a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">AI Bhakti Gaana</a></li>
+<li><a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">AI English Songs</a></li>
 </ul>
 </div>
 </div>
@@ -694,13 +686,11 @@ allowfullscreen>
 </div>
 </footer>
 
-<!-- DYNAMIC ENGINE SCRIPT -->
 <script>
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
 
-  // 1. Process New Releases & Latest Combined into a Single clean presentation flow
   const newReleases = document.getElementById('newReleasesContainer');
   const allSongsList = [...(data.newReleases || []), ...(data.latest || [])];
   
@@ -711,7 +701,7 @@ fetch('songs.json')
       <div class="card song-card" data-category="${song.category}">
         <h3>${song.title}</h3>
         <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; margin-bottom:10px;">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${song.youtubeId}" style="position:absolute; top:0; left:0;" style="border:none;" allowfullscreen></iframe>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${song.youtubeId}" style="position:absolute; top:0; left:0; border:none;" allowfullscreen></iframe>
         </div>
         <div class="song-meta-box">
           <span style="font-size:13px; color:#ccc;"><i class="fas fa-globe"></i> ${song.language}</span>
@@ -721,31 +711,17 @@ fetch('songs.json')
     });
   }
 
-  // 2. Playlists Setup
-  const playlistContainer = document.getElementById('playlist-container');
-  if(data.playlists && playlistContainer){
-    data.playlists.forEach(item => {
-      playlistContainer.innerHTML += `
-      <div class="card">
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
-      </div>`;
-    });
-  }
-
-  // 3. Upcoming Status
   const upcoming = document.getElementById('upcomingContainer');
   if(data.upcoming && upcoming){
     data.upcoming.forEach(song => {
       upcoming.innerHTML += `
-      <div class="card" style="flex-direction:row; justify-content:space-between; align-items:center;">
+      <div class="card" style="flex-direction:row; justify-content:space-between; align-items:center; padding: 15px 20px;">
         <h3 style="margin-bottom:0; font-size:1rem;"><i class="fas fa-compact-disc" style="color:#ff00cc; margin-right:8px;"></i>${song.title}</h3>
         <span style="background:rgba(0,191,255,0.2); padding:4px 12px; border-radius:20px; font-size:12px; color:#00bfff;">${song.releaseDate}</span>
       </div>`;
     });
   }
 
-  // 4. Languages Object Mapping Loop
   const languageContainer = document.getElementById('languagesContainer');
   if(data.languages && languageContainer){
     for(const language in data.languages){
@@ -774,7 +750,6 @@ fetch('songs.json')
 });
 </script>
 
-<!-- APPLICATION FILTERS & INTERACTION LOGIC -->
 <script>
 document.getElementById('songSearch').addEventListener('keyup', function(){
   let filter = this.value.toLowerCase();
@@ -786,7 +761,6 @@ document.getElementById('songSearch').addEventListener('keyup', function(){
 });
 
 function filterSongs(category, buttonElement){
-  // Manage Button Visual Activation States
   const buttons = document.querySelectorAll('.filter-buttons button');
   buttons.forEach(btn => btn.classList.remove('active'));
   if(buttonElement) buttonElement.classList.add('active');
@@ -800,14 +774,25 @@ function filterSongs(category, buttonElement){
     }
   });
 }
+
+// Micro interaction engine script for Footer Accordions
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const answer = question.nextElementSibling;
+    const icon = question.querySelector('i');
+    if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
+      answer.style.maxHeight = '0px';
+    } else {
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
 </script>
 
-<!-- BOTTOM NAVIGATION FOR INTERACTIVE MOBILE VIEWS -->
 <div class="mobile-nav">
 <a href="#home"><i class="fas fa-home"></i><span>Home</span></a>
 <a href="#featured-song"><i class="fas fa-star"></i><span>Featured</span></a>
 <a href="#new-releases"><i class="fas fa-music"></i><span>Tracks</span></a>
-<a href="#channels"><i class="fab fa-youtube"></i><span>Channels</span></a>
 <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
 </div>
 
