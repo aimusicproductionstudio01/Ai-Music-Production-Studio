@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +73,7 @@ nav ul{
 display:flex;
 list-style:none;
 gap:25px;
+align-items:center;
 }
 
 nav a{
@@ -123,36 +123,25 @@ max-width:700px;
 margin:auto;
 color:#ddd;
 }
-<section id="stats">
 
-<h2 class="section-title">Our Journey</h2>
+.hero-stats {
+display: flex;
+justify-content: center;
+gap: 40px;
+margin-top: 40px;
+flex-wrap: wrap;
+}
 
-<div class="grid">
+.hero-stats div h3 {
+font-size: 2.5rem;
+color: #ff00cc;
+}
 
-<div class="card">
-<h3>500+</h3>
-<p>Songs Created</p>
-</div>
+.hero-stats div p {
+font-size: 0.9rem;
+color: #bbb;
+}
 
-<div class="card">
-<h3>5</h3>
-<p>YouTube Channels</p>
-</div>
-
-<div class="card">
-<h3>5</h3>
-<p>Languages</p>
-</div>
-
-<div class="card">
-<h3>24/7</h3>
-<p>AI Music Production</p>
-</div>
-
-</div>
-
-</section>
-  
 .btn-group{
 margin-top:30px;
 }
@@ -165,6 +154,8 @@ border-radius:50px;
 text-decoration:none;
 font-weight:600;
 transition:.3s;
+cursor: pointer;
+border: none;
 }
 
 .primary{
@@ -179,6 +170,7 @@ color:white;
 
 .btn:hover{
 transform:translateY(-3px);
+box-shadow: 0 5px 15px rgba(255,0,204,.3);
 }
 
 section{
@@ -189,6 +181,9 @@ padding:90px 10%;
 text-align:center;
 font-size:38px;
 margin-bottom:50px;
+background: linear-gradient(90deg, #fff, #ff00cc);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
 .about{
@@ -229,6 +224,99 @@ color:#ff00cc;
 margin-bottom:10px;
 }
 
+/* Audio Player Stylings */
+.audio-track-item {
+margin-top: 15px;
+background: rgba(0,0,0,0.3);
+padding: 15px;
+border-radius: 10px;
+border: 1px solid rgba(255,255,255,0.05);
+}
+.audio-track-item p {
+font-size: 0.9rem;
+margin-bottom: 8px;
+color: #ffcc00;
+}
+audio {
+width: 100%;
+filter: invert(1) hue-rotate(180deg);
+}
+
+/* Pricing Table CSS */
+.pricing-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 30px;
+max-width: 1100px;
+margin: 0 auto;
+}
+.price-tag {
+font-size: 2.5rem;
+font-weight: 800;
+color: #00bfff;
+margin: 15px 0;
+}
+.price-tag span {
+font-size: 1rem;
+color: #aaa;
+}
+.pricing-card ul {
+list-style: none;
+margin: 20px 0;
+text-align: left;
+}
+.pricing-card ul li {
+margin-bottom: 12px;
+color: #ddd;
+font-size: 0.95rem;
+}
+.pricing-card ul li i {
+color: #25D366;
+font-size: 16px;
+margin-right: 8px;
+}
+.popular-badge {
+background: linear-gradient(45deg,#ff9900,#ff00cc);
+padding: 5px 15px;
+border-radius: 20px;
+font-size: 12px;
+display: inline-block;
+margin-bottom: 15px;
+}
+
+/* Accordion FAQs */
+.faq-container {
+max-width: 800px;
+margin: 0 auto;
+}
+.faq-item {
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(255,255,255,0.08);
+margin-bottom: 15px;
+border-radius: 10px;
+overflow: hidden;
+}
+.faq-question {
+padding: 20px;
+font-weight: 600;
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: 0.3s;
+}
+.faq-question:hover {
+background: rgba(255,255,255,0.06);
+}
+.faq-answer {
+padding: 0 20px;
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease-out;
+color: #bbb;
+line-height: 1.6;
+}
+
 .channel-card{
 text-decoration:none;
 color:white;
@@ -249,13 +337,44 @@ margin:auto;
 text-align:center;
 }
 
-.contact-item{
-margin:15px 0;
-font-size:18px;
+#contact form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+max-width: 600px;
+margin: 0 auto;
+}
+#contact input, #contact textarea {
+width: 100%;
+padding: 15px;
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 10px;
+color: #fff;
+outline: none;
+font-size: 1rem;
+}
+#contact input:focus, #contact textarea:focus {
+border-color: #ff00cc;
+}
+#contact button {
+padding: 15px;
+background: linear-gradient(45deg,#ff9900,#ff00cc);
+color: #fff;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+font-weight: 600;
+font-size: 1rem;
+transition: 0.3s;
+}
+#contact button:hover {
+transform: translateY(-2px);
 }
 
-.social{
+.social {
 margin-top:25px;
+text-align: center;
 }
 
 .social a{
@@ -268,6 +387,7 @@ transition:.3s;
 .social a:hover{
 color:#ff00cc;
 }
+
 .channel-buttons{
 text-align:center;
 margin-top:30px;
@@ -308,12 +428,6 @@ box-shadow:0 0 20px #25D366;
 z-index:999;
 }
 
-footer{
-padding:30px;
-text-align:center;
-background:#000;
-border-top:1px solid rgba(255,255,255,.08);
-}
 .footer{
 background:#000;
 padding:60px 8% 20px;
@@ -334,6 +448,7 @@ color:#ff00cc;
 .footer-about p{
 color:#bbb;
 line-height:1.8;
+margin-bottom: 15px;
 }
 
 .footer-links h4{
@@ -371,17 +486,14 @@ line-height:1.8;
 }
 
 @media(max-width:768px){
-
 .footer-container{
 grid-template-columns:1fr;
 text-align:center;
 gap:30px;
 }
-
 .footer-links a:hover{
 padding-left:0;
 }
-
 }
   
 .filter-buttons{
@@ -418,33 +530,14 @@ font-weight:bold;
 color:white;
 }
 
-.love{
-background:#ff4d6d;
-}
+.love{ background:#ff4d6d; }
+.dj-remix{ background:#ff9900; }
+.sad{ background:#6c757d; }
+.baul{ background:#8b5e3c; }
+.party{ background:#9c27b0; }
+.motivational{ background:#2196f3; }
+.devotional{ background:#4caf50; }
 
-.dj-remix{
-background:#ff9900;
-}
-
-.sad{
-background:#6c757d;
-}
-
-.baul{
-background:#8b5e3c;
-}
-
-.party{
-background:#9c27b0;
-}
-
-.motivational{
-background:#2196f3;
-}
-
-.devotional{
-background:#4caf50;
-}
 .search-nav{
 display:flex;
 align-items:center;
@@ -464,6 +557,7 @@ transition:0.3s;
 #songSearch:focus{
 width:160px;
 }
+
 .mobile-nav{
 display:none;
 }
@@ -501,6 +595,7 @@ color:#ff0000;
 body{
 padding-bottom:80px;
 }
+
 nav{
 padding:10px;
 flex-direction:column;
@@ -511,6 +606,7 @@ display:flex;
 flex-wrap:wrap;
 justify-content:center;
 gap:10px;
+margin-top: 10px;
 }
 
 nav a{
@@ -536,7 +632,6 @@ font-size:1rem;
 .section-title{
 font-size:28px;
 }
-
 }
 </style>
 
@@ -546,7 +641,6 @@ font-size:28px;
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-
 gtag('config', 'G-83PJJ7R54E');
 </script>
 
@@ -557,41 +651,34 @@ gtag('config', 'G-83PJJ7R54E');
 <nav>
 <div class="logo">
 <img src="logo.png" alt="Logo">
-<span>AI Music Production Studio</span>
+<span>AI Music Studio</span>
 </div>
 
 <ul>
 <li><a href="#home">Home</a></li>
-<li><a href="#featured-song">Featured</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#portfolio">Portfolio</a></li>
 <li><a href="#new-releases">Releases</a></li>
-<li><a href="#latest">Latest</a></li>
-<li><a href="#languages">Languages</a></li>
-<li><a href="#playlists">Playlists</a></li>
-<li><a href="#news">News</a></li>
+<li><a href="#pricing">Pricing</a></li>
 <li><a href="#channels">Channels</a></li>
+<li><a href="#faq">FAQs</a></li>
 <li><a href="#contact">Contact</a></li>
-
 <li class="search-nav">
 <input type="text" id="songSearch" placeholder="🔍 Search">
 </li>
-
 </ul>
 </nav>
    
 <section class="hero" id="home">
 <div>
 <img src="logo.png" class="hero-logo" alt="AI Music Production Studio">
-
 <h1>AI Music Production Studio</h1>
-
-<p>
-Creating the Future of Music with Artificial Intelligence
-</p>
+<p>Creating the Future of Music with Advanced Artificial Intelligence</p>
 
 <div class="btn-group">
 <a href="#services" class="btn primary">Explore Services</a>
 <a href="https://wa.me/919064941269" target="_blank" class="btn secondary">
-WhatsApp Us
+<i class="fab fa-whatsapp"></i> WhatsApp Us
 </a>
 </div>
   
@@ -600,45 +687,113 @@ WhatsApp Us
 <h3>500+</h3>
 <p>Songs Created</p>
 </div>
-
 <div>
 <h3>5</h3>
 <p>Languages</p>
 </div>
-
 <div>
 <h3>5</h3>
 <p>YouTube Channels</p>
 </div>
-
 </div>
-  
+</div>
 </section>
+
+<!-- SERVICES SECTION -->
+<section id="services">
+<h2 class="section-title">Our Premium Services</h2>
+<div class="grid">
+<div class="card">
+<i class="fas fa-wand-magic-sparkles"></i>
+<h3>AI Song Creation</h3>
+<p>Full track generation combining advanced musical AI structures with real creative production setups.</p>
+</div>
+<div class="card">
+<i class="fas fa-sliders"></i>
+<h3>DJ Remix Production</h3>
+<p>High-energy club remixes, custom mashups, and high-quality party edits for dance and promotional tracks.</p>
+</div>
+<div class="card">
+<i class="fas fa-microphone-lines"></i>
+<h3>AI Voice Generation</h3>
+<p>Crystal-clear voice cloning and multi-lingual deep vocal generation engineered for professional standards.</p>
+</div>
+<div class="card">
+<i class="fas fa-chart-line"></i>
+<h3>YouTube Growth Support</h3>
+<p>End-to-end digital optimization, custom premium thumbnails, visual banners, and organic music promotion strategy.</p>
+</div>
+</div>
+</section>
+
+<!-- AUDIO & VIDEO PORTFOLIO SECTION -->
+<section id="portfolio" style="background: rgba(255,255,255,0.02);">
+<h2 class="section-title">Audio & Video Portfolio</h2>
+<p style="text-align:center; max-width:600px; margin:-30px auto 40px; color:#bbb;">Listen to what our studio produces. Toggle and sample our latest vocal, instrumental, and mastered mixes right here.</p>
+
+<div class="grid">
+<!-- Audio Sample Card 1 -->
+<div class="card">
+<i class="fas fa-music" style="color: #00bfff;"></i>
+<h3>Premium AI Vocals</h3>
+<p>High-fidelity Hindi studio vocals processed through advanced clarity filters.</p>
+<div class="audio-track-item">
+<p><i class="fas fa-play-circle"></i> Bollywood Style Demo</p>
+<audio controls>
+  <source src="sample1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+</div>
+</div>
+
+<!-- Audio Sample Card 2 -->
+<div class="card">
+<i class="fas fa-compact-disc" style="color: #ff9900;"></i>
+<h3>DJ Remix Mastering</h3>
+<p>Dynamic compression and powerful bass balance engineered for high-volume sound setups.</p>
+<div class="audio-track-item">
+<p><i class="fas fa-play-circle"></i> Electro Dance Mix Demo</p>
+<audio controls>
+  <source src="sample2.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+</div>
+</div>
+
+<!-- Audio Sample Card 3 -->
+<div class="card">
+<i class="fas fa-language" style="color: #ff00cc;"></i>
+<h3>Voice-Over Engine</h3>
+<p>Natural narration text-to-speech outputs optimized across regional Indian accents.</p>
+<div class="audio-track-item">
+<p><i class="fas fa-play-circle"></i> Regional Accent Voice Demo</p>
+<audio controls>
+  <source src="sample3.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+</div>
+</div>
+</div>
+</section>
+
 <section id="featured-song">
 <h2 class="section-title">⭐ Featured Song of the Week</h2>
-
-<div class="card">
-
+<div class="card" style="max-width: 800px; margin: 0 auto;">
 <h3>Lollipop Lehenga</h3>
-
 <iframe
 width="100%"
 height="400"
 src="https://www.youtube.com/embed/FwMr1AgyUMQ"
+style="border: none; border-radius: 12px; margin: 15px 0;"
 allowfullscreen>
 </iframe>
-
 <p>Our featured release this week.</p>
-
 </div>
 </section>
   
 <section id="song-filters">
-
 <h2 class="section-title">🎵 Song Categories</h2>
-
 <div class="filter-buttons">
-
 <button onclick="filterSongs('all')">All</button>
 <button onclick="filterSongs('Love')">Love</button>
 <button onclick="filterSongs('DJ Remix')">DJ Remix</button>
@@ -647,151 +802,162 @@ allowfullscreen>
 <button onclick="filterSongs('Party')">Party</button>
 <button onclick="filterSongs('Motivational')">Motivational</button>
 <button onclick="filterSongs('Devotional')">Devotional</button>
-
 </div>
-
 </section>
-  <!-- New Releases -->
+
+<!-- Dynamic Song Containers -->
 <section id="new-releases">
 <h2 class="section-title">🔥 New Releases</h2>
 <div id="newReleasesContainer" class="grid"></div>
 </section>
 
-<!-- Upcoming Songs -->
 <section id="upcoming">
 <h2 class="section-title">🚀 Upcoming Songs</h2>
 <div id="upcomingContainer" class="grid"></div>
 </section>
 
-<!-- Latest Songs -->
 <section id="latest">
 <h2 class="section-title">🎧 Latest Songs</h2>
 <div id="latestContainer" class="grid"></div>
 </section>
 
-<!-- Regional Languages -->
 <section id="languages">
 <h2 class="section-title">🌎 Regional Languages</h2>
 <div id="languagesContainer"></div>
-
 </section>
+
 <section id="shorts">
-
-<h2 class="section-title">
-🔥 Latest Shorts
-</h2>
-
+<h2 class="section-title">🔥 Latest Shorts</h2>
 <div class="grid">
 <div id="shorts-container"></div>
 </div>
-
 </section>
   
 <section id="playlists">
-
 <h2 class="section-title">🎧 Featured Playlists</h2>
-
 <div id="playlist-container" class="grid"></div>
-
 </section>
 
 <section id="news">
-
 <h2 class="section-title">📰 Latest Updates</h2>
-
 <div id="news-container" class="grid"></div>
+</section>
 
+<!-- PRICING PACKAGES SECTION -->
+<section id="pricing">
+<h2 class="section-title">Simple Transparent Pricing</h2>
+<div class="pricing-grid">
+<!-- Package 1 -->
+<div class="card pricing-card">
+<h3>Starter Vocals</h3>
+<div class="price-tag">₹999 <span>/ track</span></div>
+<p>Perfect for content creators looking for short loops or clean background AI vocals.</p>
+<ul>
+<li><i class="fas fa-check-circle"></i> 1 AI Vocal Track (Up to 3 mins)</li>
+<li><i class="fas fa-check-circle"></i> Standard Mixing & Tuning</li>
+<li><i class="fas fa-check-circle"></i> 1 Project Revision</li>
+<li><i class="fas fa-check-circle"></i> Delivery within 3 Days</li>
+</ul>
+<a href="https://wa.me/919064941269?text=Hi,%20I'm%20interested%20in%20the%20Starter%20Vocals%20Package" target="_blank" class="btn primary" style="width:100%; text-align:center; margin:10px 0 0;">Get Started</a>
+</div>
+
+<!-- Package 2 -->
+<div class="card pricing-card" style="border: 2px solid #ff00cc; transform: translateY(-5px);">
+<span class="popular-badge">Most Popular</span>
+<h3>Full Song Production</h3>
+<div class="price-tag">₹2,499 <span>/ track</span></div>
+<p>Our complete high-end production service for independent artists and music channels.</p>
+<ul>
+<li><i class="fas fa-check-circle"></i> Complete AI Production & Arrangement</li>
+<li><i class="fas fa-check-circle"></i> Premium Mastering & EQ</li>
+<li><i class="fas fa-check-circle"></i> 100% Commercial Rights Ownership</li>
+<li><i class="fas fa-check-circle"></i> 3 Project Revisions</li>
+<li><i class="fas fa-check-circle"></i> Dedicated Delivery Support</li>
+</ul>
+<a href="https://wa.me/919064941269?text=Hi,%20I'm%20interested%20in%20the%20Full%20Song%20Production%20Package" target="_blank" class="btn primary" style="width:100%; text-align:center; margin:10px 0 0;">Buy Now</a>
+</div>
+
+<!-- Package 3 -->
+<div class="card pricing-card">
+<h3>Enterprise / Custom</h3>
+<div class="price-tag">Custom <span>Quotes</span></div>
+<p>Tailored solutions built specifically for commercial studios, brands, and large ad networks.</p>
+<ul>
+<li><i class="fas fa-check-circle"></i> Custom Trained Voice Models</li>
+<li><i class="fas fa-check-circle"></i> Audio Branding Tracks & Jingle Packs</li>
+<li><i class="fas fa-check-circle"></i> Dedicated Account Audio Producer</li>
+<li><i class="fas fa-check-circle"></i> Unlimited Structural Revisions</li>
+</ul>
+<a href="https://wa.me/919064941269?text=Hi,%20I%20want%20to%20discuss%20a%20Custom%20Enterprise%20Plan" target="_blank" class="btn primary" style="width:100%; text-align:center; margin:10px 0 0;">Contact For Price</a>
+</div>
+</div>
 </section>
 
 <section id="channels">
 <h2 class="section-title">Our YouTube Channels</h2>
-
 <div class="grid">
-
 <a class="card channel-card" href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">
-<i class="fab fa-youtube"></i>
-AI Hindi Gaana
+<i class="fab fa-youtube"></i>AI Hindi Gaana
 </a>
-
 <a class="card channel-card" href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">
-<i class="fab fa-youtube"></i>
-AI Bhojpuri Gaana
+<i class="fab fa-youtube"></i>AI Bhojpuri Gaana
 </a>
-
 <a class="card channel-card" href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">
-<i class="fab fa-youtube"></i>
-AI Bhakti Gaana
+<i class="fab fa-youtube"></i>AI Bhakti Gaana
 </a>
-
 <a class="card channel-card" href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">
-<i class="fab fa-youtube"></i>
-AI Bangla Gaan
+<i class="fab fa-youtube"></i>AI Bangla Gaan
 </a>
-
 <a class="card channel-card" href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">
-<i class="fab fa-youtube"></i>
-AI English Songs
+<i class="fab fa-youtube"></i>AI English Songs
 </a>
-  
-  </div>
+</div>
   
 <div class="channel-buttons">
-
-<a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">
-🔴 Subscribe Hindi Channel
-</a>
-
-<a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">
-🔴 Subscribe Bangla Channel
-</a>
-
-<a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">
-🔴 Subscribe Bhojpuri Channel
-</a>
-
-<a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">
-🔴 Subscribe Bhakti Channel
-</a>
-
-<a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">
-🔴 Subscribe English Channel
-</a>
-
+<a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">🔴 Subscribe Hindi Channel</a>
+<a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">🔴 Subscribe Bangla Channel</a>
+<a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">🔴 Subscribe Bhojpuri Channel</a>
+<a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">🔴 Subscribe Bhakti Channel</a>
+<a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">🔴 Subscribe English Channel</a>
 </div>
-
 </section>
+
 <section id="social">
-
 <h2 class="section-title">Follow Us</h2>
-
 <div class="channel-buttons">
-
 <a href="YOUR_FACEBOOK_LINK">Facebook</a>
-
 <a href="YOUR_INSTAGRAM_LINK">Instagram</a>
-
 <a href="YOUR_YOUTUBE_LINK">YouTube</a>
-
 </div>
+</section>
 
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<section id="faq" style="background: rgba(255,255,255,0.01);">
+<h2 class="section-title">Frequently Asked Questions</h2>
+<div class="faq-container">
+<div class="faq-item">
+<div class="faq-question">Who owns the copyright to the final AI-generated music? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer"><p style="padding-bottom:20px;">Once full payment is completed for our premium track productions, you own 100% of the commercial distribution rights. You can upload the tracks to Spotify, Apple Music, and YouTube without paying us royalties.</p></div>
+</div>
+<div class="faq-item">
+<div class="faq-question">What do I need to submit to begin an order? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer"><p style="padding-bottom:20px;">For simple song creations, you only need to send us your lyrics or describe the genre/mood you are targeting. For vocal generation projects, just provide the script file and a quick reference link of your preferred style.</p></div>
+</div>
+<div class="faq-item">
+<div class="faq-question">What languages do you optimize your music tracks for? <i class="fas fa-chevron-down"></i></div>
+<div class="faq-answer"><p style="padding-bottom:20px;">We specialize primarily in Hindi, Bangla, Bhojpuri, Bhakti, and English tracks, but can structurally customize arrangements for other modern regional dialects upon custom consultation request.</p></div>
+</div>
+</div>
 </section>
   
 <section id="contact">
-
 <h2 class="section-title">Contact Us</h2>
-
 <form action="https://formsubmit.co/aimusicproductionstudio01@gmail.com" method="POST">
-
 <input type="text" name="name" placeholder="Your Name" required>
-
 <input type="email" name="email" placeholder="Your Email" required>
-
-<textarea name="message" rows="5" placeholder="Your Message"></textarea>
-
+<textarea name="message" rows="5" placeholder="Your Message" required></textarea>
 <button type="submit">Send Message</button>
-
 </form>
-
 </section>
 
 <a href="https://wa.me/919064941269" class="whatsapp" target="_blank">
@@ -799,350 +965,177 @@ AI English Songs
 </a>
 
 <footer class="footer">
-
 <div class="footer-container">
-
 <div class="footer-about">
-
-<h3>About AI Music Production Studio</h3>
-
-<p>
-AI Music Production Studio is a modern digital music production company dedicated to creating innovative AI-powered music experiences for listeners around the world. We specialize in producing high-quality Hindi, Bangla, Bhojpuri, Bhakti, and English songs using advanced artificial intelligence technology combined with creative musical expertise.
-</p>
-
-<p>
-Our mission is to make music creation faster, smarter, and more accessible while maintaining professional quality and emotional connection. From romantic melodies and devotional bhajans to energetic DJ remixes, party tracks, motivational songs, and regional music, we create content for diverse audiences across multiple languages and genres.
-</p>
-
-<p>
-In addition to music production, we provide AI voice generation, custom song creation, music branding, YouTube channel growth solutions, thumbnail design, cover art creation, and digital music promotion services. Through our network of dedicated YouTube channels, we continuously release fresh and engaging content for music lovers worldwide.
-</p>
-
-<p>
-At AI Music Production Studio, we believe that technology and creativity together can shape the future of entertainment. Our goal is to connect people through music, inspire creativity, and deliver unique musical experiences powered by the latest advancements in artificial intelligence.
-</p>
-
+<h3>About AI Music Studio</h3>
+<p>AI Music Production Studio is a modern digital music company dedicated to creating innovative AI-powered tracks across Hindi, Bangla, Bhojpuri, Bhakti, and English genres.</p>
+<p>We blend deep computational AI algorithms alongside traditional mixing and studio layouts to engineer scalable content production workflows built directly for creators worldwide.</p>
 </div>
   
 <div class="footer-links">
-
-<h4>About AI Music Production Studio</h4>
-
-<p>
-AI Music Production Studio creates AI-powered Hindi, Bangla,
-Bhojpuri, Bhakti and English songs, DJ remixes,
-voice generation and YouTube branding services.
-</p>
-
+<h4>Studio Summary</h4>
+<p style="color:#bbb; font-size:14px; line-height:1.6;">Our mission focuses on delivering production-quality voice generation, custom song arrangements, and high-CTR thumbnail assets safely optimized for the streaming landscape.</p>
 </div>
-<div class="footer-links">
 
+<div class="footer-links">
 <h4>Services</h4>
-
 <ul>
-<li>AI Song Creation</li>
-<li>DJ Remix Production</li>
-<li>AI Voice Generation</li>
-<li>YouTube Branding</li>
-<li>Thumbnail Design</li>
+<li><a href="#services">AI Song Generation</a></li>
+<li><a href="#services">DJ Remix Setup</a></li>
+<li><a href="#services">AI Voice Cloning</a></li>
+<li><a href="#services">Channel Branding</a></li>
 </ul>
-
 </div>
 
 <div class="footer-links">
-
-<h4>Music Categories</h4>
-
-<ul>
-<li><a href="#new-releases">New Releases</a></li>
-<li><a href="#latest">Latest Songs</a></li>
-<li><a href="#languages">Regional Songs</a></li>
-<li><a href="#playlists">Playlists</a></li>
-<li><a href="#featured-song">Featured Song</a></li>
-<li><a href="#about">About</a></li>
-</ul>
-
-</div>
-
-<div class="footer-links">
-
 <h4>Our Channels</h4>
-
 <ul>
 <li><a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">AI Hindi Gaana</a></li>
 <li><a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">AI Bangla Gaan</a></li>
 <li><a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">AI Bhojpuri Gaana</a></li>
 <li><a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">AI Bhakti Gaana</a></li>
-<li><a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">AI English Songs</a></li>
 </ul>
-
 </div>
-
-<div class="footer-links">
-
-<h4>Company</h4>
-
-<ul>
-<li><a href="#about">About Us</a></li>
-<li><a href="#news">News</a></li>
-<li><a href="#contact">Contact Us</a></li>
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms & Conditions</a></li>
-</ul>
-
-</div>
-
 </div>
 
 <div class="footer-bottom">
-
-<p>
-© 2026 AI Music Production Studio. All Rights Reserved.
-</p>
-
-<p>
-🌐 aimusicps.in | 📧 aimusicproductionstudio01@gmail.com
-</p>
-
+<p>© 2026 AI Music Production Studio. All Rights Reserved.</p>
+<p>🌐 aimusicps.in | 📧 aimusicproductionstudio01@gmail.com</p>
 </div>
-
 </footer>
   
 <script>
-
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
 
 const newReleases = document.getElementById('newReleasesContainer');
+if(data.newReleases && newReleases){
+  data.newReleases.forEach(song => {
+    newReleases.innerHTML += `
+    <div class="card song-card" data-category="${song.category}">
+    <h3>${song.title}</h3>
+    <iframe width="100%" height="220" src="https://www.youtube.com/embed/${song.youtubeId}" style="border:none; border-radius:10px;" allowfullscreen></iframe>
+    <p>${song.language}</p>
+    <p class="song-category ${song.category.toLowerCase().replace(' ','-')}">${song.category}</p>
+    </div>`;
+  });
+}
 
-data.newReleases.forEach(song => {
-
-newReleases.innerHTML += `
-<div class="card song-card" data-category="${song.category}">
-
-<h3>${song.title}</h3>
-
-<iframe
-width="100%"
-height="220"
-src="https://www.youtube.com/embed/${song.youtubeId}"
-allowfullscreen>
-</iframe>
-
-<p>${song.language}</p>
-<p class="song-category ${song.category.toLowerCase().replace(' ','-')}">
-${song.category}
-</p>
-
-</div>
-`;
-const playlistContainer =
-document.getElementById('playlist-container');
-
-if(data.playlists){
-
-data.playlists.forEach(item => {
-
-playlistContainer.innerHTML += `
-<div class="card">
-<h3>${item.title}</h3>
-<p>${item.description}</p>
-</div>
-`;
-
-});
-
+const playlistContainer = document.getElementById('playlist-container');
+if(data.playlists && playlistContainer){
+  data.playlists.forEach(item => {
+    playlistContainer.innerHTML += `
+    <div class="card">
+    <h3>${item.title}</h3>
+    <p>${item.description}</p>
+    </div>`;
+  });
 }
   
-const newsContainer =
-document.getElementById('news-container');
-
-if(data.news){
-
-data.news.forEach(item => {
-
-newsContainer.innerHTML += `
-<div class="card">
-<h3>${item.title}</h3>
-<p>${item.content}</p>
-</div>
-`;
-
-});
-
+const newsContainer = document.getElementById('news-container');
+if(data.news && newsContainer){
+  data.news.forEach(item => {
+    newsContainer.innerHTML += `
+    <div class="card">
+    <h3>${item.title}</h3>
+    <p>${item.content}</p>
+    </div>`;
+  });
 } 
-  
-});
 
 const upcoming = document.getElementById('upcomingContainer');
-
-data.upcoming.forEach(song => {
-
-upcoming.innerHTML += `
-<div class="card">
-<h3>${song.title}</h3>
-<p>Release Date</p>
-<p>${song.releaseDate}</p>
-</div>
-`;
-
-});
-
+if(data.upcoming && upcoming){
+  data.upcoming.forEach(song => {
+    upcoming.innerHTML += `
+    <div class="card">
+    <h3>${song.title}</h3>
+    <p>Release Date: ${song.releaseDate}</p>
+    </div>`;
+  });
+}
 
 const latest = document.getElementById('latestContainer');
-
-data.latest.forEach(song => {
-
-latest.innerHTML += `
-<div class="card song-card" data-category="${song.category}">
-
-<h3>${song.title}</h3>
-
-<iframe
-width="100%"
-height="220"
-src="https://www.youtube.com/embed/${song.youtubeId}"
-allowfullscreen>
-</iframe>
-
-<p>${song.language}</p>
-<p class="song-category ${song.category.toLowerCase().replace(' ','-')}">
-${song.category}
-</p>
-
-</div>
-`;
-
-});
-
-
-const languageContainer =
-document.getElementById('languagesContainer');
-
-for(const language in data.languages){
-
-languageContainer.innerHTML += `
-<h2 class="section-title">${language} Songs</h2>
-
-<div class="grid" id="${language}">
-</div>
-`;
-
-const section =
-document.getElementById(language);
-
-data.languages[language].forEach(song => {
-
-section.innerHTML += `
-<div class="card song-card" data-category="${song.category}">
-
-<h3>${song.title}</h3>
-
-<iframe
-width="100%"
-height="315"
-src="https://www.youtube.com/embed/${song.youtubeId}"
-allowfullscreen>
-</iframe>
-
-<p class="song-category">${song.category}</p>
-
-</div>
-`;
-
-});
-
+if(data.latest && latest){
+  data.latest.forEach(song => {
+    latest.innerHTML += `
+    <div class="card song-card" data-category="${song.category}">
+    <h3>${song.title}</h3>
+    <iframe width="100%" height="220" src="https://www.youtube.com/embed/${song.youtubeId}" style="border:none; border-radius:10px;" allowfullscreen></iframe>
+    <p>${song.language}</p>
+    <p class="song-category ${song.category.toLowerCase().replace(' ','-')}">${song.category}</p>
+    </div>`;
+  });
 }
 
+const languageContainer = document.getElementById('languagesContainer');
+if(data.languages && languageContainer){
+  for(const language in data.languages){
+    languageContainer.innerHTML += `
+    <h3 class="section-title" style="font-size:24px; margin-top:30px;">${language} Songs</h3>
+    <div class="grid" id="${language}"></div>`;
+    
+    const section = document.getElementById(language);
+    data.languages[language].forEach(song => {
+      section.innerHTML += `
+      <div class="card song-card" data-category="${song.category}">
+      <h3>${song.title}</h3>
+      <iframe width="100%" height="220" src="https://www.youtube.com/embed/${song.youtubeId}" style="border:none; border-radius:10px;" allowfullscreen></iframe>
+      <p class="song-category">${song.category}</p>
+      </div>`;
+    });
+  }
+}
 });
-
 </script>
 
 <script>
-
-document.getElementById('songSearch')
-.addEventListener('keyup', function(){
-
-let filter =
-this.value.toLowerCase();
-
-let cards =
-document.querySelectorAll('.card');
-
+document.getElementById('songSearch').addEventListener('keyup', function(){
+let filter = this.value.toLowerCase();
+let cards = document.querySelectorAll('.song-card');
 cards.forEach(card => {
-
-let text =
-card.innerText.toLowerCase();
-
-card.style.display =
-text.includes(filter)
-? 'block'
-: 'none';
-
+let text = card.innerText.toLowerCase();
+card.style.display = text.includes(filter) ? 'block' : 'none';
 });
-
 });
-
-</script>
-
-<script>
 
 function filterSongs(category){
-
-const songs =
-document.querySelectorAll('.song-card');
-
+const songs = document.querySelectorAll('.song-card');
 songs.forEach(song=>{
-
 if(category === 'all'){
-
 song.style.display='block';
-
 }else{
-
-song.style.display =
-song.dataset.category.toLowerCase() === category.toLowerCase()
-? 'block'
-: 'none';
-
+song.style.display = song.dataset.category.toLowerCase() === category.toLowerCase() ? 'block' : 'none';
 }
-
 });
-
 }
 
+// FAQ Accordion Interaction Script
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+  question.addEventListener('click', () => {
+    const answer = question.nextElementSibling;
+    const icon = question.querySelector('i');
+    if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
+      answer.style.maxHeight = '0px';
+      icon.style.transform = 'rotate(0deg)';
+    } else {
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      icon.style.transform = 'rotate(180deg)';
+    }
+  });
+});
 </script>
-  <script async src="https://api.countapi.xyz/hit/aimusicps.in/visits"></script>
+
+<script async src="https://api.countapi.xyz/hit/aimusicps.in/visits"></script>
+
 <div class="mobile-nav">
-
-<a href="#home">
-<i class="fas fa-home"></i>
-<span>Home</span>
-</a>
-
-<a href="#new-releases">
-<i class="fas fa-music"></i>
-<span>Songs</span>
-</a>
-
-<a href="#featured-song">
-<i class="fas fa-fire"></i>
-<span>Trending</span>
-</a>
-
-<a href="#channels">
-<i class="fab fa-youtube"></i>
-<span>Channels</span>
-</a>
-
-<a href="#contact">
-<i class="fas fa-phone"></i>
-<span>Contact</span>
-</a>
-
+<a href="#home"><i class="fas fa-home"></i><span>Home</span></a>
+<a href="#new-releases"><i class="fas fa-music"></i><span>Songs</span></a>
+<a href="#portfolio"><i class="fas fa-compact-disc"></i><span>Audio</span></a>
+<a href="#channels"><i class="fab fa-youtube"></i><span>Channels</span></a>
+<a href="#contact"><i class="fas fa-phone"></i><span>Contact</span></a>
 </div>
 
 </body>
 </html>
-```
