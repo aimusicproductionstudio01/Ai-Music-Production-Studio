@@ -538,9 +538,8 @@ color:#ff00cc;
 }
 
 body{
-padding-bottom:70px;
+    padding-top:85px;
 }
-
 .hero{ padding-top:120px; }
 .hero h1{ font-size:2.3rem; }
 .hero p{ font-size:1rem; }
@@ -614,7 +613,10 @@ gtag('config', 'G-83PJJ7R54E');
 <h2 class="section-title">
 ⭐ Featured Release
 </h2>
+<div id="featuredContainer"></div>
 
+</section>
+  
 <div
 id="featuredContainer"
 class="card"
@@ -790,33 +792,23 @@ fetch('songs.json')
 const featured =
 document.getElementById('featuredContainer');
 
-if(data.featuredSong && featured){
+if(data.featuredSong){
 
-const song =
-data.featuredSong;
+const song=data.featuredSong;
 
-featured.innerHTML = `
+document.getElementById('featuredContainer').innerHTML=`
+<div class="card" style="max-width:850px;margin:auto;">
+
 <h3>${song.title}</h3>
-
-<a
-href="https://youtu.be/${song.youtubeId}"
-target="_blank">
 
 <img
 src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg"
 class="song-thumb">
 
-</a>
+<p>${song.description}</p>
 
-<p>
-${song.description}
-</p>
-
-<p class="song-category
-${song.category.toLowerCase().replace(/\s+/g,'-')}">
-
+<p class="song-category ${song.category.toLowerCase()}">
 ${song.category}
-
 </p>
 
 <a
@@ -827,8 +819,9 @@ class="btn primary">
 ▶ Play Now
 
 </a>
-`;
 
+</div>
+`;
 }
 /////////////////////////////////////
 // NEW RELEASES
@@ -1060,54 +1053,28 @@ const cleanCategoryClass =
 song.category.toLowerCase().replace(/\s+/g,'-');
 
 langGrid.innerHTML += `
-<div class="card song-card"
-data-category="${song.category}">
+<div class="card song-card" data-category="${song.category}">
+  <h3>${song.title}</h3>
 
-<h3>${song.title}</h3>
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:10px;">
+    <iframe
+      width="100%"
+      height="100%"
+      src="https://www.youtube.com/embed/${song.youtubeId}"
+      style="position:absolute;top:0;left:0;border:none;"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-<div
-style="
-position:relative;
-padding-bottom:56.25%;
-height:0;
-overflow:hidden;
-border-radius:10px;
-margin-bottom:10px;">
+  <div class="song-meta-box">
+    <span style="font-size:13px;color:#ccc;">
+      <i class="fas fa-music"></i> Showcase
+    </span>
 
-<iframe
-width="100%"
-height="100%"
-src="https://www.youtube.com/embed/${song.youtubeId}"
-style="
-position:absolute;
-top:0;
-left:0;
-border:none;"
-allowfullscreen>
-</iframe>
-
-</div>
-
-<div class="song-meta-box">
-
-<span
-style="
-font-size:13px;
-color:#ccc;">
-
-<i class="fas fa-music"></i>
-Showcase
-
-</span>
-
-<span
-class="song-category ${cleanCategoryClass}">
-
-${song.category}
-
-</span>
-
-</div>
+    <span class="song-category ${cleanCategoryClass}">
+      ${song.category}
+    </span>
+  </div>
 
 </div>
 `;
