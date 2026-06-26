@@ -89,13 +89,11 @@ color:#ff00cc;
 }
 
 .hero{
-min-height:85vh;
-background: linear-gradient(rgba(5,5,5,.75),rgba(5,5,5,.95));
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:140px 20px 40px;
+background:
+linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.85)),
+url('banner.jpg');
+background-size:cover;
+background-position:center;
 }
 
 .hero-logo{
@@ -277,7 +275,7 @@ align-items:center;
 }
 
 #songSearch{
-width:130px;
+width:40px;
 padding:6px 14px;
 border-radius:20px;
 border:1px solid rgba(255,255,255,0.2);
@@ -288,31 +286,66 @@ transition:0.3s;
 }
 
 #songSearch:focus{
-width:180px;
+width:220px;
 border-color: #ff00cc;
 }
 
 .channel-buttons{
-text-align:center;
-margin-top:25px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+margin-top:40px;
 }
 
 .channel-buttons a{
-display:inline-block;
-margin:6px;
-padding:10px 18px;
-background:#ff0000;
-color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+padding:16px 28px;
+min-width:220px;
+
+background:linear-gradient(
+135deg,
+#ff0000,
+#cc0000
+);
+
+color:#fff;
 text-decoration:none;
-border-radius:30px;
+font-size:16px;
 font-weight:600;
-font-size: 14px;
-transition:0.3s;
+
+border-radius:50px;
+
+box-shadow:
+0 8px 25px rgba(255,0,0,.3);
+
+transition:all .3s ease;
 }
 
 .channel-buttons a:hover{
-transform:translateY(-2px);
-box-shadow:0 0 15px rgba(255,0,0,0.4);
+transform:translateY(-5px) scale(1.03);
+box-shadow:
+0 15px 35px rgba(255,0,0,.5);
+}
+
+.channel-buttons a::before{
+content:"▶";
+font-size:18px;
+}
+
+@media(max-width:768px){
+
+.channel-buttons{
+flex-direction:column;
+align-items:center;
+}
+
+.channel-buttons a{
+width:100%;
+max-width:350px;
 }
 
 #contact form {
@@ -581,11 +614,18 @@ gtag('config', 'G-83PJJ7R54E');
 <div class="card" style="max-width: 850px; margin: 0 auto; padding: 25px;">
 <h3>Lollipop Lehenga - Official Track</h3>
 <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px;">
-<iframe
-src="https://www.youtube.com/embed/FwMr1AgyUMQ"
-style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
-allowfullscreen>
-</iframe>
+
+<img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb">
+
+<a
+href="https://youtu.be/${song.youtubeId}"
+target="_blank"
+class="btn primary">
+▶ Play
+</a>
+  
 </div>
 </div>
 </section>
@@ -603,7 +643,28 @@ allowfullscreen>
 <button onclick="filterSongs('Devotional', this)">Devotional</button>
 </div>
 </section>
+<section id="trending">
 
+<h2 class="section-title">🔥 Trending Now</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>❤️ Teri Aankhon Mein Mera Jahaan</h3>
+</div>
+
+<div class="card">
+<h3>🎉 Nach Panjabiya</h3>
+</div>
+
+<div class="card">
+<h3>💃 Rongila Jhumka</h3>
+</div>
+
+</div>
+
+</section>
+  
 <section id="new-releases">
 <h2 class="section-title">🔥 New Releases & Latest Hits</h2>
 <div id="newReleasesContainer" class="grid"></div>
@@ -618,7 +679,47 @@ allowfullscreen>
 <h2 class="section-title">🌎 Music by Region</h2>
 <div id="languagesContainer"></div>
 </section>
+  
+<section id="playlists">
+<h2 class="section-title">🎧 Playlists</h2>
+<div id="playlist-container" class="grid"></div>
+</section>
 
+<section id="news">
+<h2 class="section-title">📰 Latest Updates</h2>
+<div id="news-container" class="grid"></div>
+</section>
+  
+<section id="channels">
+
+<h2 class="section-title">📺 Our YouTube Channels</h2>
+
+<div class="channel-buttons">
+
+<a href="https://www.youtube.com/@ai_hindigaana-p4w" target="_blank">
+🔴 AI Hindi Gaana
+</a>
+
+<a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank">
+🔴 AI Bangla Gaan
+</a>
+
+<a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank">
+🔴 AI Bhojpuri Gaana
+</a>
+
+<a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank">
+🔴 AI Bhakti Gaana
+</a>
+
+<a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank">
+🔴 AI English Songs
+</a>
+
+</div>
+
+</section>
+  
 <section id="contact" style="background: rgba(255,255,255,0.01)">
 <h2 class="section-title">Get in Touch</h2>
 <form action="https://formsubmit.co/aimusicproductionstudio01@gmail.com" method="POST">
@@ -687,16 +788,28 @@ allowfullscreen>
 </footer>
 
 <script>
+
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
 
-  const newReleases = document.getElementById('newReleasesContainer');
+/////////////////////////////////////
+// NEW RELEASES
+/////////////////////////////////////
+
+const newReleases =
+document.getElementById('newReleasesContainer');
+
+if(data.newReleases && newReleases){
 
 data.newReleases.forEach(song => {
 
+const cleanCategoryClass =
+song.category.toLowerCase().replace(/\s+/g,'-');
+
 newReleases.innerHTML += `
-<div class="card song-card" data-category="${song.category}">
+<div class="card song-card"
+data-category="${song.category}">
 
 <h3>${song.title}</h3>
 
@@ -709,7 +822,7 @@ allowfullscreen>
 
 <p>${song.language}</p>
 
-<p class="song-category ${song.category.toLowerCase().replace(' ','-')}">
+<p class="song-category ${cleanCategoryClass}">
 ${song.category}
 </p>
 
@@ -717,81 +830,267 @@ ${song.category}
 `;
 
 });
-  
+
 }
-      
+
+/////////////////////////////////////
+// PLAYLISTS
+/////////////////////////////////////
+
 const playlistContainer =
 document.getElementById('playlist-container');
 
-if(data.playlists){
+if(data.playlists && playlistContainer){
 
 data.playlists.forEach(item => {
 
 playlistContainer.innerHTML += `
 <div class="card">
+
 <h3>${item.title}</h3>
+
 <p>${item.description}</p>
+
 </div>
 `;
 
 });
 
 }
-  const newsContainer =
+
+/////////////////////////////////////
+// NEWS
+/////////////////////////////////////
+
+const newsContainer =
 document.getElementById('news-container');
 
-if(data.news){
+if(data.news && newsContainer){
 
 data.news.forEach(item => {
 
 newsContainer.innerHTML += `
 <div class="card">
+
 <h3>${item.title}</h3>
+
 <p>${item.content}</p>
+
 </div>
 `;
 
 });
 
 }
-  
-  const upcoming = document.getElementById('upcomingContainer');
-  if(data.upcoming && upcoming){
-    data.upcoming.forEach(song => {
-      upcoming.innerHTML += `
-      <div class="card" style="flex-direction:row; justify-content:space-between; align-items:center; padding: 15px 20px;">
-        <h3 style="margin-bottom:0; font-size:1rem;"><i class="fas fa-compact-disc" style="color:#ff00cc; margin-right:8px;"></i>${song.title}</h3>
-        <span style="background:rgba(0,191,255,0.2); padding:4px 12px; border-radius:20px; font-size:12px; color:#00bfff;">${song.releaseDate}</span>
-      </div>`;
-    });
-  }
 
-  const languageContainer = document.getElementById('languagesContainer');
-  if(data.languages && languageContainer){
-    for(const language in data.languages){
-      const langSectionId = `lang-${language.toLowerCase()}`;
-      languageContainer.innerHTML += `
-      <h3 style="font-size:20px; margin:30px 0 15px; color:#ffcc00; font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Hits</h3>
-      <div class="grid" id="${langSectionId}"></div>`;
-      
-      const langGrid = document.getElementById(langSectionId);
-      data.languages[language].forEach(song => {
-        const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g, '-');
-        langGrid.innerHTML += `
-        <div class="card song-card" data-category="${song.category}">
-          <h3>${song.title}</h3>
-          <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; margin-bottom:10px;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${song.youtubeId}" style="position:absolute; top:0; left:0; border:none;" allowfullscreen></iframe>
-          </div>
-          <div class="song-meta-box">
-            <span style="font-size:13px; color:#ccc;"><i class="fas fa-music"></i> Showcase</span>
-            <span class="song-category ${cleanCategoryClass}">${song.category}</span>
-          </div>
-        </div>`;
-      });
-    }
-  }
+/////////////////////////////////////
+// UPCOMING
+/////////////////////////////////////
+
+const upcoming =
+document.getElementById('upcomingContainer');
+
+if(data.upcoming && upcoming){
+
+data.upcoming.forEach(song => {
+
+upcoming.innerHTML += `
+<div class="card"
+style="
+flex-direction:row;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;">
+
+<h3
+style="
+margin-bottom:0;
+font-size:1rem;">
+
+<i class="fas fa-compact-disc"
+style="
+color:#ff00cc;
+margin-right:8px;">
+</i>
+
+${song.title}
+
+</h3>
+
+<span
+style="
+background:
+rgba(0,191,255,.2);
+padding:4px 12px;
+border-radius:20px;
+font-size:12px;
+color:#00bfff;">
+
+${song.releaseDate}
+
+</span>
+
+</div>
+`;
+
 });
+
+}
+
+/////////////////////////////////////
+// LATEST SONGS
+/////////////////////////////////////
+
+const latest =
+document.getElementById('latestContainer');
+
+if(data.latest && latest){
+
+data.latest.forEach(song => {
+
+const cleanCategoryClass =
+song.category.toLowerCase().replace(/\s+/g,'-');
+
+latest.innerHTML += `
+<div class="card song-card"
+data-category="${song.category}">
+
+<h3>${song.title}</h3>
+
+<iframe
+width="100%"
+height="220"
+src="https://www.youtube.com/embed/${song.youtubeId}"
+allowfullscreen>
+</iframe>
+
+<p>${song.language}</p>
+
+<p class="song-category ${cleanCategoryClass}">
+${song.category}
+</p>
+
+</div>
+`;
+
+});
+
+}
+
+/////////////////////////////////////
+// LANGUAGES
+/////////////////////////////////////
+
+const languageContainer =
+document.getElementById('languagesContainer');
+
+if(data.languages && languageContainer){
+
+for(const language in data.languages){
+
+const langSectionId =
+`lang-${language.toLowerCase()}`;
+
+languageContainer.innerHTML += `
+
+<h3
+style="
+font-size:20px;
+margin:30px 0 15px;
+color:#ffcc00;
+font-weight:600;">
+
+<i class="fas fa-folder-open"
+style="
+margin-right:8px;">
+</i>
+
+${language} Hits
+
+</h3>
+
+<div class="grid"
+id="${langSectionId}">
+</div>
+`;
+
+const langGrid =
+document.getElementById(langSectionId);
+
+data.languages[language].forEach(song => {
+
+const cleanCategoryClass =
+song.category.toLowerCase().replace(/\s+/g,'-');
+
+langGrid.innerHTML += `
+<div class="card song-card"
+data-category="${song.category}">
+
+<h3>${song.title}</h3>
+
+<div
+style="
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:10px;
+margin-bottom:10px;">
+
+<iframe
+width="100%"
+height="100%"
+src="https://www.youtube.com/embed/${song.youtubeId}"
+style="
+position:absolute;
+top:0;
+left:0;
+border:none;"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<div class="song-meta-box">
+
+<span
+style="
+font-size:13px;
+color:#ccc;">
+
+<i class="fas fa-music"></i>
+Showcase
+
+</span>
+
+<span
+class="song-category ${cleanCategoryClass}">
+
+${song.category}
+
+</span>
+
+</div>
+
+</div>
+`;
+
+});
+
+}
+
+}
+
+})
+.catch(error => {
+
+console.error(
+'Error loading songs.json:',
+error
+);
+
+});
+
 </script>
 
 <script>
@@ -801,8 +1100,7 @@ document.getElementById('songSearch').addEventListener('keyup', function(){
   cards.forEach(card => {
     let text = card.innerText.toLowerCase();
     card.style.display = text.includes(filter) ? 'flex' : 'none';
-  });
-});
+ });
 
 function filterSongs(category, buttonElement){
   const buttons = document.querySelectorAll('.filter-buttons button');
@@ -829,15 +1127,37 @@ document.querySelectorAll('.faq-question').forEach(question => {
     } else {
       answer.style.maxHeight = answer.scrollHeight + 'px';
     }
-  });
-});
+ });
+  
 </script>
 
 <div class="mobile-nav">
-<a href="#home"><i class="fas fa-home"></i><span>Home</span></a>
-<a href="#featured-song"><i class="fas fa-star"></i><span>Featured</span></a>
-<a href="#new-releases"><i class="fas fa-music"></i><span>Tracks</span></a>
-<a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+
+<a href="#home">
+<i class="fas fa-home"></i>
+<span>Home</span>
+</a>
+
+<a href="#new-releases">
+<i class="fas fa-music"></i>
+<span>Songs</span>
+</a>
+
+<a href="#trending">
+<i class="fas fa-fire"></i>
+<span>Trending</span>
+</a>
+
+<a href="#channels">
+<i class="fab fa-youtube"></i>
+<span>Channels</span>
+</a>
+
+<a href="#contact">
+<i class="fas fa-envelope"></i>
+<span>Contact</span>
+</a>
+
 </div>
 
 </body>
