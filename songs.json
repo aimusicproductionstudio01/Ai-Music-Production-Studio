@@ -1,4 +1,12 @@
 {
+  "featuredSong": {
+    "title": "Lollipop Lehenga",
+    "description": "Our featured release this week.",
+    "youtubeId": "FwMr1AgyUMQ",
+    "language": "Hindi",
+    "category": "Party"
+  },
+  {
   "newReleases": [
     {
       "title": "Nach Panjabiya",
