@@ -692,25 +692,69 @@ fetch('songs.json')
 .then(data => {
 
   const newReleases = document.getElementById('newReleasesContainer');
-  const allSongsList = [...(data.newReleases || []), ...(data.latest || [])];
-  
-  if(allSongsList.length > 0 && newReleases){
-    allSongsList.forEach(song => {
-      const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g, '-');
-      newReleases.innerHTML += `
-      <div class="card song-card" data-category="${song.category}">
-        <h3>${song.title}</h3>
-        <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; margin-bottom:10px;">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${song.youtubeId}" style="position:absolute; top:0; left:0; border:none;" allowfullscreen></iframe>
-        </div>
-        <div class="song-meta-box">
-          <span style="font-size:13px; color:#ccc;"><i class="fas fa-globe"></i> ${song.language}</span>
-          <span class="song-category ${cleanCategoryClass}">${song.category}</span>
-        </div>
-      </div>`;
-    });
-  }
 
+data.newReleases.forEach(song => {
+
+newReleases.innerHTML += `
+<div class="card song-card" data-category="${song.category}">
+
+<h3>${song.title}</h3>
+
+<iframe
+width="100%"
+height="220"
+src="https://www.youtube.com/embed/${song.youtubeId}"
+allowfullscreen>
+</iframe>
+
+<p>${song.language}</p>
+
+<p class="song-category ${song.category.toLowerCase().replace(' ','-')}">
+${song.category}
+</p>
+
+</div>
+`;
+
+});
+  
+}
+      
+const playlistContainer =
+document.getElementById('playlist-container');
+
+if(data.playlists){
+
+data.playlists.forEach(item => {
+
+playlistContainer.innerHTML += `
+<div class="card">
+<h3>${item.title}</h3>
+<p>${item.description}</p>
+</div>
+`;
+
+});
+
+}
+  const newsContainer =
+document.getElementById('news-container');
+
+if(data.news){
+
+data.news.forEach(item => {
+
+newsContainer.innerHTML += `
+<div class="card">
+<h3>${item.title}</h3>
+<p>${item.content}</p>
+</div>
+`;
+
+});
+
+}
+  
   const upcoming = document.getElementById('upcomingContainer');
   if(data.upcoming && upcoming){
     data.upcoming.forEach(song => {
