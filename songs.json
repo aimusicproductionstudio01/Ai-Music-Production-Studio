@@ -1,79 +1,83 @@
 {
   "newReleases": [
     {
-      "title": "Mere Bajrangbali 🚩",
-      "language": "Hindi",
-      "category": "Devotional",
-      "youtubeId": "8VpqWKykDJ0"
-    },
-    {
-      "title": "🔥 DJ वाली रात",
+      "title": "Nach Panjabiya",
       "language": "Hindi",
       "category": "Party",
-      "youtubeId": "RDnZSx6rgy4"
+      "youtubeId": "9bxIB4MZCz8"
+    },
+    {
+      "title": "नदिया किनारे सजना",
+      "language": "Hindi",
+      "category": "Love",
+      "youtubeId": "Qql9F3YAsVM"
     }
   ],
 
   "upcoming": [
     {
-      "title": "Mon Pakhir Dana",
+      "title": "तोहरे नैनवा के जादू ❤️",
+      "language": "Bhojpuri",
+      "category": "Love",
       "releaseDate": "Released"
     },
     {
-      "title": "Mera Bajranbali",
+      "title": "Ganpati Mere Ghar Aao",
+      "language": "Hindi",
+      "category": "Devotional"
       "releaseDate": "Released"
     }
   ],
 
   "latest": [
     {
-      "title": "Jamai Amar Raja 🎵",
+      "title": "তুমি আমার হৃদয় জুড়ে",
       "language": "Bangla",
       "category": "Love",
-      "youtubeId": "GmiL1nUJ2As"
+      "youtubeId": "808jEfQ3OWo"
     },
     {
-      "title": "DJ'er Tale Mon Mataley",
-      "language": "Bangla",
-      "category": "Party",
-      "youtubeId": "YdB8Z9I29dc"
+      "title": "💖Teri Aankhon Mein Mera Jahaan❤️",
+      "language": "Hindi",
+      "category": "Love",
+      "youtubeId": "AE5-sjoJ4Ew"
     }
   ],
 
   "languages": {
     "Hindi": [
       {
-        "title": "Hindi Hit",
+        "title": "TERI MERI YAARI",
         "language": "Hindi",
-        "category": "Love",
-        "youtubeId": "PZTy8QjLwRs"
+        "category": "Party",
+        "youtubeId": "VkbTSsiKy4o"
       }
     ],
 
     "Bangla": [
       {
-        "title": "Bangla Hit",
+        "title": "Rongila Jhumka",
         "language": "Bangla",
-        "category": "Love",
-        "youtubeId": "LhCeHrU7tS4"
+        "category": "Party",
+        "youtubeId": "bnujIEHuvRY"
       }
     ],
 
     "Bhojpuri": [
       {
-        "title": "Bhojpuri Hit",
+        "title": "Naina Se Current Marelu",
         "language": "Bhojpuri",
         "category": "Party",
-        "youtubeId": "15CDSWpRC2w"
+        "youtubeId": "-L-pTJPQ6Ts"
       }
     ],
 
     "Bhakti": [
       {
-        "title": "Bhakti Hit",
+        "title": "मइया तेरी शक्ति",
         "language": "Bhakti",
         "category": "Devotional",
-        "youtubeId": "vrewfh3XxSs"
+        "youtubeId": "JcQ_FAP0wHY"
       }
     ],
 
