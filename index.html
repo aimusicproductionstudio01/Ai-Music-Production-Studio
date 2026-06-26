@@ -594,7 +594,7 @@ gtag('config', 'G-83PJJ7R54E');
   
 <div class="hero-stats">
 <div>
-<h3>500+</h3>
+<h3>150+</h3>
 <p>Songs Released</p>
 </div>
 <div>
@@ -610,24 +610,19 @@ gtag('config', 'G-83PJJ7R54E');
 </section>
 
 <section id="featured-song">
-<h2 class="section-title">⭐ Featured Release</h2>
-<div class="card" style="max-width: 850px; margin: 0 auto; padding: 25px;">
-<h3>Lollipop Lehenga - Official Track</h3>
-<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:12px;">
 
-<img
-src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
-class="song-thumb">
+<h2 class="section-title">
+⭐ Featured Release
+</h2>
 
-<a
-href="https://youtu.be/${song.youtubeId}"
-target="_blank"
-class="btn primary">
-▶ Play
-</a>
-  
+<div
+id="featuredContainer"
+class="card"
+style="
+max-width:850px;
+margin:auto;">
 </div>
-</div>
+
 </section>
   
 <section id="song-filters" style="background: rgba(255,255,255,0.01);">
@@ -792,7 +787,49 @@ class="btn primary">
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
+const featured =
+document.getElementById('featuredContainer');
 
+if(data.featuredSong && featured){
+
+const song =
+data.featuredSong;
+
+featured.innerHTML = `
+<h3>${song.title}</h3>
+
+<a
+href="https://youtu.be/${song.youtubeId}"
+target="_blank">
+
+<img
+src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg"
+class="song-thumb">
+
+</a>
+
+<p>
+${song.description}
+</p>
+
+<p class="song-category
+${song.category.toLowerCase().replace(/\s+/g,'-')}">
+
+${song.category}
+
+</p>
+
+<a
+href="https://youtu.be/${song.youtubeId}"
+target="_blank"
+class="btn primary">
+
+▶ Play Now
+
+</a>
+`;
+
+}
 /////////////////////////////////////
 // NEW RELEASES
 /////////////////////////////////////
