@@ -24,7 +24,7 @@ body{
 background:#050505;
 color:#fff;
 overflow-x:hidden;
-padding-bottom: 90px; /* Cushion space for bottom fixed music player */
+padding-bottom: 90px; /* Cushion space for bottom fixed music player desktop bar */
 }
 
 body::before{
@@ -221,10 +221,10 @@ color: #fff;
 font-size: 0.9rem;
 color: #aaa;
 margin-top: 8px;
-margin-bottom: 12px;
+margin-bottom: 10px;
 }
 
-/* Song Thumbnail Corrections */
+/* Image Thumbnail Formatting fixes */
 .song-thumb {
 width: 100%;
 height: 180px;
@@ -234,24 +234,36 @@ margin-bottom: 12px;
 display: block;
 }
 
+/* Regional container image fit adjustment overrides */
+div style .song-thumb {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+margin-bottom: 0;
+}
+
 .thumb-container {
 position: relative;
 cursor: pointer;
+border-radius: 10px;
+overflow: hidden;
+margin-bottom: 12px;
 }
 
 .play-overlay {
 position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-background: rgba(255, 0, 204, 0.8);
-width: 50px;
-height: 50px;
-border-radius: 50%;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(255, 0, 204, 0.4);
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 20px;
+font-size: 26px;
+color: white;
 opacity: 0;
 transition: 0.3s ease;
 }
@@ -288,11 +300,11 @@ font-size:12px;
 font-weight:bold;
 color:white;
 text-transform: capitalize;
-text-align: center;
 align-self: flex-start;
+text-align: center;
 }
 
-/* Category Color Systems */
+/* Category Color System */
 .love{ background:#ff4d6d; }
 .dj-remix{ background:#ff9900; }
 .sad{ background:#6c757d; }
@@ -424,7 +436,7 @@ transform: translateY(-2px);
 .whatsapp{
 position:fixed;
 right:20px;
-bottom:95px; /* Offset to stay visible above the dynamic music player bar */
+bottom:95px; /* Stay nicely above fixed bottom music player tray container */
 width:60px;
 height:60px;
 background:#25D366;
@@ -444,6 +456,7 @@ z-index:999;
 margin-top: 25px;
 border-top: 1px solid rgba(255,255,255,0.1);
 padding-top: 15px;
+text-align: left;
 }
 
 .faq-item {
@@ -474,7 +487,7 @@ font-size: 12px;
 line-height: 1.5;
 }
 
-/* Music Player Fixes */
+/* Music Player Bottom Dock Bar */
 .music-player{
 position:fixed;
 bottom:0;
@@ -500,6 +513,7 @@ object-fit:cover;
 .music-info{
 flex:1;
 margin-left:15px;
+text-align: left;
 }
 
 .music-info h4{
@@ -520,11 +534,17 @@ width:45px;
 height:45px;
 border-radius:50%;
 cursor:pointer;
-font-size:18px;
+font-size:16px;
 display: flex;
 align-items: center;
 justify-content: center;
 text-decoration: none;
+transition: 0.2s;
+}
+
+.player-btn:hover {
+transform: scale(1.05);
+background: #ff33cc;
 }
 
 .footer{
@@ -599,7 +619,7 @@ nav{ justify-content: center; }
 
 @media(max-width:768px){
 body {
-padding-bottom: 150px; /* Safe padding space for both responsive tab systems combined */
+padding-bottom: 145px; /* Prevent fixed items layering out over layout flow items on small displays */
 }
 
 .whatsapp {
@@ -607,7 +627,7 @@ bottom: 155px;
 }
 
 .music-player {
-bottom: 60px; /* Aligns player directly above standard mobile app navigation docks */
+bottom: 58px; /* Position directly overhead structural mobile dock bars */
 height: 70px;
 }
 
@@ -749,11 +769,11 @@ gtag('config', 'G-83PJJ7R54E');
 </div>
 <div class="card">
 <h3>🎉 Nach Panjabiya</h3>
-<p>High-energy party hit track mix</p>
+<p>High-energy hit track mix</p>
 </div>
 <div class="card">
 <h3>💃 Rongila Jhumka</h3>
-<p>Traditional roots folk fusion style</p>
+<p>Traditional folk fusion style</p>
 </div>
 </div>
 </section>
@@ -874,7 +894,7 @@ gtag('config', 'G-83PJJ7R54E');
 </div>
 
 <div class="music-player">
-    <img id="playerImage" src="https://via.placeholder.com/50" alt="Track Art">
+    <img id="playerImage" src="https://via.placeholder.com/50" alt="Track Screen">
     <div class="music-info">
         <h4 id="playerTitle">Select a Song</h4>
         <p id="playerArtist">AI Music Production Studio</p>
@@ -883,7 +903,7 @@ gtag('config', 'G-83PJJ7R54E');
 </div>
 
 <script>
-// Main Data Core Fetch Engine
+// Main Engine Initialization
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
@@ -894,38 +914,44 @@ const song=data.featuredSong;
 featured.innerHTML=`
 <div class="card" style="max-width:850px;margin:auto;">
 <h3>${song.title}</h3>
-<img src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg" class="song-thumb" alt="Featured">
+<div class="thumb-container" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">
+  <img src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg" class="song-thumb" alt="Featured">
+  <div class="play-overlay">▶</div>
+</div>
 <p>${song.description}</p>
-<p class="song-category ${song.category.toLowerCase()}">${song.category}</p>
-<a href="https://youtu.be/${song.youtubeId}" target="_blank" class="btn primary">▶ Play Now</a>
+<span class="song-category ${song.category.toLowerCase()}">${song.category}</span>
+<div style="margin-top:15px;">
+  <button class="btn primary" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">▶ Play Track</button>
+</div>
 </div>
 `;
 }
 
-// NEW RELEASES
+// NEW RELEASES DOCK
 const newReleases = document.getElementById('newReleasesContainer');
 if(data.newReleases && newReleases){
 data.newReleases.forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
+const safeTitle = song.title.replace(/'/g, "\\'");
 newReleases.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
-<div class="thumb-container" onclick="playSong('${song.title}', '${song.youtubeId}')">
-  <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Thumbnail">
+<div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
+  <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Image">
   <div class="play-overlay">▶</div>
 </div>
 <p>${song.language}</p>
 <span class="song-category ${cleanCategoryClass}">${song.category}</span>
 <div class="song-actions">
-<button class="btn primary" onclick="playSong('${song.title}', '${song.youtubeId}')">▶ Play</button>
-<button class="btn secondary" onclick="openLyrics('${song.title}', '${song.lyricsFile}')">📄 Lyrics</button>
+<button class="btn primary" onclick="playSong('${safeTitle}', '${song.youtubeId}')">▶ Play</button>
+<button class="btn secondary" onclick="openLyrics('${safeTitle}', '${song.lyricsFile}')">📄 Lyrics</button>
 </div>
 </div>
 `;
 });
 }
 
-// PLAYLISTS
+// PLAYLISTS GENERATOR
 const playlistContainer = document.getElementById('playlist-container');
 if(data.playlists && playlistContainer){
 data.playlists.forEach(item => {
@@ -933,7 +959,7 @@ playlistContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${ite
 });
 }
 
-// NEWS
+// NEWS ENGINE 
 const newsContainer = document.getElementById('news-container');
 if(data.news && newsContainer){
 data.news.forEach(item => {
@@ -941,7 +967,7 @@ newsContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.co
 });
 }
 
-// UPCOMING
+// UPCOMING RELEASES MARQUEE
 const upcoming = document.getElementById('upcomingContainer');
 if(data.upcoming && upcoming){
 data.upcoming.forEach(song => {
@@ -954,30 +980,31 @@ upcoming.innerHTML += `
 });
 }
 
-// LATEST SONGS
+// LATEST TRACKS CONTAINER
 const latest = document.getElementById('latestContainer');
 if(data.latest && latest){
 data.latest.forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
+const safeTitle = song.title.replace(/'/g, "\\'");
 latest.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
-<div class="thumb-container" onclick="playSong('${song.title}', '${song.youtubeId}')">
-<img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Track Screen">
-<div class="play-overlay">▶</div>
+<div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
+  <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Track">
+  <div class="play-overlay">▶</div>
 </div>
 <p>${song.language}</p>
 <span class="song-category ${cleanCategoryClass}">${song.category}</span>
 <div class="song-actions">
-<button class="btn primary" onclick="playSong('${song.title}', '${song.youtubeId}')">▶ Play</button>
-<button class="btn secondary" onclick="openLyrics('${song.title}', '${song.lyricsFile}')">📄 Lyrics</button>
+<button class="btn primary" onclick="playSong('${safeTitle}', '${song.youtubeId}')">▶ Play</button>
+<button class="btn secondary" onclick="openLyrics('${safeTitle}', '${song.lyricsFile}')">📄 Lyrics</button>
 </div>
 </div>
 `;
 });
 }
 
-// LANGUAGES
+// REGIONAL MUSIC ITERATOR SYSTEM
 const languageContainer = document.getElementById('languagesContainer');
 if(data.languages && languageContainer){
 for(const language in data.languages){
@@ -989,11 +1016,12 @@ languageContainer.innerHTML += `
 const langGrid = document.getElementById(langSectionId);
 data.languages[language].forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
+const safeTitle = song.title.replace(/'/g, "\\'");
 langGrid.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
   <h3>${song.title}</h3>
-  <div class="thumb-container" onclick="playSong('${song.title}', '${song.youtubeId}')">
-   <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Img">
+  <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:10px;">
+   <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Cover">
    <div class="play-overlay">▶</div>
   </div>
   <div class="song-meta-box">
@@ -1007,27 +1035,27 @@ langGrid.innerHTML += `
 }
 
 })
-.catch(error => { console.error('Error loading songs.json:', error); });
+.catch(error => { console.error('Error parsing dynamic payload:', error); });
 
-// GLOBAL PLAYER ENGINE ACTIONS
+// GLOBAL PLAYER CONTROLLER CORE
 function playSong(title, youtubeId) {
     document.getElementById('playerTitle').innerText = title;
     document.getElementById('playerImage').src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
     
     const playBtn = document.getElementById('playBtn');
     playBtn.href = `https://youtu.be/${youtubeId}`;
-    playBtn.innerText = "▶ Open";
+    playBtn.innerHTML = '<i class="fas fa-external-link-alt"></i>';
 }
 
 function openLyrics(title, lyricsFile) {
     if (lyricsFile && lyricsFile !== "undefined") {
         window.open(lyricsFile, '_blank');
     } else {
-        alert(`Lyrics for "${title}" will be updated soon!`);
+        alert(`Lyrics text file for "${title}" will be updated soon.`);
     }
 }
 
-// CLIENT FILTERS & SEARCH INTERACTIONS
+// INTERACTIVE DOM FILTER ENGINE
 document.getElementById('songSearch').addEventListener('keyup',function(){
 let filter= this.value.toLowerCase();
 let cards= document.querySelectorAll('.song-card');
