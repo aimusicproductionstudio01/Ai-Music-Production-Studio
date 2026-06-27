@@ -193,14 +193,6 @@ grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:25px;
 }
 
-/* COMPACT DESKTOP GRID FOR REGIONAL MUSIC SECTION */
-.region-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-gap: 20px;
-margin-bottom: 40px;
-}
-
 .card{
 background:rgba(255,255,255,.03);
 padding:20px;
@@ -219,22 +211,11 @@ box-shadow:0 0 20px rgba(255,0,204,.3);
 border-color: rgba(255,0,204,0.3);
 }
 
-/* Dynamic size scaling inside more compact regional grid boxes */
-.region-grid .card {
-padding: 15px;
-border-radius: 12px;
-}
-
 .card h3{
 margin-bottom:12px;
 font-size: 1.1rem;
 color: #fff;
 line-height: 1.4;
-}
-
-.region-grid .card h3 {
-font-size: 0.95rem;
-margin-bottom: 8px;
 }
 
 .card p {
@@ -253,22 +234,12 @@ margin-bottom: 12px;
 display: block;
 }
 
-/* Shrink image heights within the compressed regional track modules */
-.region-grid .song-thumb {
-height: 135px;
-margin-bottom: 8px;
-}
-
 .thumb-container {
 position: relative;
 cursor: pointer;
 border-radius: 10px;
 overflow: hidden;
 margin-bottom: 12px;
-}
-
-.region-grid .thumb-container {
-margin-bottom: 8px;
 }
 
 .play-overlay {
@@ -297,23 +268,12 @@ gap: 8px;
 margin-top: 12px;
 }
 
-.region-grid .song-actions {
-margin-top: 8px;
-}
-
 .song-actions .btn {
 flex: 1;
 margin: 0;
 padding: 8px 10px;
 font-size: 13px;
 border-radius: 30px;
-}
-
-.song-meta-box {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-top: 10px;
 }
 
 .song-category{
@@ -328,7 +288,130 @@ align-self: flex-start;
 text-align: center;
 }
 
-/* Category Color Accents */
+/* PROFESSIONAL TRACK ROW STREAMING LAYOUT (FOR REGIONS) */
+.regional-list-container {
+display: flex;
+flex-direction: column;
+gap: 10px;
+margin-bottom: 40px;
+background: rgba(255, 255, 255, 0.01);
+padding: 15px;
+border-radius: 14px;
+border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.track-row {
+display: flex;
+align-items: center;
+background: rgba(255, 255, 255, 0.02);
+padding: 10px 20px;
+border-radius: 10px;
+border: 1px solid rgba(255, 255, 255, 0.04);
+transition: 0.2s ease;
+gap: 20px;
+}
+
+.track-row:hover {
+background: rgba(255, 0, 204, 0.05);
+border-color: rgba(255, 0, 204, 0.2);
+}
+
+.track-row .row-thumb-container {
+position: relative;
+width: 50px;
+height: 50px;
+border-radius: 6px;
+overflow: hidden;
+cursor: pointer;
+flex-shrink: 0;
+}
+
+.track-row .row-thumb {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.track-row .row-play-overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+display: flex;
+align-items: center;
+justify-content: center;
+color: #fff;
+font-size: 14px;
+opacity: 0;
+transition: 0.2s;
+}
+
+.track-row .row-thumb-container:hover .row-play-overlay {
+opacity: 1;
+}
+
+.track-row .track-details {
+flex: 2;
+min-width: 0;
+}
+
+.track-row .track-details h4 {
+font-size: 1rem;
+font-weight: 500;
+color: #fff;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.track-row .track-meta {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: flex-start;
+}
+
+.track-row .track-row-actions {
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.track-row .row-btn {
+padding: 6px 16px;
+font-size: 12px;
+font-weight: 500;
+border-radius: 20px;
+border: none;
+cursor: pointer;
+transition: 0.2s;
+white-space: nowrap;
+}
+
+.track-row .row-btn.play {
+background: #ff00cc;
+color: #fff;
+}
+
+.track-row .row-btn.play:hover {
+background: #ff33cc;
+transform: translateY(-1px);
+}
+
+.track-row .row-btn.lyrics {
+background: rgba(255, 255, 255, 0.08);
+color: #eee;
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.track-row .row-btn.lyrics:hover {
+background: rgba(255, 255, 255, 0.15);
+color: #fff;
+}
+
+/* Category Colors */
 .love{ background:#ff4d6d; }
 .dj-remix{ background:#ff9900; }
 .sad{ background:#6c757d; }
@@ -651,6 +734,28 @@ bottom: 155px;
 .music-player {
 bottom: 58px; 
 height: 70px;
+}
+
+.track-row {
+flex-wrap: wrap;
+gap: 10px;
+padding: 10px;
+}
+
+.track-row .track-meta {
+flex-basis: 100%;
+margin-top: 2px;
+}
+
+.track-row .track-row-actions {
+flex-basis: 100%;
+justify-content: space-between;
+margin-top: 5px;
+}
+
+.track-row .row-btn {
+flex: 1;
+text-align: center;
 }
 
 .channel-buttons{
@@ -1025,30 +1130,34 @@ latest.innerHTML += `
 });
 }
 
-// REGIONAL MUSIC COMPACT GRID SYSTEM
+// REGIONAL MUSIC: STREAMING SINGLE-LINE ROW GRID ENGINE
 const languageContainer = document.getElementById('languagesContainer');
 if(data.languages && languageContainer){
 for(const language in data.languages){
 const langSectionId = `lang-${language.toLowerCase()}`;
 languageContainer.innerHTML += `
-<h3 style="font-size:20px;margin:30px 0 15px;color:#ffcc00;font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Hits</h3>
-<div class="region-grid" id="${langSectionId}"></div>
+<h3 style="font-size:18px;margin:25px 0 12px;color:#ffcc00;font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Production Archive</h3>
+<div class="regional-list-container" id="${langSectionId}"></div>
 `;
 const langGrid = document.getElementById(langSectionId);
 data.languages[language].forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
 const safeTitle = song.title.replace(/'/g, "\\'");
 langGrid.innerHTML += `
-<div class="card song-card" data-category="${song.category}">
-  <h3>${song.title}</h3>
-  <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
-   <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Cover">
-   <div class="play-overlay">▶</div>
+<div class="track-row song-card" data-category="${song.category}">
+  <div class="row-thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
+    <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="row-thumb" alt="Cover">
+    <div class="row-play-overlay"><i class="fas fa-play"></i></div>
   </div>
-  <span class="song-category ${cleanCategoryClass}">${song.category}</span>
-  <div class="song-actions">
-    <button class="btn primary" onclick="playSong('${safeTitle}', '${song.youtubeId}')">▶ Play</button>
-    <button class="btn secondary" onclick="openLyrics('${safeTitle}', '${song.lyricsFile}')">📄 Lyrics</button>
+  <div class="track-details">
+    <h4>${song.title}</h4>
+  </div>
+  <div class="track-meta">
+    <span class="song-category ${cleanCategoryClass}">${song.category}</span>
+  </div>
+  <div class="track-row-actions">
+    <button class="row-btn play" onclick="playSong('${safeTitle}', '${song.youtubeId}')"><i class="fas fa-play"></i> Listen</button>
+    <button class="row-btn lyrics" onclick="openLyrics('${safeTitle}', '${song.lyricsFile}')"><i class="fas fa-file-alt"></i> Lyrics</button>
   </div>
 </div>
 `;
@@ -1059,7 +1168,7 @@ langGrid.innerHTML += `
 })
 .catch(error => { console.error('Error parsing dynamic payload:', error); });
 
-// GLOBAL CONTROLLER ENGINE
+// GLOBAL PLAYER ENGINE
 function playSong(title, youtubeId) {
     document.getElementById('playerTitle').innerText = title;
     document.getElementById('playerImage').src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
@@ -1073,7 +1182,7 @@ function openLyrics(title, lyricsFile) {
     if (lyricsFile && lyricsFile !== "undefined" && lyricsFile !== "null") {
         window.open(lyricsFile, '_blank');
     } else {
-        alert(`Lyrics for "${title}" are being prepared and will be available soon!`);
+        alert(`Lyrics text file for "${title}" will be uploaded soon.`);
     }
 }
 
@@ -1094,7 +1203,12 @@ function filterSongs(category, buttonElement){
   const songs = document.querySelectorAll('.song-card');
   songs.forEach(song=>{
     if(category === 'all'){
-      song.style.display='flex';
+      // Handle mixing row and standard block flex values clean layout defaults
+      if(song.classList.contains('track-row')){
+         song.style.display='flex';
+      } else {
+         song.style.display='flex';
+      }
     }else{
       song.style.display = song.dataset.category.toLowerCase() === category.toLowerCase() ? 'flex' : 'none';
     }
