@@ -335,19 +335,6 @@ box-shadow:
 content:"▶";
 font-size:18px;
 }
-
-@media(max-width:768px){
-
-.channel-buttons{
-flex-direction:column;
-align-items:center;
-}
-
-.channel-buttons a{
-width:100%;
-max-width:350px;
-}
-
 #contact form {
 display: flex;
 flex-direction: column;
@@ -411,6 +398,67 @@ margin-top: 25px;
 border-top: 1px solid rgba(255,255,255,0.1);
 padding-top: 15px;
 }
+.music-player{
+    position:fixed;
+    bottom:70px;
+    left:0;
+    right:0;
+    height:70px;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    border-top:1px solid rgba(255,255,255,.1);
+    z-index:999;
+}
+
+.music-player img{
+    width:50px;
+    height:50px;
+    border-radius:10px;
+    object-fit:cover;
+}
+
+.music-info{
+    flex:1;
+    margin-left:15px;
+}
+
+.music-info h4{
+    color:#fff;
+    font-size:15px;
+}
+
+.music-info p{
+    color:#aaa;
+    font-size:12px;
+}
+
+.player-btn{
+    background:#ff00cc;
+    border:none;
+    color:white;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+}
+@media(max-width:768px){
+
+.channel-buttons{
+flex-direction:column;
+align-items:center;
+}
+
+.channel-buttons a{
+width:100%;
+max-width:350px;
+}
+
+}
+
 .faq-item {
 margin-bottom: 8px;
 background: rgba(255,255,255,0.02);
@@ -613,18 +661,11 @@ gtag('config', 'G-83PJJ7R54E');
 <h2 class="section-title">
 ⭐ Featured Release
 </h2>
+
 <div id="featuredContainer"></div>
 
 </section>
   
-<div
-id="featuredContainer"
-class="card"
-style="
-max-width:850px;
-margin:auto;">
-</div>
-
 </section>
   
 <section id="song-filters" style="background: rgba(255,255,255,0.01);">
@@ -671,7 +712,18 @@ margin:auto;">
 <h2 class="section-title">🚀 Track Release Status</h2>
 <div id="upcomingContainer" class="grid"></div>
 </section>
+<section id="latest">
 
+<h2 class="section-title">
+🎧 Latest Songs
+</h2>
+
+<div
+id="latestContainer"
+class="grid">
+</div>
+
+</section>
 <section id="languages">
 <h2 class="section-title">🌎 Music by Region</h2>
 <div id="languagesContainer"></div>
@@ -843,18 +895,42 @@ data-category="${song.category}">
 
 <h3>${song.title}</h3>
 
-<iframe
-width="100%"
-height="220"
-src="https://www.youtube.com/embed/${song.youtubeId}"
-allowfullscreen>
-</iframe>
+<img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb">
 
 <p>${song.language}</p>
 
 <p class="song-category ${cleanCategoryClass}">
 ${song.category}
 </p>
+
+<div class="song-actions">
+
+<button
+class="btn primary"
+onclick="
+playSong(
+'${song.title}',
+'${song.youtubeId}'
+)">
+
+▶ Play
+
+</button>
+
+<button
+class="btn secondary"
+onclick="openLyrics(
+'${song.title}',
+'${song.lyricsFile}'
+)">
+
+📄 Lyrics
+
+</button>
+
+</div>
 
 </div>
 `;
@@ -987,18 +1063,48 @@ data-category="${song.category}">
 
 <h3>${song.title}</h3>
 
-<iframe
-width="100%"
-height="220"
-src="https://www.youtube.com/embed/${song.youtubeId}"
-allowfullscreen>
-</iframe>
+<div class="thumb-container">
 
+<img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb">
+
+<div class="play-overlay">
+▶
+</div>
+
+</div>
 <p>${song.language}</p>
 
 <p class="song-category ${cleanCategoryClass}">
 ${song.category}
 </p>
+
+<div class="song-actions">
+
+<button
+class="btn primary"
+onclick="
+playSong(
+'${song.title}',
+'${song.youtubeId}'
+)">
+
+▶ Play
+
+</button>
+<button
+class="btn secondary"
+onclick="openLyrics(
+'${song.title}',
+'${song.lyricsFile}'
+)">
+
+📄 Lyrics
+
+</button>
+
+</div>
 
 </div>
 `;
@@ -1057,13 +1163,9 @@ langGrid.innerHTML += `
   <h3>${song.title}</h3>
 
   <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:10px;">
-    <iframe
-      width="100%"
-      height="100%"
-      src="https://www.youtube.com/embed/${song.youtubeId}"
-      style="position:absolute;top:0;left:0;border:none;"
-      allowfullscreen>
-    </iframe>
+   <img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb">
   </div>
 
   <div class="song-meta-box">
@@ -1098,13 +1200,29 @@ error
 </script>
 
 <script>
-document.getElementById('songSearch').addEventListener('keyup', function(){
-  let filter = this.value.toLowerCase();
-  let cards = document.querySelectorAll('.song-card');
-  cards.forEach(card => {
-    let text = card.innerText.toLowerCase();
-    card.style.display = text.includes(filter) ? 'flex' : 'none';
- });
+document
+.getElementById('songSearch')
+.addEventListener('keyup',function(){
+
+let filter=
+this.value.toLowerCase();
+
+let cards=
+document.querySelectorAll('.song-card');
+
+cards.forEach(card=>{
+
+let text=
+card.innerText.toLowerCase();
+
+card.style.display=
+text.includes(filter)
+? 'flex'
+: 'none';
+
+});
+
+});
 
 function filterSongs(category, buttonElement){
   const buttons = document.querySelectorAll('.filter-buttons button');
@@ -1122,16 +1240,34 @@ function filterSongs(category, buttonElement){
 }
 
 // Micro interaction engine script for Footer Accordions
-document.querySelectorAll('.faq-question').forEach(question => {
-  question.addEventListener('click', () => {
-    const answer = question.nextElementSibling;
-    const icon = question.querySelector('i');
-    if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
-      answer.style.maxHeight = '0px';
-    } else {
-      answer.style.maxHeight = answer.scrollHeight + 'px';
-    }
- });
+document
+.querySelectorAll('.faq-question')
+.forEach(question=>{
+
+question.addEventListener(
+'click',
+()=>{
+
+const answer=
+question.nextElementSibling;
+
+if(
+answer.style.maxHeight &&
+answer.style.maxHeight!='0px'
+){
+
+answer.style.maxHeight='0px';
+
+}else{
+
+answer.style.maxHeight=
+answer.scrollHeight+'px';
+
+}
+
+});
+
+});
   
 </script>
 
@@ -1161,6 +1297,33 @@ document.querySelectorAll('.faq-question').forEach(question => {
 <i class="fas fa-envelope"></i>
 <span>Contact</span>
 </a>
+
+</div>
+<div class="music-player">
+
+    <img
+        id="playerImage"
+        src="https://via.placeholder.com/50">
+
+    <div class="music-info">
+
+        <h4 id="playerTitle">
+            Select a Song
+        </h4>
+
+        <p id="playerArtist">
+            AI Music Production Studio
+        </p>
+
+    </div>
+
+    <button
+        class="player-btn"
+        id="playBtn">
+
+        ▶
+
+    </button>
 
 </div>
 
