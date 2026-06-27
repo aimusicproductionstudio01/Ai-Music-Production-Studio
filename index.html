@@ -936,7 +936,10 @@ featured.innerHTML=`
 <div class="card" style="max-width:850px;margin:auto;">
 <h3>${song.title}</h3>
 <div class="thumb-container" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">
-  <img src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg" class="song-thumb" alt="Featured">
+  <img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb"
+onerror="this.src='logo.png'">
   <div class="play-overlay">▶</div>
 </div>
 <p>${song.description}</p>
@@ -958,7 +961,10 @@ newReleases.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
 <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
-  <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Image">
+  <img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb"
+onerror="this.src='logo.png'">
   <div class="play-overlay">▶</div>
 </div>
 <p>${song.language}</p>
@@ -1011,7 +1017,10 @@ latest.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
 <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
-  <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Track">
+  <img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb"
+onerror="this.src='logo.png'">
   <div class="play-overlay">▶</div>
 </div>
 <p>${song.language}</p>
@@ -1042,7 +1051,10 @@ langGrid.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
   <h3>${song.title}</h3>
   <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
-   <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Cover">
+   <img
+src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+class="song-thumb"
+onerror="this.src='logo.png'">
    <div class="play-overlay">▶</div>
   </div>
   <span class="song-category ${cleanCategoryClass}">${song.category}</span>
@@ -1060,13 +1072,26 @@ langGrid.innerHTML += `
 .catch(error => { console.error('Error parsing dynamic payload:', error); });
 
 // GLOBAL CONTROLLER ENGINE
-function playSong(title, youtubeId) {
-    document.getElementById('playerTitle').innerText = title;
-    document.getElementById('playerImage').src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-    
-    const playBtn = document.getElementById('playBtn');
-    playBtn.href = `https://youtu.be/${youtubeId}`;
-    playBtn.innerHTML = '<i class="fas fa-external-link-alt"></i>';
+function playSong(title, youtubeId){
+
+    document.getElementById('playerTitle').innerText =
+        title;
+
+    document.getElementById('playerImage').src =
+        `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+
+    const playBtn =
+        document.getElementById('playBtn');
+
+    playBtn.onclick = function(){
+        window.open(
+            `https://youtu.be/${youtubeId}`,
+            '_blank'
+        );
+    };
+
+    playBtn.innerHTML =
+        '<i class="fas fa-play"></i>';
 }
 
 function openLyrics(title, lyricsFile) {
@@ -1082,7 +1107,10 @@ let filter= this.value.toLowerCase();
 let cards= document.querySelectorAll('.song-card');
 cards.forEach(card=>{
 let text= card.innerText.toLowerCase();
-card.style.display= text.includes(filter) ? 'flex' : 'none';
+card.style.display =
+    text.includes(filter)
+    ? ''
+    : 'none';
 });
 });
 
