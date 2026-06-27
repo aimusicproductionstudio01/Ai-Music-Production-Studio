@@ -4,23 +4,23 @@
     "description": "Our featured release this week.",
     "youtubeId": "PZTy8QjLwRs",
     "language": "Hindi",
-    "category": "Love"
+    "category": "Love",
     "lyricsFile": "lyrics/chandni-raat.txt"
   },
 
   "newReleases": [
     {
-  "title": "Nach Panjabiya",
-  "language": "Hindi",
-  "category": "Party",
-  "youtubeId": "9bxIB4MZCz8",
-  "lyricsFile": "lyrics/nach-panjabiya.txt"
-},
+      "title": "Nach Panjabiya",
+      "language": "Hindi",
+      "category": "Party",
+      "youtubeId": "9bxIB4MZCz8",
+      "lyricsFile": "lyrics/nach-panjabiya.txt"
+    },
     {
       "title": "नदिया किनारे सजना",
       "language": "Hindi",
       "category": "Love",
-      "youtubeId": "Qql9F3YAsVM"
+      "youtubeId": "Qql9F3YAsVM",
       "lyricsFile": "lyrics/nadiya-kinare.txt"
     }
   ],
@@ -45,7 +45,7 @@
       "title": "তুমি আমার হৃদয় জুড়ে",
       "language": "Bangla",
       "category": "Love",
-      "youtubeId": "808jEfQ3OWo"
+      "youtubeId": "808jEfQ3OWo",
       "lyricsFile": "lyrics/tumi-amar.txt"
     },
     {
@@ -65,17 +65,15 @@
         "youtubeId": "VkbTSsiKy4o"
       }
     ],
-
     "Bangla": [
       {
         "title": "Rongila Jhumka",
         "language": "Bangla",
         "category": "Party",
-        "youtubeId": "bnujIEHuvRY"
+        "youtubeId": "bnujIEHuvRY",
         "lyricsFile": "lyrics/rongila-jhumka.txt"
       }
     ],
-
     "Bhojpuri": [
       {
         "title": "Naina Se Current Marelu",
@@ -84,7 +82,6 @@
         "youtubeId": "-L-pTJPQ6Ts"
       }
     ],
-
     "Bhakti": [
       {
         "title": "मइया तेरी शक्ति",
@@ -93,7 +90,6 @@
         "youtubeId": "JcQ_FAP0wHY"
       }
     ],
-
     "English": [
       {
         "title": "English Hit",
