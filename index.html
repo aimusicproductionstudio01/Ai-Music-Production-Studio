@@ -1026,10 +1026,15 @@ gtag('config', 'G-83PJJ7R54E');
         <h4 id="playerTitle">Select a Song</h4>
         <p id="playerArtist">AI Music Production Studio</p>
     </div>
-    <a href="#" id="playBtn" target="_blank" class="player-btn">▶</a>
+    <a href="#" id="playBtn" class="player-btn">▶</a>
 </div>
 
 <script>
+// SAFE QUOTE ESCAPER FOR INLINE PARAMETERS
+function cleanQuotes(str) {
+    return str.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+}
+
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
@@ -1037,17 +1042,18 @@ const featured = document.getElementById('featuredContainer');
 
 if(data.featuredSong && featured){
 const song=data.featuredSong;
+const safeTitle = cleanQuotes(song.title);
 featured.innerHTML=`
 <div class="card" style="max-width:850px;margin:auto;">
 <h3>${song.title}</h3>
-<div class="thumb-container" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">
+<div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
   <img src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg" class="song-thumb" alt="Featured">
   <div class="play-overlay">▶</div>
 </div>
 <p>${song.description}</p>
 <span class="song-category ${song.category.toLowerCase()}">${song.category}</span>
 <div style="margin-top:15px;">
-  <button class="btn primary" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">▶ Play Track</button>
+  <button class="btn primary" onclick="playSong('${safeTitle}', '${song.youtubeId}')">▶ Play Track</button>
 </div>
 </div>
 `;
@@ -1056,9 +1062,10 @@ featured.innerHTML=`
 // NEW RELEASES DOCK
 const newReleases = document.getElementById('newReleasesContainer');
 if(data.newReleases && newReleases){
+newReleases.innerHTML = '';
 data.newReleases.forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = song.title.replace(/'/g, "\\'");
+const safeTitle = cleanQuotes(song.title);
 newReleases.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
@@ -1080,6 +1087,7 @@ newReleases.innerHTML += `
 // PLAYLISTS GENERATOR
 const playlistContainer = document.getElementById('playlist-container');
 if(data.playlists && playlistContainer){
+playlistContainer.innerHTML = '';
 data.playlists.forEach(item => {
 playlistContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.description}</p></div>`;
 });
@@ -1088,6 +1096,7 @@ playlistContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${ite
 // NEWS ENGINE 
 const newsContainer = document.getElementById('news-container');
 if(data.news && newsContainer){
+newsContainer.innerHTML = '';
 data.news.forEach(item => {
 newsContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.content}</p></div>`;
 });
@@ -1096,6 +1105,7 @@ newsContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.co
 // UPCOMING RELEASES MARQUEE
 const upcoming = document.getElementById('upcomingContainer');
 if(data.upcoming && upcoming){
+upcoming.innerHTML = '';
 data.upcoming.forEach(song => {
 upcoming.innerHTML += `
 <div class="card" style="flex-direction:row;justify-content:space-between;align-items:center;padding:15px 20px;">
@@ -1109,9 +1119,10 @@ upcoming.innerHTML += `
 // LATEST TRACKS CONTAINER
 const latest = document.getElementById('latestContainer');
 if(data.latest && latest){
+latest.innerHTML = '';
 data.latest.forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = song.title.replace(/'/g, "\\'");
+const safeTitle = cleanQuotes(song.title);
 latest.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
@@ -1130,9 +1141,10 @@ latest.innerHTML += `
 });
 }
 
-// REGIONAL MUSIC: STREAMING SINGLE-LINE ROW GRID ENGINE
+// REGIONAL MUSIC ENGINE
 const languageContainer = document.getElementById('languagesContainer');
 if(data.languages && languageContainer){
+languageContainer.innerHTML = '';
 for(const language in data.languages){
 const langSectionId = `lang-${language.toLowerCase()}`;
 languageContainer.innerHTML += `
@@ -1142,7 +1154,7 @@ languageContainer.innerHTML += `
 const langGrid = document.getElementById(langSectionId);
 data.languages[language].forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = song.title.replace(/'/g, "\\'");
+const safeTitle = cleanQuotes(song.title);
 langGrid.innerHTML += `
 <div class="track-row song-card" data-category="${song.category}">
   <div class="row-thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
@@ -1168,33 +1180,43 @@ langGrid.innerHTML += `
 })
 .catch(error => { console.error('Error parsing dynamic payload:', error); });
 
-// GLOBAL PLAYER ENGINE
+// GLOBAL PLAYER ENGINE WITH CLICK FALLBACK GUARD
 function playSong(title, youtubeId) {
     document.getElementById('playerTitle').innerText = title;
     document.getElementById('playerImage').src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
     
     const playBtn = document.getElementById('playBtn');
     playBtn.href = `https://youtu.be/${youtubeId}`;
+    playBtn.target = "_blank";
     playBtn.innerHTML = '<i class="fas fa-external-link-alt"></i>';
 }
 
+document.getElementById('playBtn').addEventListener('click', function(e) {
+    if (this.getAttribute('href') === '#' || !this.href) {
+        e.preventDefault();
+        alert('Please select a track sequence from the archive below to stream first!');
+    }
+});
+
 function openLyrics(title, lyricsFile) {
-    if (lyricsFile && lyricsFile !== "undefined" && lyricsFile !== "null") {
+    if (lyricsFile && lyricsFile !== "undefined" && lyricsFile !== "null" && lyricsFile.trim() !== "") {
         window.open(lyricsFile, '_blank');
     } else {
         alert(`Lyrics text file for "${title}" will be uploaded soon.`);
     }
 }
 
+// FIX: GRID RECOVERY SEARCH STRATEGY
 document.getElementById('songSearch').addEventListener('keyup',function(){
 let filter= this.value.toLowerCase();
 let cards= document.querySelectorAll('.song-card');
 cards.forEach(card=>{
 let text= card.innerText.toLowerCase();
-card.style.display= text.includes(filter) ? 'flex' : 'none';
+card.style.display= text.includes(filter) ? '' : 'none';
 });
 });
 
+// FIX: GRID RECOVERY GENRE FILTER ENGINE
 function filterSongs(category, buttonElement){
   const buttons = document.querySelectorAll('.filter-buttons button');
   buttons.forEach(btn => btn.classList.remove('active'));
@@ -1203,14 +1225,9 @@ function filterSongs(category, buttonElement){
   const songs = document.querySelectorAll('.song-card');
   songs.forEach(song=>{
     if(category === 'all'){
-      // Handle mixing row and standard block flex values clean layout defaults
-      if(song.classList.contains('track-row')){
-         song.style.display='flex';
-      } else {
-         song.style.display='flex';
-      }
+      song.style.display = '';
     }else{
-      song.style.display = song.dataset.category.toLowerCase() === category.toLowerCase() ? 'flex' : 'none';
+      song.style.display = song.dataset.category.toLowerCase() === category.toLowerCase() ? '' : 'none';
     }
   });
 }
