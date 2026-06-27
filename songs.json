@@ -5,6 +5,7 @@
     "youtubeId": "PZTy8QjLwRs",
     "language": "Hindi",
     "category": "Love"
+    "lyricsFile": "lyrics/chandni-raat.txt"
   },
 
   "newReleases": [
@@ -20,6 +21,7 @@
       "language": "Hindi",
       "category": "Love",
       "youtubeId": "Qql9F3YAsVM"
+      "lyricsFile": "lyrics/nadiya-kinare.txt"
     }
   ],
 
@@ -44,6 +46,7 @@
       "language": "Bangla",
       "category": "Love",
       "youtubeId": "808jEfQ3OWo"
+      "lyricsFile": "lyrics/tumi-amar.txt"
     },
     {
       "title": "💖Teri Aankhon Mein Mera Jahaan❤️",
@@ -69,6 +72,7 @@
         "language": "Bangla",
         "category": "Party",
         "youtubeId": "bnujIEHuvRY"
+        "lyricsFile": "lyrics/rongila-jhumka.txt"
       }
     ],
 
