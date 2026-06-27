@@ -9,11 +9,12 @@
 
   "newReleases": [
     {
-      "title": "Nach Panjabiya",
-      "language": "Hindi",
-      "category": "Party",
-      "youtubeId": "9bxIB4MZCz8"
-    },
+  "title": "Nach Panjabiya",
+  "language": "Hindi",
+  "category": "Party",
+  "youtubeId": "9bxIB4MZCz8",
+  "lyricsFile": "lyrics/nach-panjabiya.txt"
+},
     {
       "title": "नदिया किनारे सजना",
       "language": "Hindi",
