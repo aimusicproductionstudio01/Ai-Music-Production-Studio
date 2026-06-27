@@ -24,7 +24,7 @@ body{
 background:#050505;
 color:#fff;
 overflow-x:hidden;
-padding-bottom: 90px; 
+padding-bottom: 90px; /* Cushion space for bottom fixed music player desktop bar */
 }
 
 body::before{
@@ -189,8 +189,8 @@ font-weight: 700;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
 }
 
 .card{
@@ -213,25 +213,35 @@ border-color: rgba(255,0,204,0.3);
 
 .card h3{
 margin-bottom:12px;
-font-size: 1.1rem;
+font-size: 1.15rem;
 color: #fff;
-line-height: 1.4;
 }
 
 .card p {
 font-size: 0.9rem;
 color: #aaa;
-margin-top: 4px;
+margin-top: 8px;
 margin-bottom: 10px;
 }
 
+/* Image Thumbnail Formatting fixes */
 .song-thumb {
 width: 100%;
-height: 170px;
+height: 180px;
 object-fit: cover;
 border-radius: 10px;
 margin-bottom: 12px;
 display: block;
+}
+
+/* Regional container image fit adjustment overrides */
+div style .song-thumb {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+margin-bottom: 0;
 }
 
 .thumb-container {
@@ -264,23 +274,29 @@ opacity: 1;
 
 .song-actions {
 display: flex;
-gap: 8px;
-margin-top: 12px;
+gap: 10px;
+margin-top: 15px;
 }
 
 .song-actions .btn {
 flex: 1;
 margin: 0;
-padding: 8px 10px;
-font-size: 13px;
-border-radius: 30px;
+padding: 8px 12px;
+font-size: 14px;
+}
+
+.song-meta-box {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 10px;
 }
 
 .song-category{
 display:inline-block;
 padding:4px 12px;
 border-radius:20px;
-font-size:11px;
+font-size:12px;
 font-weight:bold;
 color:white;
 text-transform: capitalize;
@@ -288,130 +304,7 @@ align-self: flex-start;
 text-align: center;
 }
 
-/* PROFESSIONAL TRACK ROW STREAMING LAYOUT (FOR REGIONS) */
-.regional-list-container {
-display: flex;
-flex-direction: column;
-gap: 10px;
-margin-bottom: 40px;
-background: rgba(255, 255, 255, 0.01);
-padding: 15px;
-border-radius: 14px;
-border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.track-row {
-display: flex;
-align-items: center;
-background: rgba(255, 255, 255, 0.02);
-padding: 10px 20px;
-border-radius: 10px;
-border: 1px solid rgba(255, 255, 255, 0.04);
-transition: 0.2s ease;
-gap: 20px;
-}
-
-.track-row:hover {
-background: rgba(255, 0, 204, 0.05);
-border-color: rgba(255, 0, 204, 0.2);
-}
-
-.track-row .row-thumb-container {
-position: relative;
-width: 50px;
-height: 50px;
-border-radius: 6px;
-overflow: hidden;
-cursor: pointer;
-flex-shrink: 0;
-}
-
-.track-row .row-thumb {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-
-.track-row .row-play-overlay {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.5);
-display: flex;
-align-items: center;
-justify-content: center;
-color: #fff;
-font-size: 14px;
-opacity: 0;
-transition: 0.2s;
-}
-
-.track-row .row-thumb-container:hover .row-play-overlay {
-opacity: 1;
-}
-
-.track-row .track-details {
-flex: 2;
-min-width: 0;
-}
-
-.track-row .track-details h4 {
-font-size: 1rem;
-font-weight: 500;
-color: #fff;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-
-.track-row .track-meta {
-flex: 1;
-display: flex;
-align-items: center;
-justify-content: flex-start;
-}
-
-.track-row .track-row-actions {
-display: flex;
-gap: 10px;
-align-items: center;
-}
-
-.track-row .row-btn {
-padding: 6px 16px;
-font-size: 12px;
-font-weight: 500;
-border-radius: 20px;
-border: none;
-cursor: pointer;
-transition: 0.2s;
-white-space: nowrap;
-}
-
-.track-row .row-btn.play {
-background: #ff00cc;
-color: #fff;
-}
-
-.track-row .row-btn.play:hover {
-background: #ff33cc;
-transform: translateY(-1px);
-}
-
-.track-row .row-btn.lyrics {
-background: rgba(255, 255, 255, 0.08);
-color: #eee;
-border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.track-row .row-btn.lyrics:hover {
-background: rgba(255, 255, 255, 0.15);
-color: #fff;
-}
-
-/* Category Colors */
+/* Category Color System */
 .love{ background:#ff4d6d; }
 .dj-remix{ background:#ff9900; }
 .sad{ background:#6c757d; }
@@ -543,7 +436,7 @@ transform: translateY(-2px);
 .whatsapp{
 position:fixed;
 right:20px;
-bottom:95px; 
+bottom:95px; /* Stay nicely above fixed bottom music player tray container */
 width:60px;
 height:60px;
 background:#25D366;
@@ -558,6 +451,7 @@ box-shadow:0 0 15px #25D366;
 z-index:999;
 }
 
+/* Footer FAQ Accordion Stylings */
 .footer-faq {
 margin-top: 25px;
 border-top: 1px solid rgba(255,255,255,0.1);
@@ -593,6 +487,7 @@ font-size: 12px;
 line-height: 1.5;
 }
 
+/* Music Player Bottom Dock Bar */
 .music-player{
 position:fixed;
 bottom:0;
@@ -724,7 +619,7 @@ nav{ justify-content: center; }
 
 @media(max-width:768px){
 body {
-padding-bottom: 145px; 
+padding-bottom: 145px; /* Prevent fixed items layering out over layout flow items on small displays */
 }
 
 .whatsapp {
@@ -732,30 +627,8 @@ bottom: 155px;
 }
 
 .music-player {
-bottom: 58px; 
+bottom: 58px; /* Position directly overhead structural mobile dock bars */
 height: 70px;
-}
-
-.track-row {
-flex-wrap: wrap;
-gap: 10px;
-padding: 10px;
-}
-
-.track-row .track-meta {
-flex-basis: 100%;
-margin-top: 2px;
-}
-
-.track-row .track-row-actions {
-flex-basis: 100%;
-justify-content: space-between;
-margin-top: 5px;
-}
-
-.track-row .row-btn {
-flex: 1;
-text-align: center;
 }
 
 .channel-buttons{
@@ -1026,15 +899,11 @@ gtag('config', 'G-83PJJ7R54E');
         <h4 id="playerTitle">Select a Song</h4>
         <p id="playerArtist">AI Music Production Studio</p>
     </div>
-    <a href="#" id="playBtn" class="player-btn">▶</a>
+    <a href="#" id="playBtn" target="_blank" class="player-btn">▶</a>
 </div>
 
 <script>
-// SAFE QUOTE ESCAPER FOR INLINE PARAMETERS
-function cleanQuotes(str) {
-    return str.replace(/"/g, '&quot;').replace(/'/g, "\\'");
-}
-
+// Main Engine Initialization
 fetch('songs.json')
 .then(response => response.json())
 .then(data => {
@@ -1042,18 +911,17 @@ const featured = document.getElementById('featuredContainer');
 
 if(data.featuredSong && featured){
 const song=data.featuredSong;
-const safeTitle = cleanQuotes(song.title);
 featured.innerHTML=`
 <div class="card" style="max-width:850px;margin:auto;">
 <h3>${song.title}</h3>
-<div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
+<div class="thumb-container" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">
   <img src="https://img.youtube.com/vi/${song.youtubeId}/maxresdefault.jpg" class="song-thumb" alt="Featured">
   <div class="play-overlay">▶</div>
 </div>
 <p>${song.description}</p>
 <span class="song-category ${song.category.toLowerCase()}">${song.category}</span>
 <div style="margin-top:15px;">
-  <button class="btn primary" onclick="playSong('${safeTitle}', '${song.youtubeId}')">▶ Play Track</button>
+  <button class="btn primary" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">▶ Play Track</button>
 </div>
 </div>
 `;
@@ -1062,10 +930,9 @@ featured.innerHTML=`
 // NEW RELEASES DOCK
 const newReleases = document.getElementById('newReleasesContainer');
 if(data.newReleases && newReleases){
-newReleases.innerHTML = '';
 data.newReleases.forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = cleanQuotes(song.title);
+const safeTitle = song.title.replace(/'/g, "\\'");
 newReleases.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
@@ -1087,7 +954,6 @@ newReleases.innerHTML += `
 // PLAYLISTS GENERATOR
 const playlistContainer = document.getElementById('playlist-container');
 if(data.playlists && playlistContainer){
-playlistContainer.innerHTML = '';
 data.playlists.forEach(item => {
 playlistContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.description}</p></div>`;
 });
@@ -1096,7 +962,6 @@ playlistContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${ite
 // NEWS ENGINE 
 const newsContainer = document.getElementById('news-container');
 if(data.news && newsContainer){
-newsContainer.innerHTML = '';
 data.news.forEach(item => {
 newsContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.content}</p></div>`;
 });
@@ -1105,7 +970,6 @@ newsContainer.innerHTML += `<div class="card"><h3>${item.title}</h3><p>${item.co
 // UPCOMING RELEASES MARQUEE
 const upcoming = document.getElementById('upcomingContainer');
 if(data.upcoming && upcoming){
-upcoming.innerHTML = '';
 data.upcoming.forEach(song => {
 upcoming.innerHTML += `
 <div class="card" style="flex-direction:row;justify-content:space-between;align-items:center;padding:15px 20px;">
@@ -1119,10 +983,9 @@ upcoming.innerHTML += `
 // LATEST TRACKS CONTAINER
 const latest = document.getElementById('latestContainer');
 if(data.latest && latest){
-latest.innerHTML = '';
 data.latest.forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = cleanQuotes(song.title);
+const safeTitle = song.title.replace(/'/g, "\\'");
 latest.innerHTML += `
 <div class="card song-card" data-category="${song.category}">
 <h3>${song.title}</h3>
@@ -1141,35 +1004,29 @@ latest.innerHTML += `
 });
 }
 
-// REGIONAL MUSIC ENGINE
+// REGIONAL MUSIC ITERATOR SYSTEM
 const languageContainer = document.getElementById('languagesContainer');
 if(data.languages && languageContainer){
-languageContainer.innerHTML = '';
 for(const language in data.languages){
 const langSectionId = `lang-${language.toLowerCase()}`;
 languageContainer.innerHTML += `
-<h3 style="font-size:18px;margin:25px 0 12px;color:#ffcc00;font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Production Archive</h3>
-<div class="regional-list-container" id="${langSectionId}"></div>
+<h3 style="font-size:20px;margin:30px 0 15px;color:#ffcc00;font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Hits</h3>
+<div class="grid" id="${langSectionId}"></div>
 `;
 const langGrid = document.getElementById(langSectionId);
 data.languages[language].forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = cleanQuotes(song.title);
+const safeTitle = song.title.replace(/'/g, "\\'");
 langGrid.innerHTML += `
-<div class="track-row song-card" data-category="${song.category}">
-  <div class="row-thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
-    <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="row-thumb" alt="Cover">
-    <div class="row-play-overlay"><i class="fas fa-play"></i></div>
+<div class="card song-card" data-category="${song.category}">
+  <h3>${song.title}</h3>
+  <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:10px;">
+   <img src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg" class="song-thumb" alt="Cover">
+   <div class="play-overlay">▶</div>
   </div>
-  <div class="track-details">
-    <h4>${song.title}</h4>
-  </div>
-  <div class="track-meta">
+  <div class="song-meta-box">
+    <span style="font-size:13px;color:#ccc;"><i class="fas fa-music"></i> Showcase</span>
     <span class="song-category ${cleanCategoryClass}">${song.category}</span>
-  </div>
-  <div class="track-row-actions">
-    <button class="row-btn play" onclick="playSong('${safeTitle}', '${song.youtubeId}')"><i class="fas fa-play"></i> Listen</button>
-    <button class="row-btn lyrics" onclick="openLyrics('${safeTitle}', '${song.lyricsFile}')"><i class="fas fa-file-alt"></i> Lyrics</button>
   </div>
 </div>
 `;
@@ -1180,43 +1037,34 @@ langGrid.innerHTML += `
 })
 .catch(error => { console.error('Error parsing dynamic payload:', error); });
 
-// GLOBAL PLAYER ENGINE WITH CLICK FALLBACK GUARD
+// GLOBAL PLAYER CONTROLLER CORE
 function playSong(title, youtubeId) {
     document.getElementById('playerTitle').innerText = title;
     document.getElementById('playerImage').src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
     
     const playBtn = document.getElementById('playBtn');
     playBtn.href = `https://youtu.be/${youtubeId}`;
-    playBtn.target = "_blank";
     playBtn.innerHTML = '<i class="fas fa-external-link-alt"></i>';
 }
 
-document.getElementById('playBtn').addEventListener('click', function(e) {
-    if (this.getAttribute('href') === '#' || !this.href) {
-        e.preventDefault();
-        alert('Please select a track sequence from the archive below to stream first!');
-    }
-});
-
 function openLyrics(title, lyricsFile) {
-    if (lyricsFile && lyricsFile !== "undefined" && lyricsFile !== "null" && lyricsFile.trim() !== "") {
+    if (lyricsFile && lyricsFile !== "undefined") {
         window.open(lyricsFile, '_blank');
     } else {
-        alert(`Lyrics text file for "${title}" will be uploaded soon.`);
+        alert(`Lyrics text file for "${title}" will be updated soon.`);
     }
 }
 
-// FIX: GRID RECOVERY SEARCH STRATEGY
+// INTERACTIVE DOM FILTER ENGINE
 document.getElementById('songSearch').addEventListener('keyup',function(){
 let filter= this.value.toLowerCase();
 let cards= document.querySelectorAll('.song-card');
 cards.forEach(card=>{
 let text= card.innerText.toLowerCase();
-card.style.display= text.includes(filter) ? '' : 'none';
+card.style.display= text.includes(filter) ? 'flex' : 'none';
 });
 });
 
-// FIX: GRID RECOVERY GENRE FILTER ENGINE
 function filterSongs(category, buttonElement){
   const buttons = document.querySelectorAll('.filter-buttons button');
   buttons.forEach(btn => btn.classList.remove('active'));
@@ -1225,13 +1073,14 @@ function filterSongs(category, buttonElement){
   const songs = document.querySelectorAll('.song-card');
   songs.forEach(song=>{
     if(category === 'all'){
-      song.style.display = '';
+      song.style.display='flex';
     }else{
-      song.style.display = song.dataset.category.toLowerCase() === category.toLowerCase() ? '' : 'none';
+      song.style.display = song.dataset.category.toLowerCase() === category.toLowerCase() ? 'flex' : 'none';
     }
   });
 }
 
+// Micro interaction engine script for Footer Accordions
 document.querySelectorAll('.faq-question').forEach(question=>{
 question.addEventListener('click', ()=>{
 const answer= question.nextElementSibling;
