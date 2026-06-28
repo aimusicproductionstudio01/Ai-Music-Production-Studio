@@ -1066,7 +1066,78 @@ languageContainer.innerHTML += `
 <h3 style="font-size:20px;margin:30px 0 15px;color:#ffcc00;font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Hits</h3>
 <div class="region-grid" id="${langSectionId}"></div>
 `;
-const langGrid = document.getElementById(langSectionId);
+setTimeout(() => {
+
+const langGrid =
+document.getElementById(langSectionId);
+
+data.languages[language].forEach(song => {
+
+    const cleanCategoryClass =
+        song.category
+            .toLowerCase()
+            .replace(/\s+/g,'-');
+
+    const safeTitle =
+        song.title
+            .replace(/'/g,"\\'");
+
+    langGrid.innerHTML += `
+    <div class="card song-card"
+         data-category="${song.category}">
+
+        <h3>${song.title}</h3>
+
+        <div class="thumb-container"
+             onclick="playSong(
+             '${safeTitle}',
+             '${song.youtubeId}')">
+
+            <img
+            src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+            class="song-thumb"
+            onerror="this.src='logo.png'">
+
+            <div class="play-overlay">
+                ▶
+            </div>
+
+        </div>
+
+        <span class="song-category ${cleanCategoryClass}">
+            ${song.category}
+        </span>
+
+        <div class="song-actions">
+
+            <button
+            class="btn primary"
+            onclick="playSong(
+            '${safeTitle}',
+            '${song.youtubeId}')">
+
+            ▶ Play
+
+            </button>
+
+            <button
+            class="btn secondary"
+            onclick="openLyrics(
+            '${safeTitle}',
+            '${song.lyricsFile || ""}')">
+
+            📄 Lyrics
+
+            </button>
+
+        </div>
+
+    </div>
+    `;
+
+});
+
+},0);
 data.languages[language].forEach(song => {
 const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
 const safeTitle = song.title.replace(/'/g, "\\'");
