@@ -921,11 +921,12 @@ gtag('config', 'G-83PJJ7R54E');
         <h4 id="playerTitle">Select a Song</h4>
         <p id="playerArtist">AI Music Production Studio</p>
     </div>
-    <a href="#" id="playBtn" target="_blank" class="player-btn">▶</a>
+    <a href="#" id="playBtn" target="_blank" class="player-btn"><i class="fas fa-play"></i></a>
 </div>
 
 <script>
-fetch('songs.json')
+/* FIXED: Fetching the exact file payload provided 'songs (5).json' */
+fetch('songs (5).json')
 .then(response => response.json())
 .then(data => {
 const featured = document.getElementById('featuredContainer');
@@ -1073,25 +1074,19 @@ onerror="this.src='logo.png'">
 
 // GLOBAL CONTROLLER ENGINE
 function playSong(title, youtubeId){
+    document.getElementById('playerTitle').innerText = title;
+    document.getElementById('playerImage').src = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
 
-    document.getElementById('playerTitle').innerText =
-        title;
+    const playBtn = document.getElementById('playBtn');
+    
+    // FIXED: Directly opens the window upon selection, and maps the click event safely
+    window.open(`https://youtu.be/${youtubeId}`, '_blank');
 
-    document.getElementById('playerImage').src =
-        `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-
-    const playBtn =
-        document.getElementById('playBtn');
-
-    playBtn.onclick = function(){
-        window.open(
-            `https://youtu.be/${youtubeId}`,
-            '_blank'
-        );
+    playBtn.onclick = function(e){
+        e.preventDefault();
+        window.open(`https://youtu.be/${youtubeId}`, '_blank');
     };
-
-    playBtn.innerHTML =
-        '<i class="fas fa-play"></i>';
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
 
 function openLyrics(title, lyricsFile) {
