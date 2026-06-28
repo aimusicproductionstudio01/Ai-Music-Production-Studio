@@ -929,6 +929,8 @@ gtag('config', 'G-83PJJ7R54E');
 fetch('songs (5).json')
 .then(response => response.json())
 .then(data => {
+    console.log("SONGS LOADED:", data);
+  
 const featured = document.getElementById('featuredContainer');
 
 if(data.featuredSong && featured){
