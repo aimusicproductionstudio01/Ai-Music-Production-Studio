@@ -182,7 +182,8 @@ body{
 
 <script>
 
-function playSong(title,youtubeId){
+// MUSIC PLAYER
+function playSong(title, youtubeId){
 
     document.getElementById(
         'playerTitle'
@@ -199,6 +200,7 @@ function playSong(title,youtubeId){
         `https://youtu.be/${youtubeId}`;
 }
 
+// LYRICS
 function openLyrics(title,file){
 
     if(!file){
@@ -214,30 +216,40 @@ function openLyrics(title,file){
     );
 }
 
+// CARD TEMPLATE
 function createCard(song){
 
     const safeTitle =
-        song.title.replace(/'/g,"\\'");
+        song.title.replace(
+            /'/g,
+            "\\'"
+        );
 
     return `
     <div class="card">
 
-        <h3>${song.title}</h3>
+        <h3>
+            ${song.title}
+        </h3>
 
-        <div class="thumb-container"
-             onclick="playSong(
-                 '${safeTitle}',
-                 '${song.youtubeId}'
-             )">
+        <div
+            class="thumb-container"
+            onclick="playSong(
+                '${safeTitle}',
+                '${song.youtubeId}'
+            )">
 
             <img
                 src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
                 class="song-thumb"
-                onerror="this.src='logo.png'">
+                onerror="
+                    this.src='logo.png'
+                ">
 
             <div class="play-overlay">
                 ▶
             </div>
+
         </div>
 
         <p>
@@ -256,7 +268,9 @@ function createCard(song){
                     '${safeTitle}',
                     '${song.youtubeId}'
                 )">
+
                 ▶ Play
+
             </button>
 
             <button
@@ -265,7 +279,9 @@ function createCard(song){
                     '${safeTitle}',
                     '${song.lyricsFile || ''}'
                 )">
+
                 📄 Lyrics
+
             </button>
 
         </div>
@@ -274,24 +290,27 @@ function createCard(song){
     `;
 }
 
+// LOAD JSON
 fetch('songs.json')
 
-.then(response => {
+.then(response=>{
 
     if(!response.ok){
+
         throw new Error(
             'songs.json not found'
         );
+
     }
 
     return response.json();
 
 })
 
-.then(data => {
+.then(data=>{
 
     console.log(
-        'JSON loaded',
+        'Loaded:',
         data
     );
 
@@ -301,7 +320,10 @@ fetch('songs.json')
             'featuredContainer'
         );
 
-    if(data.featuredSong){
+    if(
+        data.featuredSong &&
+        featured
+    ){
 
         featured.innerHTML =
             createCard(
@@ -315,13 +337,19 @@ fetch('songs.json')
             'newReleasesContainer'
         );
 
-    data.newReleases
-    ?.forEach(song => {
+    if(
+        data.newReleases &&
+        releases
+    ){
 
-        releases.innerHTML +=
-            createCard(song);
+        data.newReleases
+        .forEach(song=>{
 
-    });
+            releases.innerHTML +=
+                createCard(song);
+
+        });
+    }
 
     // LATEST
     const latest =
@@ -329,13 +357,19 @@ fetch('songs.json')
             'latestContainer'
         );
 
-    data.latest
-    ?.forEach(song => {
+    if(
+        data.latest &&
+        latest
+    ){
 
-        latest.innerHTML +=
-            createCard(song);
+        data.latest
+        .forEach(song=>{
 
-    });
+            latest.innerHTML +=
+                createCard(song);
+
+        });
+    }
 
     // UPCOMING
     const upcoming =
@@ -343,18 +377,46 @@ fetch('songs.json')
             'upcomingContainer'
         );
 
-    data.upcoming
-    ?.forEach(song => {
+    if(
+        data.upcoming &&
+        upcoming
+    ){
 
-        upcoming.innerHTML += `
-        <div class="card">
-            <h3>${song.title}</h3>
-            <p>${song.language}</p>
-            <p>${song.releaseDate}</p>
-        </div>
-        `;
+        data.upcoming
+        .forEach(song=>{
 
-    });
+            upcoming.innerHTML += `
+                <div class="card">
+
+                    <h3>
+                        ${song.title}
+                    </h3>
+
+                    <p>
+                        ${song.language}
+                    </p>
+
+                    <span
+                     class="song-category">
+
+                        ${song.category}
+
+                    </span>
+
+                    <p
+                     style="
+                      margin-top:10px;
+                      color:#0f0;
+                     ">
+
+                        ${song.releaseDate}
+
+                    </p>
+
+                </div>
+            `;
+        });
+    }
 
     // NEWS
     const news =
@@ -362,17 +424,29 @@ fetch('songs.json')
             'newsContainer'
         );
 
-    data.news
-    ?.forEach(item => {
+    if(
+        data.news &&
+        news
+    ){
 
-        news.innerHTML += `
-        <div class="card">
-            <h3>${item.title}</h3>
-            <p>${item.content}</p>
-        </div>
-        `;
+        data.news
+        .forEach(item=>{
 
-    });
+            news.innerHTML += `
+                <div class="card">
+
+                    <h3>
+                        ${item.title}
+                    </h3>
+
+                    <p>
+                        ${item.content}
+                    </p>
+
+                </div>
+            `;
+        });
+    }
 
     // PLAYLISTS
     const playlists =
@@ -380,17 +454,29 @@ fetch('songs.json')
             'playlistsContainer'
         );
 
-    data.playlists
-    ?.forEach(item => {
+    if(
+        data.playlists &&
+        playlists
+    ){
 
-        playlists.innerHTML += `
-        <div class="card">
-            <h3>${item.title}</h3>
-            <p>${item.description}</p>
-        </div>
-        `;
+        data.playlists
+        .forEach(item=>{
 
-    });
+            playlists.innerHTML += `
+                <div class="card">
+
+                    <h3>
+                        ${item.title}
+                    </h3>
+
+                    <p>
+                        ${item.description}
+                    </p>
+
+                </div>
+            `;
+        });
+    }
 
     // LANGUAGES
     const languageContainer =
@@ -398,40 +484,73 @@ fetch('songs.json')
             'languagesContainer'
         );
 
-    for(const language in data.languages){
+    if(
+        data.languages &&
+        languageContainer
+    ){
 
-        const id =
-            `lang-${language}`;
+        for(
+            const language
+            in
+            data.languages
+        ){
 
-        languageContainer.innerHTML += `
-            <h3 style="
-                margin:20px 0 10px;
-                color:#ffcc00;
-            ">
-                ${language} Hits
-            </h3>
+            const id =
+                `lang-${
+                    language
+                    .toLowerCase()
+                    .replace(
+                        /\s+/g,
+                        '-'
+                    )
+                }`;
 
-            <div
-                class="region-grid"
-                id="${id}">
-            </div>
-        `;
+            languageContainer
+            .innerHTML += `
 
-        const grid =
-            document.getElementById(id);
+                <h3
+                 style="
+                  color:#ffcc00;
+                  margin:
+                  30px 0 15px;
+                 ">
 
-        data.languages[language]
-        .forEach(song => {
+                    ${language} Hits
 
-            grid.innerHTML +=
-                createCard(song);
+                </h3>
 
-        });
+                <div
+                  class="region-grid"
+                  id="${id}">
+
+                </div>
+            `;
+
+            const grid =
+                document
+                .getElementById(
+                    id
+                );
+
+            data
+            .languages[
+                language
+            ]
+            .forEach(song=>{
+
+                grid
+                .innerHTML +=
+                    createCard(
+                        song
+                    );
+
+            });
+        }
     }
 
 })
 
-.catch(error => {
+.catch(error=>{
 
     console.error(
         'ERROR:',
@@ -439,6 +558,7 @@ fetch('songs.json')
     );
 
 });
+
 </script>
 
 </body>
