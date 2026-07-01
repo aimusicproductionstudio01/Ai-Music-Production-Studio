@@ -1057,114 +1057,76 @@ onerror="this.src='logo.png'">
 });
 }
 
-// REGIONAL MUSIC COMPACT GRID SYSTEM
+// REGIONAL MUSIC
 const languageContainer = document.getElementById('languagesContainer');
-if(data.languages && languageContainer){
-for(const language in data.languages){
-const langSectionId = `lang-${language.toLowerCase()}`;
-languageContainer.innerHTML += `
-<h3 style="font-size:20px;margin:30px 0 15px;color:#ffcc00;font-weight:600;"><i class="fas fa-folder-open" style="margin-right:8px;"></i>${language} Hits</h3>
-<div class="region-grid" id="${langSectionId}"></div>
-`;
-setTimeout(() => {
 
-const langGrid =
-document.getElementById(langSectionId);
+if (data.languages && languageContainer) {
+    for (const language in data.languages) {
 
-data.languages[language].forEach(song => {
+        const langSectionId =
+            `lang-${language.toLowerCase()}`;
 
-    const cleanCategoryClass =
-        song.category
-            .toLowerCase()
-            .replace(/\s+/g,'-');
+        languageContainer.innerHTML += `
+            <h3 style="font-size:20px;margin:30px 0 15px;color:#ffcc00;font-weight:600;">
+                <i class="fas fa-folder-open"></i>
+                ${language} Hits
+            </h3>
+            <div class="region-grid" id="${langSectionId}"></div>
+        `;
 
-    const safeTitle =
-        song.title
-            .replace(/'/g,"\\'");
+        const langGrid =
+            document.getElementById(langSectionId);
 
-    langGrid.innerHTML += `
-    <div class="card song-card"
-         data-category="${song.category}">
+        data.languages[language].forEach(song => {
 
-        <h3>${song.title}</h3>
+            const cleanCategoryClass =
+                song.category.toLowerCase().replace(/\s+/g,'-');
 
-        <div class="thumb-container"
-             onclick="playSong(
-             '${safeTitle}',
-             '${song.youtubeId}')">
+            const safeTitle =
+                song.title.replace(/'/g,"\\'");
 
-            <img
-            src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
-            class="song-thumb"
-            onerror="this.src='logo.png'">
+            langGrid.innerHTML += `
+                <div class="card song-card"
+                     data-category="${song.category}">
+                    <h3>${song.title}</h3>
 
-            <div class="play-overlay">
-                ▶
-            </div>
+                    <div class="thumb-container"
+                         onclick="playSong('${safeTitle}','${song.youtubeId}')">
 
-        </div>
+                        <img
+                            src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+                            class="song-thumb"
+                            onerror="this.src='logo.png'">
 
-        <span class="song-category ${cleanCategoryClass}">
-            ${song.category}
-        </span>
+                        <div class="play-overlay">▶</div>
+                    </div>
 
-        <div class="song-actions">
+                    <span class="song-category ${cleanCategoryClass}">
+                        ${song.category}
+                    </span>
 
-            <button
-            class="btn primary"
-            onclick="playSong(
-            '${safeTitle}',
-            '${song.youtubeId}')">
+                    <div class="song-actions">
+                        <button class="btn primary"
+                                onclick="playSong('${safeTitle}','${song.youtubeId}')">
+                            ▶ Play
+                        </button>
 
-            ▶ Play
-
-            </button>
-
-            <button
-            class="btn secondary"
-            onclick="openLyrics(
-            '${safeTitle}',
-            '${song.lyricsFile || ""}')">
-
-            📄 Lyrics
-
-            </button>
-
-        </div>
-
-    </div>
-    `;
-
-});
-
-},0);
-data.languages[language].forEach(song => {
-const cleanCategoryClass = song.category.toLowerCase().replace(/\s+/g,'-');
-const safeTitle = song.title.replace(/'/g, "\\'");
-langGrid.innerHTML += `
-<div class="card song-card" data-category="${song.category}">
-  <h3>${song.title}</h3>
-  <div class="thumb-container" onclick="playSong('${safeTitle}', '${song.youtubeId}')">
-   <img
-src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
-class="song-thumb"
-onerror="this.src='logo.png'">
-   <div class="play-overlay">▶</div>
-  </div>
-  <span class="song-category ${cleanCategoryClass}">${song.category}</span>
-  <div class="song-actions">
-    <button class="btn primary" onclick="playSong('${safeTitle}', '${song.youtubeId}')">▶ Play</button>
-    <button class="btn secondary" onclick="openLyrics('${safeTitle}', '${song.lyricsFile}')">📄 Lyrics</button>
-  </div>
-</div>
-`;
-});
-}
-}
-
+                        <button class="btn secondary"
+                                onclick="openLyrics('${safeTitle}','${song.lyricsFile || ''}')">
+                            📄 Lyrics
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+}   // closes if
+    // closes .then(data => ...)
 })
-.catch(error => { console.error('Error parsing dynamic payload:', error); });
-
+.catch(error => {
+    console.error('Error parsing dynamic payload:', error);
+});
+  
 // GLOBAL CONTROLLER ENGINE
 function playSong(title, youtubeId){
     document.getElementById('playerTitle').innerText = title;
