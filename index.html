@@ -925,21 +925,81 @@ gtag('config', 'G-83PJJ7R54E');
 </div>
 
 <script>
-/* FIXED: Fetching the exact file payload provided 'songs (5).json' */
+  
 fetch('songs.json')
 .then(response => {
 
-    if(!response.ok){
-        throw new Error(
-            'songs.json not found'
-        );
+    if (!response.ok) {
+        throw new Error('songs.json not found');
     }
 
     return response.json();
+
 })
 .then(data => {
 
     console.log(data);
+
+    // FEATURED SONG
+    const featured =
+        document.getElementById('featuredContainer');
+
+    if (data.featuredSong && featured) {
+
+        const song =
+            data.featuredSong;
+
+        const safeTitle =
+            song.title.replace(/'/g,"\\'");
+
+        featured.innerHTML = `
+        <div class="card"
+             style="max-width:850px;margin:auto;">
+
+            <h3>${song.title}</h3>
+
+            <div class="thumb-container"
+                 onclick="playSong('${safeTitle}',
+                                   '${song.youtubeId}')">
+
+                <img
+                    src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
+                    class="song-thumb"
+                    onerror="this.src='logo.png'">
+
+                <div class="play-overlay">
+                    ▶
+                </div>
+            </div>
+
+            <p>${song.description}</p>
+
+            <span class="song-category ${song.category.toLowerCase()}">
+                ${song.category}
+            </span>
+
+            <div style="margin-top:15px;">
+
+                <button
+                    class="btn primary"
+                    onclick="playSong('${safeTitle}',
+                                      '${song.youtubeId}')">
+
+                    ▶ Play Track
+
+                </button>
+
+            </div>
+
+        </div>
+        `;
+    }
+
+    // Put New Releases here
+    // Put Latest Songs here
+    // Put Languages here
+    // Put Playlists here
+    // Put News here
 
 })
 .catch(error => {
@@ -950,30 +1010,6 @@ fetch('songs.json')
     );
 
 });
-  
-const featured = document.getElementById('featuredContainer');
-
-if(data.featuredSong && featured){
-const song=data.featuredSong;
-featured.innerHTML=`
-<div class="card" style="max-width:850px;margin:auto;">
-<h3>${song.title}</h3>
-<div class="thumb-container" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">
-  <img
-src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
-class="song-thumb"
-onerror="this.src='logo.png'">
-  <div class="play-overlay">▶</div>
-</div>
-<p>${song.description}</p>
-<span class="song-category ${song.category.toLowerCase()}">${song.category}</span>
-<div style="margin-top:15px;">
-  <button class="btn primary" onclick="playSong('${song.title.replace(/'/g, "\\'")}', '${song.youtubeId}')">▶ Play Track</button>
-</div>
-</div>
-`;
-}
-
 // NEW RELEASES DOCK
 const newReleases = document.getElementById('newReleasesContainer');
 if(data.newReleases && newReleases){
