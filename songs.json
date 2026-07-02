@@ -6,32 +6,31 @@
     "language": "Hindi",
     "category": "Love",
     "lyricsFile": "lyrics/chandni-raat.txt"
-   }
-],
-  
- "newReleases": [
-  {
-    "title": "Nach Panjabiya",
-    "language": "Hindi",
-    "category": "Party",
-    "youtubeId": "9bxIB4MZCz8",
-    "lyricsFile": "lyrics/nach-panjabiya.txt"
   },
-  {
-    "title": "Nazron Ka Ishara ❤️",
-    "language": "Hindi",
-    "category": "Party",
-    "youtubeId": "KRUpkmJhIRI",
-    "lyricsFile": "lyrics/nazron-ka-ishara.txt"
-  },
-  {
-    "title": "नदिया किनारे सजना",
-    "language": "Hindi",
-    "category": "Love",
-    "youtubeId": "Qql9F3YAsVM",
-    "lyricsFile": "lyrics/nadiya-kinare.txt"
-  }
-],
+
+  "newReleases": [
+    {
+      "title": "Nach Panjabiya",
+      "language": "Hindi",
+      "category": "Party",
+      "youtubeId": "9bxIB4MZCz8",
+      "lyricsFile": "lyrics/nach-panjabiya.txt"
+    },
+    {
+      "title": "Nazron Ka Ishara ❤️",
+      "language": "Hindi",
+      "category": "Party",
+      "youtubeId": "KRUpkmJhIRI",
+      "lyricsFile": "lyrics/nazron-ka-ishara.txt"
+    },
+    {
+      "title": "नदिया किनारे सजना",
+      "language": "Hindi",
+      "category": "Love",
+      "youtubeId": "Qql9F3YAsVM",
+      "lyricsFile": "lyrics/nadiya-kinare.txt"
+    }
+  ],
   
   "upcoming": [
     {
