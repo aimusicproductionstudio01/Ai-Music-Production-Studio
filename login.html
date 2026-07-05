@@ -114,9 +114,14 @@
 
             const user = JSON.parse(storedUserData);
 
-            // Reconstruct plain text configuration array signature through atob
-            if (atob(user.password) !== passwordInput) {
-                alert("Incorrect password.");
+            // TRY-CATCH ERROR HANDLING FOR DECODING BASE64 STRINGS
+            try {
+                if (atob(user.password) !== passwordInput) {
+                    alert("Incorrect password.");
+                    return;
+                }
+            } catch(error) {
+                alert("Account data format error. Please create a new account.");
                 return;
             }
 
