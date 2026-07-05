@@ -1,1 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channels | Ai Music Production Studio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col pb-28 relative">
 
+    <!-- GLOBAL HEADER NAVIGATION -->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 px-4 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
+        <div class="flex items-center justify-between w-full md:w-auto gap-4">
+            <a href="index.html" class="flex items-center gap-3 group focus:outline-none">
+                <img src="logo.png" alt="Ai Music Production Studio Logo" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <span class="text-md font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase whitespace-nowrap">Ai Music Production Studio</span>
+            </a>
+        </div>
+
+        <div class="w-full md:max-w-md relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+            <input type="text" id="channel-search" placeholder="Search official platform channels..." class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-emerald-500 transition-colors text-zinc-200">
+        </div>
+
+        <div class="flex items-center justify-between w-full md:w-auto gap-6">
+            <div class="flex items-center gap-3.5 text-zinc-400 text-sm border-r border-zinc-800 pr-4">
+                <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            
+            <div class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
+                <a href="login.html" class="hover:text-white text-zinc-400 transition-colors bg-zinc-950 px-3 py-2 rounded-lg border border-zinc-800">Log In</a>
+                <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black px-3 py-2 rounded-lg transition-colors">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN HUB CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-10 w-full space-y-12 flex-1">
+        
+        <!-- SECTION TITLE HEADER -->
+        <div class="space-y-2 border-b border-zinc-900 pb-5">
+            <h1 class="text-3xl font-black text-white uppercase tracking-wider">Official Audio Channels</h1>
+            <p class="text-xs text-zinc-400">Explore our distributed AI production catalogs across customized dialect channels.</p>
+        </div>
+
+        <!-- DYNAMIC CHANNELS GRID MAPPED TO THE CHANNEL REGISTRY -->
+        <section id="channels-distribution-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- HINDI GAANA NODE -->
+            <div class="bg-zinc-900/40 border border-zinc-850 rounded-2xl p-6 flex flex-col justify-between gap-6 hover:border-zinc-800 transition-all group">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-xl text-red-500 border border-red-500/20">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Ai Hindi Gaana</h3>
+                        <p class="text-xs text-zinc-500 font-semibold uppercase tracking-wider mt-0.5">Hindi Language Hub</p>
+                    </div>
+                    <p class="text-xs text-zinc-400 leading-relaxed pt-1">Stream commercial romantic releases, trending festival drops, and custom-tuned Hindi soundtracks.</p>
+                </div>
+                <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="w-full bg-zinc-950 hover:bg-zinc-900 text-center text-xs font-bold py-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all block tracking-wider">
+                    EXPLORE CHANNEL <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 text-zinc-500"></i>
+                </a>
+            </div>
+
+            <!-- BANGLA GAAN NODE -->
+            <div class="bg-zinc-900/40 border border-zinc-850 rounded-2xl p-6 flex flex-col justify-between gap-6 hover:border-zinc-800 transition-all group">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-xl text-emerald-400 border border-emerald-500/20">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Ai Bangla Gaan</h3>
+                        <p class="text-xs text-zinc-500 font-semibold uppercase tracking-wider mt-0.5">Bangla Language Hub</p>
+                    </div>
+                    <p class="text-xs text-zinc-400 leading-relaxed pt-1">Discover pure modern production melodies, high-fidelity party anthems, and artistic folk track alternatives.</p>
+                </div>
+                <a href="https://www.youtube.com/@Ai_BanglaGaan_11" target="_blank" rel="noopener" class="w-full bg-zinc-950 hover:bg-zinc-900 text-center text-xs font-bold py-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all block tracking-wider">
+                    EXPLORE CHANNEL <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 text-zinc-500"></i>
+                </a>
+            </div>
+
+            <!-- BHAKTI GAANA NODE -->
+            <div class="bg-zinc-900/40 border border-zinc-850 rounded-2xl p-6 flex flex-col justify-between gap-6 hover:border-zinc-800 transition-all group">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-xl text-amber-500 border border-amber-500/20">
+                        <i class="fa-solid fa-om"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Ai Bhakti Gaana</h3>
+                        <p class="text-xs text-zinc-500 font-semibold uppercase tracking-wider mt-0.5">Devotional Hub</p>
+                    </div>
+                    <p class="text-xs text-zinc-400 leading-relaxed pt-1">Immerse yourself in premium audio soundscapes, spiritual chants, and crisp devotional melodies.</p>
+                </div>
+                <a href="https://www.youtube.com/@Ai_BhaktiGaana" target="_blank" rel="noopener" class="w-full bg-zinc-950 hover:bg-zinc-900 text-center text-xs font-bold py-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all block tracking-wider">
+                    EXPLORE CHANNEL <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 text-zinc-500"></i>
+                </a>
+            </div>
+
+            <!-- BHOJPURI GAANA NODE -->
+            <div class="bg-zinc-900/40 border border-zinc-850 rounded-2xl p-6 flex flex-col justify-between gap-6 hover:border-zinc-800 transition-all group">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-xl text-purple-500 border border-purple-500/20">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Ai Bhojpuri Gaana</h3>
+                        <p class="text-xs text-zinc-500 font-semibold uppercase tracking-wider mt-0.5">Bhojpuri Language Hub</p>
+                    </div>
+                    <p class="text-xs text-zinc-400 leading-relaxed pt-1">High-energy dance music matrices, rhythmic party structures, and traditional electronic updates.</p>
+                </div>
+                <a href="https://www.youtube.com/@Ai_BhojpuriGaana" target="_blank" rel="noopener" class="w-full bg-zinc-950 hover:bg-zinc-900 text-center text-xs font-bold py-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all block tracking-wider">
+                    EXPLORE CHANNEL <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 text-zinc-500"></i>
+                </a>
+            </div>
+
+            <!-- ENGLISH SONGS NODE -->
+            <div class="bg-zinc-900/40 border border-zinc-850 rounded-2xl p-6 flex flex-col justify-between gap-6 hover:border-zinc-800 transition-all group">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-xl text-blue-400 border border-blue-500/20">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Ai English Songs</h3>
+                        <p class="text-xs text-zinc-500 font-semibold uppercase tracking-wider mt-0.5">English Language Hub</p>
+                    </div>
+                    <p class="text-xs text-zinc-400 leading-relaxed pt-1">Global formatting pop templates, lo-fi synthetic tracking layers, and clean western lyric models.</p>
+                </div>
+                <a href="https://www.youtube.com/@Ai_EnglishSongs-01" target="_blank" rel="noopener" class="w-full bg-zinc-950 hover:bg-zinc-900 text-center text-xs font-bold py-3 rounded-xl border border-zinc-800 hover:border-zinc-700 transition-all block tracking-wider">
+                    EXPLORE CHANNEL <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1 text-zinc-500"></i>
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- UNIFIED SYSTEM FOOTER -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 px-4 lg:px-8 py-8 text-zinc-500 text-xs mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col items-center md:items-start gap-1.5">
+                <p>&copy; 2026 Ai Music Production Studio Inc. Audio processes patented. All rights reserved.</p>
+                <div class="flex items-center gap-3 text-zinc-600 font-medium">
+                    <a href="privacy-policy.html" class="hover:text-zinc-400 transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="terms.html" class="hover:text-zinc-400 transition-colors">Terms of Service</a>
+                    <span>•</span>
+                    <a href="news.html" class="hover:text-zinc-400 transition-colors">Studio News Feed</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-sm text-zinc-400">
+                <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-white transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SPOTIFY-STYLE PERSISTENT STICKY PLAYER WINDOW CONTAINER -->
+    <div id="sticky-audio-player" class="fixed bottom-0 left-0 right-0 h-24 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800/80 z-50 px-4 lg:px-8 flex items-center justify-between shadow-2xl transition-all translate-y-full hidden">
+        <div class="flex items-center gap-3.5 w-1/3 min-w-0">
+            <div class="w-14 h-10 bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800 hidden sm:block relative">
+                <img id="player-art" src="" alt="Album Artwork Art" class="w-full h-full object-cover">
+            </div>
+            <div class="truncate min-w-0">
+                <h4 id="player-title" class="text-sm font-bold text-white truncate">Track Node</h4>
+                <p id="player-subtitle" class="text-[11px] text-zinc-400 truncate mt-0.5">Language Subtype</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center gap-2 w-1/3">
+            <div class="flex items-center gap-5 text-zinc-400">
+                <button class="hover:text-white text-xs opacity-50 cursor-not-allowed"><i class="fa-solid fa-shuffle"></i></button>
+                <button class="hover:text-white text-sm opacity-50 cursor-not-allowed"><i class="fa-solid fa-backward-step"></i></button>
+                <button id="player-master-toggle" onclick="togglePlaybackEngine()" class="w-9 h-9 bg-white text-black rounded-full flex items-center justify-center text-xs shadow-md hover:scale-105 transition-transform cursor-pointer"><i class="fa-solid fa-pause ml-0.5"></i></button>
+                <button class="hover:text-white text-sm opacity-50 cursor-not-allowed"><i class="fa-solid fa-forward-step"></i></button>
+                <button class="hover:text-white text-xs opacity-50 cursor-not-allowed"><i class="fa-solid fa-repeat"></i></button>
+            </div>
+            <div class="w-full max-w-md flex items-center gap-2.5 text-[10px] text-zinc-500 font-mono">
+                <span>0:42</span>
+                <div class="flex-1 h-1 bg-zinc-800 rounded-full relative overflow-hidden group cursor-pointer">
+                    <div class="absolute left-0 top-0 bottom-0 w-[30%] bg-emerald-500 rounded-full"></div>
+                </div>
+                <span>3:15</span>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-4 w-1/3 text-zinc-400 text-xs">
+            <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex">
+                OPEN YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+            </a>
+            <button class="hover:text-white transition-colors hidden sm:inline-block"><i class="fa-solid fa-microphone"></i></button>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-volume-high text-zinc-500"></i>
+                <div class="w-16 h-1 bg-zinc-700 rounded-full overflow-hidden"><div class="w-3/4 h-full bg-zinc-400"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let activePlaybackState = false;
+
+        // Check if there's an active media state stored across pages
+        document.addEventListener("DOMContentLoaded", () => {
+            const persistedTitle = sessionStorage.getItem("active_track_title");
+            if (persistedTitle) {
+                initializeGlobalPlayer(
+                    persistedTitle, 
+                    sessionStorage.getItem("active_track_lang"), 
+                    sessionStorage.getItem("active_track_id")
+                );
+            }
+        });
+
+        function initializeGlobalPlayer(title, language, youtubeId) {
+            const player = document.getElementById("sticky-audio-player");
+            player.classList.remove("hidden", "translate-y-full");
+            
+            document.getElementById("player-title").innerText = title;
+            document.getElementById("player-subtitle").innerText = `${language} Production Track`;
+            document.getElementById("player-art").src = `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
+            document.getElementById("player-external-link").href = `https://www.youtube.com/watch?v=${youtubeId}`;
+            
+            // Sync with session memory
+            sessionStorage.setItem("active_track_title", title);
+            sessionStorage.setItem("active_track_lang", language);
+            sessionStorage.setItem("active_track_id", youtubeId);
+
+            activePlaybackState = true;
+            document.getElementById("player-master-toggle").innerHTML = `<i class="fa-solid fa-pause ml-0.5"></i>`;
+        }
+
+        function togglePlaybackEngine() {
+            const btn = document.getElementById("player-master-toggle");
+            if (activePlaybackState) {
+                btn.innerHTML = `<i class="fa-solid fa-play ml-0.5"></i>`;
+                activePlaybackState = false;
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-pause ml-0.5"></i>`;
+                activePlaybackState = true;
+            }
+        }
+    </script>
+</body>
+</html>
