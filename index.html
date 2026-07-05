@@ -3,340 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Streaming Platform</title>
-    <!-- Tailwind CSS for styling, FontAwesome for icons -->
+    <title>MUZIK | AI Music Production Studio</title>
+    <!-- Tailwind CSS for modern layout architecture, FontAwesome 6.5.1 for confirmed production icons -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        .animate-spin-slow { animation: spin 12s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans pb-28">
+<body class="bg-zinc-950 text-zinc-100 font-sans pb-32 selection:bg-emerald-500 selection:text-black">
 
-    <!-- HEADER NAVIGATION -->
-    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 z-50 px-6 py-3 flex items-center justify-between">
-        <!-- Company Logo -->
-        <div class="flex items-center gap-2">
-            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl"></i>
-            <span class="text-xl font-bold tracking-wider">Ai Music Production Studio</span>
-        </div>
+    <!--================================================================
+        1. GLOBAL NAVIGATION HEADER
+    =================================================================-->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 px-4 md:px-8 py-3.5 flex items-center justify-between shadow-lg">
+        <!-- Logo Element -->
+        <a href="index.html" class="flex items-center gap-2 group focus:outline-none">
+            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl group-hover:rotate-90 transition-transform duration-500"></i>
+            <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">MUZIK</span>
+        </a>
 
-        <!-- Search Bar -->
+        <!-- Desktop Search Bar -->
         <div class="flex-1 max-w-md mx-8 hidden md:block">
-            <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"></i>
-                <input type="text" placeholder="What do you want to listen to?" class="w-full bg-zinc-800 text-sm text-white pl-10 pr-4 py-2 rounded-full border border-transparent focus:border-zinc-700 focus:outline-none focus:bg-zinc-750 transition">
+            <div class="relative group">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-emerald-400 transition-colors"></i>
+                <input type="text" placeholder="What do you want to listen to?" 
+                    class="w-full bg-zinc-800 text-sm text-white pl-11 pr-4 py-2.5 rounded-full border border-transparent focus:border-zinc-700 focus:outline-none focus:bg-zinc-800/60 transition shadow-inner">
             </div>
         </div>
 
-        <!-- Right Side: Socials & Auth -->
+        <!-- Social Media & Auth Logic -->
         <div class="flex items-center gap-6">
-            <!-- Social Media Icons -->
-            <div class="flex items-center gap-4 text-zinc-400 text-lg border-r border-zinc-700 pr-6 hidden lg:flex">
-                <a href="#" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
+            <div class="flex items-center gap-4 text-zinc-400 text-lg border-r border-zinc-800 pr-6 hidden lg:flex">
+                <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://youtube.com" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
             </div>
 
-            <!-- Auth Buttons -->
             <div class="flex items-center gap-4">
-                <button class="text-zinc-400 hover:text-white font-medium text-sm transition">Sign Up</button>
-                <button class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition">Log In</button>
+                <a href="signup.html" class="text-zinc-400 hover:text-white font-bold text-sm transition-colors focus:outline-none">Sign Up</a>
+                <a href="login.html" class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 active:scale-95 transition-transform shadow-md focus:outline-none">Log In</a>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-6 py-8 space-y-12">
+    <!--================================================================
+        2. MAIN CORE ARCHITECTURE
+    =================================================================-->
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-12">
 
-        <!-- Mobile Search Bar (Visible only on mobile) -->
-        <div class="block md:hidden mb-6">
+        <!-- Mobile Layout Input Search Bar -->
+        <div class="block md:hidden">
             <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"></i>
-                <input type="text" placeholder="Search songs, artists..." class="w-full bg-zinc-800 text-sm text-white pl-10 pr-4 py-2 rounded-full focus:outline-none">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"></i>
+                <input type="text" placeholder="Search songs, languages, releases..." 
+                    class="w-full bg-zinc-900 text-sm text-white pl-11 pr-4 py-3 rounded-xl border border-zinc-800 focus:outline-none focus:border-emerald-500 transition">
             </div>
         </div>
 
-        <!-- HERO SECTION: Featured Song -->
-        <section class="relative bg-gradient-to-r from-emerald-800 to-zinc-900 rounded-2xl p-8 md:p-12 overflow-hidden shadow-xl">
+        <!-- FEATURED SONG HERO BANNERS -->
+        <section class="relative bg-gradient-to-br from-emerald-800 via-zinc-900 to-zinc-950 rounded-2xl p-6 md:p-12 overflow-hidden border border-emerald-500/10 shadow-2xl">
             <div class="relative z-10 max-w-xl space-y-4">
-                <span class="bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Featured Song</span>
-                <h1 class="text-4xl md:text-6xl font-black tracking-tight">Midnight Melancholy</h1>
-                <p class="text-zinc-300 text-sm md:text-base">Experience the brand new chart-topping synthwave single by Lunar Echoes. Available now for streaming.</p>
-                <div class="flex items-center gap-4 pt-2">
-                    <button class="bg-emerald-500 text-black px-8 py-3 rounded-full font-bold hover:bg-emerald-400 transition flex items-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-play"></i> Play Now
+                <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-500/20">Featured Dynamic Drop</span>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">Midnight Melancholy</h1>
+                <p class="text-zinc-300 text-sm md:text-base leading-relaxed">Experience our premium multilingual AI-assisted synthwave masterpiece. Engineered across unique dialect modules for global auditory harmony.</p>
+                
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <button class="bg-emerald-500 text-black px-8 py-3.5 rounded-full font-bold hover:bg-emerald-400 active:scale-95 transition flex items-center gap-2 shadow-lg cursor-pointer">
+                        <i class="fa-solid fa-play text-sm"></i> Play Studio Track
                     </button>
-                    <button class="border border-zinc-500 hover:border-white px-6 py-3 rounded-full font-bold text-sm transition">
-                        Add to Library
-                    </button>
+                    <a href="#all-songs" class="border border-zinc-700 hover:border-zinc-400 px-6 py-3.5 rounded-full font-bold text-sm transition-colors text-center">
+                        Explore Catalog
+                    </a>
                 </div>
             </div>
-            <!-- Decorative background element simulating album art glow -->
-            <div class="absolute right-0 bottom-0 top-0 w-1/2 bg-radial from-emerald-500/20 to-transparent opacity-50 pointer-events-none"></div>
+            <div class="absolute right-0 bottom-0 top-0 w-1/2 bg-radial from-emerald-500/10 to-transparent opacity-60 pointer-events-none hidden md:block"></div>
         </section>
 
-        <!-- GRID LAYOUT FOR SECTIONS -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- DASHBOARD HUB CONTENT SPLIT MESH -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
-            <!-- Left & Center: Music Rows -->
-            <div class="lg:col-span-2 space-y-10">
+            <!-- LEFT COLUMN STACK -->
+            <div class="lg:col-span-2 space-y-12">
                 
-                <!-- Trending Songs -->
+                <!-- TRENDING SONGS -->
                 <section>
-                    <div class="flex justify-between items-end mb-4">
-                        <h2 class="text-2xl font-bold tracking-tight">Trending Songs</h2>
-                        <a href="#" class="text-zinc-400 hover:text-emerald-400 text-xs font-bold uppercase tracking-wider">See All</a>
+                    <div class="flex justify-between items-end mb-6">
+                        <h2 class="text-2xl font-black tracking-tight text-white">Trending Songs</h2>
+                        <span class="text-zinc-500 text-xs font-bold uppercase tracking-wider">Real-time stats</span>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         <!-- Card 1 -->
-                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-800/80 transition group relative cursor-pointer">
-                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800">
-                                <i class="fa-solid fa-music absolute inset-0 m-auto text-3xl text-zinc-700 group-hover:scale-110 transition"></i>
-                                <button class="absolute bottom-2 right-2 bg-emerald-500 text-black p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition shadow-lg duration-300">
+                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-850 border border-zinc-850 hover:border-zinc-800 transition-all group relative cursor-pointer shadow-md">
+                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800 flex items-center justify-center text-zinc-600 shadow-inner">
+                                <i class="fa-solid fa-bolt text-4xl group-hover:scale-110 group-hover:text-emerald-400 transition-all duration-300"></i>
+                                <button class="absolute bottom-3 right-3 bg-emerald-500 text-black p-3.5 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-xl duration-300 hover:scale-105 active:scale-95">
                                     <i class="fa-solid fa-play"></i>
                                 </button>
                             </div>
-                            <h3 class="font-semibold text-sm truncate">Neon Horizons</h3>
-                            <p class="text-xs text-zinc-400 truncate">RetroFutz</p>
+                            <h3 class="font-bold text-sm truncate text-white">Neon Horizons</h3>
+                            <p class="text-xs text-zinc-400 truncate pt-0.5">Hindi Pop-Fusion Engine</p>
                         </div>
                         <!-- Card 2 -->
-                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-800/80 transition group relative cursor-pointer">
-                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800">
-                                <i class="fa-solid fa-music absolute inset-0 m-auto text-3xl text-zinc-700 group-hover:scale-110 transition"></i>
-                                <button class="absolute bottom-2 right-2 bg-emerald-500 text-black p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition shadow-lg duration-300">
+                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-850 border border-zinc-850 hover:border-zinc-800 transition-all group relative cursor-pointer shadow-md">
+                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800 flex items-center justify-center text-zinc-600 shadow-inner">
+                                <i class="fa-solid fa-wave-square text-4xl group-hover:scale-110 group-hover:text-emerald-400 transition-all duration-300"></i>
+                                <button class="absolute bottom-3 right-3 bg-emerald-500 text-black p-3.5 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-xl duration-300 hover:scale-105 active:scale-95">
                                     <i class="fa-solid fa-play"></i>
                                 </button>
                             </div>
-                            <h3 class="font-semibold text-sm truncate">Deep Waters</h3>
-                            <p class="text-xs text-zinc-400 truncate">Sub-Zero</p>
+                            <h3 class="font-bold text-sm truncate text-white">Deep Waters</h3>
+                            <p class="text-xs text-zinc-400 truncate pt-0.5">Bangla Folk Wave</p>
                         </div>
                         <!-- Card 3 -->
-                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-800/80 transition group relative cursor-pointer">
-                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800">
-                                <i class="fa-solid fa-music absolute inset-0 m-auto text-3xl text-zinc-700 group-hover:scale-110 transition"></i>
-                                <button class="absolute bottom-2 right-2 bg-emerald-500 text-black p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition shadow-lg duration-300">
+                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-850 border border-zinc-850 hover:border-zinc-800 transition-all group relative cursor-pointer shadow-md">
+                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800 flex items-center justify-center text-zinc-600 shadow-inner">
+                                <i class="fa-solid fa-fire text-4xl group-hover:scale-110 group-hover:text-emerald-400 transition-all duration-300"></i>
+                                <button class="absolute bottom-3 right-3 bg-emerald-500 text-black p-3.5 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-xl duration-300 hover:scale-105 active:scale-95">
                                     <i class="fa-solid fa-play"></i>
                                 </button>
                             </div>
-                            <h3 class="font-semibold text-sm truncate">Solar Flare</h3>
-                            <p class="text-xs text-zinc-400 truncate">Nova</p>
+                            <h3 class="font-bold text-sm truncate text-white">Solar Flare</h3>
+                            <p class="text-xs text-zinc-400 truncate pt-0.5">Bhojpuri Dance Algorithm</p>
                         </div>
                     </div>
                 </section>
 
-                <!-- New Releases -->
+                <!-- NEW RELEASES -->
                 <section>
-                    <div class="flex justify-between items-end mb-4">
-                        <h2 class="text-2xl font-bold tracking-tight">New Releases</h2>
-                        <a href="#" class="text-zinc-400 hover:text-emerald-400 text-xs font-bold uppercase tracking-wider">See All</a>
-                    </div>
-                    <div class="space-y-2">
-                        <!-- List Item 1 -->
-                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-900 group transition">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-zinc-800 rounded flex items-center justify-center text-zinc-600"><i class="fa-solid fa-compact-disc"></i></div>
-                                <div>
-                                    <h4 class="text-sm font-medium">After Hours</h4>
-                                    <p class="text-xs text-zinc-400">The Weekenders</p>
+                    <h2 class="text-2xl font-black tracking-tight text-white mb-6">New Releases</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-zinc-850 hover:bg-zinc-850/60 group transition-all cursor-pointer">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 bg-zinc-800 rounded-lg flex-shrink-0 flex items-center justify-center text-zinc-500 group-hover:text-emerald-400 transition-colors"><i class="fa-solid fa-compact-disc"></i></div>
+                                <div class="min-w-0">
+                                    <h4 class="text-sm font-bold text-white truncate">After Hours Suite</h4>
+                                    <p class="text-xs text-zinc-400 truncate">English Indie Core</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 text-sm text-zinc-400">
-                                <span class="hidden sm:inline">3:45</span>
-                                <button class="opacity-0 group-hover:opacity-100 text-white hover:text-emerald-400 transition"><i class="fa-solid fa-circle-play text-lg"></i></button>
-                            </div>
+                            <button class="text-zinc-500 group-hover:text-white hover:scale-110 transition-all pr-2"><i class="fa-solid fa-circle-play text-2xl"></i></button>
                         </div>
-                        <!-- List Item 2 -->
-                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-900 group transition">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-zinc-800 rounded flex items-center justify-center text-zinc-600"><i class="fa-solid fa-compact-disc"></i></div>
-                                <div>
-                                    <h4 class="text-sm font-medium">Golden Hour</h4>
-                                    <p class="text-xs text-zinc-400">Kacey & Crew</p>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-zinc-850 hover:bg-zinc-850/60 group transition-all cursor-pointer">
+                            <div class="flex items-center gap-4 min-w-0">
+                                <div class="w-12 h-12 bg-zinc-800 rounded-lg flex-shrink-0 flex items-center justify-center text-zinc-500 group-hover:text-emerald-400 transition-colors"><i class="fa-solid fa-compact-disc"></i></div>
+                                <div class="min-w-0">
+                                    <h4 class="text-sm font-bold text-white truncate">Ganga Aarti Devotional</h4>
+                                    <p class="text-xs text-zinc-400 truncate">Vedic Chants Module</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 text-sm text-zinc-400">
-                                <span class="hidden sm:inline">4:12</span>
-                                <button class="opacity-0 group-hover:opacity-100 text-white hover:text-emerald-400 transition"><i class="fa-solid fa-circle-play text-lg"></i></button>
-                            </div>
+                            <button class="text-zinc-500 group-hover:text-white hover:scale-110 transition-all pr-2"><i class="fa-solid fa-circle-play text-2xl"></i></button>
                         </div>
                     </div>
                 </section>
 
-                <!-- Language Playlists -->
+                <!-- LANGUAGE PLAYLISTS -->
                 <section>
-                    <h2 class="text-2xl font-bold tracking-tight mb-4">Browse by Language</h2>
+                    <h2 class="text-2xl font-black tracking-tight text-white mb-6">Language Playlists</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <div class="h-24 bg-gradient-to-br from-purple-700 to-indigo-900 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
-                            <span>English</span>
+                        <div class="h-28 bg-gradient-to-br from-purple-700 to-zinc-900 rounded-xl p-4 flex flex-col justify-between relative overflow-hidden font-bold border border-purple-500/10 cursor-pointer hover:scale-[1.03] transition-transform shadow-md">
+                            <span class="text-sm tracking-wide">Hindi Space</span>
+                            <i class="fa-solid fa-music text-4xl absolute -right-2 -bottom-2 text-purple-500/20 rotate-12"></i>
                         </div>
-                        <div class="h-24 bg-gradient-to-br from-red-600 to-orange-800 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
-                            <span>Spanish</span>
+                        <div class="h-28 bg-gradient-to-br from-red-700 to-zinc-900 rounded-xl p-4 flex flex-col justify-between relative overflow-hidden font-bold border border-red-500/10 cursor-pointer hover:scale-[1.03] transition-transform shadow-md">
+                            <span class="text-sm tracking-wide">Bangla Hub</span>
+                            <i class="fa-solid fa-music text-4xl absolute -right-2 -bottom-2 text-red-500/20 rotate-12"></i>
                         </div>
-                        <div class="h-24 bg-gradient-to-br from-blue-600 to-cyan-800 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
-                            <span>French</span>
+                        <div class="h-28 bg-gradient-to-br from-blue-700 to-zinc-900 rounded-xl p-4 flex flex-col justify-between relative overflow-hidden font-bold border border-blue-500/10 cursor-pointer hover:scale-[1.03] transition-transform shadow-md">
+                            <span class="text-sm tracking-wide">Bhojpuri Mix</span>
+                            <i class="fa-solid fa-music text-4xl absolute -right-2 -bottom-2 text-blue-500/20 rotate-12"></i>
                         </div>
-                        <div class="h-24 bg-gradient-to-br from-yellow-600 to-amber-800 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
-                            <span>Hindi</span>
+                        <div class="h-28 bg-gradient-to-br from-amber-700 to-zinc-900 rounded-xl p-4 flex flex-col justify-between relative overflow-hidden font-bold border border-amber-500/10 cursor-pointer hover:scale-[1.03] transition-transform shadow-md">
+                            <span class="text-sm tracking-wide">English Beats</span>
+                            <i class="fa-solid fa-music text-4xl absolute -right-2 -bottom-2 text-amber-500/20 rotate-12"></i>
                         </div>
                     </div>
                 </section>
 
-                <!-- All Songs (Table view style) -->
-                <section>
-                    <h2 class="text-2xl font-bold tracking-tight mb-4">All Songs</h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-zinc-400 border-collapse">
-                            <thead>
-                                <tr class="border-b border-zinc-800 text-xs uppercase text-zinc-500">
-                                    <th class="py-3 px-4 w-12">#</th>
-                                    <th class="py-3 px-4">Title</th>
-                                    <th class="py-3 px-4 hidden md:table-cell">Album</th>
-                                    <th class="py-3 px-4 w-12"><i class="fa-regular fa-clock"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-zinc-900 hover:bg-zinc-900/50 group transition cursor-pointer">
-                                    <td class="py-3 px-4 text-center group-hover:text-emerald-400">1</td>
-                                    <td class="py-3 px-4 font-medium text-white flex items-center gap-3">
-                                        <div class="w-8 h-8 bg-zinc-800 rounded flex-shrink-0"></div>
-                                        <div>Starlight</div>
-                                    </td>
-                                    <td class="py-3 px-4 hidden md:table-cell">Cosmic Journey</td>
-                                    <td class="py-3 px-4">3:20</td>
-                                </tr>
-                                <tr class="border-b border-zinc-900 hover:bg-zinc-900/50 group transition cursor-pointer">
-                                    <td class="py-3 px-4 text-center group-hover:text-emerald-400">2</td>
-                                    <td class="py-3 px-4 font-medium text-white flex items-center gap-3">
-                                        <div class="w-8 h-8 bg-zinc-800 rounded flex-shrink-0"></div>
-                                        <div>Echo Chamber</div>
-                                    </td>
-                                    <td class="py-3 px-4 hidden md:table-cell">Resonance</td>
-                                    <td class="py-3 px-4">4:05</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- ALL SONGS MATRIX TABLE -->
+                <section id="all-songs">
+                    <h2 class="text-2xl font-black tracking-tight text-white mb-6">All Songs</h2>
+                    <div class="bg-zinc-900 rounded-xl border border-zinc-850 overflow-hidden shadow-xl">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm text-zinc-400 border-collapse min-w-[500px]">
+                                <thead>
+                                    <tr class="border-b border-zinc-800 bg-zinc-950/40 text-xs uppercase text-zinc-500 font-bold tracking-wider">
+                                        <th class="py-4 px-5 w-16 text-center">#</th>
+                                        <th class="py-4 px-5">Track Title</th>
+                                        <th class="py-4 px-5">Language/Engine</th>
+                                        <th class="py-4 px-5 w-20 text-center"><i class="fa-regular fa-clock"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-zinc-850/50">
+                                    <tr class="hover:bg-zinc-850/40 group transition-colors cursor-pointer">
+                                        <td class="py-3.5 px-5 text-center group-hover:text-emerald-400 font-bold">1</td>
+                                        <td class="py-3.5 px-5 text-white font-medium flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-zinc-800 rounded flex-shrink-0 flex items-center justify-center text-xs text-zinc-500"><i class="fa-solid fa-music"></i></div>
+                                            <div>Starlight Resonance</div>
+                                        </td>
+                                        <td class="py-3.5 px-5">Hindi Synth Engine</td>
+                                        <td class="py-3.5 px-5 text-center font-mono text-xs">3:42</td>
+                                    </tr>
+                                    <tr class="hover:bg-zinc-850/40 group transition-colors cursor-pointer">
+                                        <td class="py-3.5 px-5 text-center group-hover:text-emerald-400 font-bold">2</td>
+                                        <td class="py-3.5 px-5 text-white font-medium flex items-center gap-3">
+                                            <div class="w-8 h-8 bg-zinc-800 rounded flex-shrink-0 flex items-center justify-center text-xs text-zinc-500"><i class="fa-solid fa-music"></i></div>
+                                            <div>Cyber Baul Mysticism</div>
+                                        </td>
+                                        <td class="py-3.5 px-5">Bangla Fusion Algorithm</td>
+                                        <td class="py-3.5 px-5 text-center font-mono text-xs">4:15</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 
             </div>
 
-            <!-- Right Sidebar: Upcoming, Newsletter, Stats -->
-            <div class="space-y-10">
+            <!-- RIGHT SIDEBAR ARCHITECTURE -->
+            <div class="space-y-8 lg:sticky lg:top-24">
                 
-                <!-- Upcoming Songs -->
-                <section class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
-                    <h2 class="text-xl font-bold tracking-tight mb-4 flex items-center gap-2">
-                        <i class="fa-regular fa-calendar text-emerald-400"></i> Upcoming Songs
-                    </h2>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4">
-                            <div class="bg-zinc-800 p-3 rounded text-center min-w-[50px]">
-                                <span class="block text-xs uppercase text-zinc-400 font-bold">Jul</span>
-                                <span class="text-lg font-bold text-white leading-none">12</span>
+                <!-- UPCOMING SONGS -->
+                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-850 shadow-lg space-y-4">
+                    <h3 class="text-lg font-black text-white tracking-tight flex items-center gap-2">
+                        <i class="fa-regular fa-calendar-check text-emerald-400"></i> Upcoming Releases
+                    </h3>
+                    <div class="space-y-4 divide-y divide-zinc-850">
+                        <div class="flex items-center gap-4 pt-1">
+                            <div class="bg-zinc-950 px-3 py-2 rounded-lg text-center min-w-[55px] border border-zinc-850">
+                                <span class="block text-[10px] uppercase font-black text-zinc-500">JUL</span>
+                                <span class="text-base font-black text-emerald-400 leading-none">18</span>
                             </div>
-                            <div>
-                                <h4 class="text-sm font-semibold text-white">Thunderdome</h4>
-                                <p class="text-xs text-zinc-400">by DJ Blitz</p>
+                            <div class="min-w-0">
+                                <h4 class="text-sm font-bold text-white truncate">Purulia Wave Remix</h4>
+                                <p class="text-xs text-zinc-400 truncate">Regional Bass Module</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="bg-zinc-800 p-3 rounded text-center min-w-[50px]">
-                                <span class="block text-xs uppercase text-zinc-400 font-bold">Jul</span>
-                                <span class="text-lg font-bold text-white leading-none">19</span>
+                        <div class="flex items-center gap-4 pt-4">
+                            <div class="bg-zinc-950 px-3 py-2 rounded-lg text-center min-w-[55px] border border-zinc-850">
+                                <span class="block text-[10px] uppercase font-black text-zinc-500">JUL</span>
+                                <span class="text-base font-black text-emerald-400 leading-none">25</span>
                             </div>
-                            <div>
-                                <h4 class="text-sm font-semibold text-white">Serenade of Rain</h4>
-                                <p class="text-xs text-zinc-400">by Acoustic Dream</p>
+                            <div class="min-w-0">
+                                <h4 class="text-sm font-bold text-white truncate">Silicon Valley Blues</h4>
+                                <p class="text-xs text-zinc-400 truncate">Acoustic AI Vocals</p>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- Statistics Component -->
-                <section class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
-                    <h2 class="text-xl font-bold tracking-tight mb-4">Platform Stats</h2>
-                    <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="bg-zinc-800/50 p-4 rounded-xl">
-                            <span class="block text-2xl font-black text-emerald-400">2.4M</span>
-                            <span class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Active Users</span>
-                        </div>
-                        <div class="bg-zinc-800/50 p-4 rounded-xl">
-                            <span class="block text-2xl font-black text-emerald-400">45K+</span>
-                            <span class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Tracks</span>
-                        </div>
-                    </div>
-                </section>
+                <!-- NEWS AND BULLETINS -->
+                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-850 shadow-lg space-y-3">
+                    <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">Studio Bulletin</span>
+                    <h3 class="text-base font-bold text-white">V4 Linguistic Update</h3>
+                    <p class="text-xs text-zinc-400 leading-relaxed">Our neural models have integrated deep phonetic patches for our Bhojpuri and Bangla composition engines, sharpening clarity across mid-range acoustic outputs.</p>
+                </div>
 
-                <!-- Newsletter Preview Component -->
-                <section class="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-2xl border border-zinc-800 space-y-4">
-                    <div class="space-y-1">
-                        <h3 class="text-lg font-bold text-white">Weekly Drop</h3>
-                        <p class="text-xs text-zinc-400">Get fresh curators' picks, local gig notices, and early access to drops right in your inbox.</p>
+                <!-- STATISTICS DISPLAY -->
+                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-850 shadow-lg space-y-4">
+                    <h3 class="text-sm font-bold text-zinc-400 uppercase tracking-wider">Ecosystem Volume</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-zinc-950/60 p-4 rounded-xl border border-zinc-850/40 text-center">
+                            <span class="block text-2xl font-black text-white">4.8M</span>
+                            <span class="text-[10px] uppercase font-bold text-zinc-500 tracking-wider">Streams Daily</span>
+                        </div>
+                        <div class="bg-zinc-950/60 p-4 rounded-xl border border-zinc-850/40 text-center">
+                            <span class="block text-2xl font-black text-emerald-400">92K</span>
+                            <span class="text-[10px] uppercase font-bold text-zinc-500 tracking-wider">Tracks Baked</span>
+                        </div>
                     </div>
-                    <form class="space-y-2" onsubmit="event.preventDefault();">
-                        <input type="email" placeholder="Enter your email" class="w-full bg-zinc-800 text-xs text-white px-4 py-3 rounded-lg focus:outline-none border border-transparent focus:border-zinc-700">
-                        <button type="submit" class="w-full bg-zinc-100 hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-lg transition">Subscribe</button>
-                    </form>
-                </section>
+                </div>
 
             </div>
         </div>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-12 text-zinc-500 text-xs mt-12">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <p>&copy; 2026 Ai Music Production Studio Inc. Built with passion for audio.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-zinc-300 transition">Legal</a>
-                <a href="#" class="hover:text-zinc-300 transition">Privacy Center</a>
-                <a href="#" class="hover:text-zinc-300 transition">Cookies</a>
-                <a href="#" class="hover:text-zinc-300 transition">About Ads</a>
+    <!--================================================================
+        3. MASTER COMPREHENSIVE FOOTER ARCHITECTURE
+    =================================================================-->
+    <footer class="bg-zinc-950 border-t border-zinc-900 pt-16 pb-32 px-4 md:px-8 text-sm text-zinc-500">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            
+            <!-- Newsletter Subscribe Module -->
+            <div class="space-y-4 md:col-span-2 max-w-md">
+                <h4 class="text-white font-black tracking-tight text-lg">Subscribe to Weekly Drops</h4>
+                <p class="text-xs text-zinc-400 leading-relaxed">Get automated notifications of premium AI stems, linguistic patch definitions, and regional production tracks straight inside your inbox loop.</p>
+                <form class="flex gap-2 pt-1" onsubmit="event.preventDefault(); alert('Newsletter configuration verified.');">
+                    <input type="email" required placeholder="Enter your email address" 
+                        class="bg-zinc-900 text-xs text-white px-4 py-3 rounded-xl border border-zinc-800 focus:outline-none focus:border-emerald-500 flex-1 transition-colors">
+                    <button type="submit" class="bg-white text-black font-bold text-xs px-5 py-3 rounded-xl hover:bg-zinc-200 transition-colors cursor-pointer">Subscribe</button>
+                </form>
+            </div>
+
+            <!-- Links Column 1 -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-xs uppercase tracking-wider">Studio Directory</h4>
+                <ul class="space-y-2.5 text-xs">
+                    <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="contact.html" class="hover:text-white transition-colors">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Links Column 2 -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-xs uppercase tracking-wider">Regulatory Information</h4>
+                <ul class="space-y-2.5 text-xs">
+                    <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- System Baseline Info Row -->
+        <div class="max-w-7xl mx-auto pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <p>&copy; 2026 AI Music Production Studio Inc. Audio processes patented.</p>
+            
+            <!-- Visitor Counter Asset -->
+            <div class="flex items-center gap-2 bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-850 font-mono text-[11px] text-zinc-400">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>System Connections Counter:</span>
+                <strong class="text-white">004,819,392</strong>
             </div>
         </div>
     </footer>
 
-    <!-- SPOTIFY-STYLE STICKY PLAYER -->
-    <div class="fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 px-4 py-3 md:px-6 flex items-center justify-between z-50 shadow-2xl">
-        <!-- Track info -->
-        <div class="flex items-center gap-3 w-1/4 min-w-[180px]">
-            <div class="w-14 h-14 bg-zinc-800 rounded flex-shrink-0 flex items-center justify-center text-zinc-600">
-                <i class="fa-solid fa-compact-disc text-xl animate-spin-slow"></i>
+    <!--================================================================
+        4. PERSISTENT SPOTIFY-STYLE AUDIO PLAYER PANEL
+    =================================================================-->
+    <div class="fixed bottom-0 left-0 right-0 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800/80 px-4 py-4 md:px-6 flex items-center justify-between z-50 shadow-2xl">
+        
+        <!-- Track metadata info panel -->
+        <div class="flex items-center gap-3 w-1/3 max-w-[240px] min-w-[150px]">
+            <div class="w-12 h-12 bg-zinc-800 rounded-md flex-shrink-0 flex items-center justify-center text-zinc-500 shadow-md">
+                <i class="fa-solid fa-compact-disc text-xl animate-spin-slow text-emerald-500/70"></i>
             </div>
-            <div class="truncate">
-                <h4 class="text-sm font-medium text-white truncate hover:underline cursor-pointer">Midnight Melancholy</h4>
-                <p class="text-xs text-zinc-400 truncate hover:underline cursor-pointer">Lunar Echoes</p>
+            <div class="truncate min-w-0">
+                <h4 class="text-sm font-bold text-white truncate hover:underline cursor-pointer">Midnight Melancholy</h4>
+                <p class="text-xs text-zinc-400 truncate hover:underline cursor-pointer">Lunar Echoes Engine</p>
             </div>
-            <button class="text-zinc-400 hover:text-white transition text-xs ml-2"><i class="fa-regular fa-heart"></i></button>
+            <button class="text-zinc-500 hover:text-white transition-colors ml-2 hidden sm:block"><i class="fa-regular fa-heart"></i></button>
         </div>
 
-        <!-- Controls (Center) -->
+        <!-- Controls (Center Panel) -->
         <div class="flex flex-col items-center gap-2 max-w-xl flex-1 px-4">
-            <div class="flex items-center gap-6 text-zinc-400 text-sm md:text-base">
-                <button class="hover:text-white transition"><i class="fa-solid fa-shuffle"></i></button>
-                <button class="hover:text-white transition"><i class="fa-solid fa-backward-step"></i></button>
-                <button class="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center hover:scale-105 transition"><i class="fa-solid fa-play ml-0.5"></i></button>
-                <button class="hover:text-white transition"><i class="fa-solid fa-forward-step"></i></button>
-                <button class="hover:text-white transition"><i class="fa-solid fa-repeat"></i></button>
+            <div class="flex items-center gap-6 text-zinc-400">
+                <button class="hover:text-white text-sm transition-colors hidden sm:block"><i class="fa-solid fa-shuffle"></i></button>
+                <button class="hover:text-white text-sm transition-colors"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="bg-white text-black w-9 h-9 rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md cursor-pointer"><i class="fa-solid fa-play ml-0.5 text-xs"></i></button>
+                <button class="hover:text-white text-sm transition-colors"><i class="fa-solid fa-forward-step"></i></button>
+                <button class="hover:text-white text-sm transition-colors hidden sm:block"><i class="fa-solid fa-repeat"></i></button>
             </div>
-            <!-- Progress Bar -->
-            <div class="w-full flex items-center gap-2 text-[10px] text-zinc-400">
-                <span>1:24</span>
-                <div class="flex-1 h-1 bg-zinc-700 rounded-full group relative cursor-pointer">
-                    <div class="h-full w-1/3 bg-emerald-500 rounded-full group-hover:bg-emerald-400"></div>
+            <!-- Progress Timeline Tracking Bar -->
+            <div class="w-full flex items-center gap-2.5 text-[10px] font-mono text-zinc-500 select-none">
+                <span>0:00</span>
+                <div class="flex-1 h-1 bg-zinc-800 rounded-full group relative cursor-pointer">
+                    <div class="h-full w-0 bg-emerald-500 rounded-full group-hover:bg-emerald-400 transition-all"></div>
                 </div>
-                <span>3:50</span>
+                <span>3:14</span>
             </div>
         </div>
 
-        <!-- Utility (Right) -->
-        <div class="flex items-center gap-4 w-1/4 justify-end text-zinc-400 text-sm hidden sm:flex">
-            <button class="hover:text-white transition"><i class="fa-solid fa-microphone"></i></button>
-            <button class="hover:text-white transition"><i class="fa-solid fa-layer-group"></i></button>
+        <!-- Peripheral Signal volume utilities -->
+        <div class="flex items-center gap-4 w-1/3 justify-end text-zinc-400 text-sm hidden md:flex">
+            <button class="hover:text-white transition-colors"><i class="fa-solid fa-microphone text-xs"></i></button>
+            <button class="hover:text-white transition-colors"><i class="fa-solid fa-layer-group text-xs"></i></button>
             <div class="flex items-center gap-2">
-                <button class="hover:text-white transition"><i class="fa-solid fa-volume-high"></i></button>
-                <div class="w-20 h-1 bg-zinc-700 rounded-full cursor-pointer">
-                    <div class="h-full w-3/4 bg-zinc-300 rounded-full"></div>
+                <button class="hover:text-white transition-colors"><i class="fa-solid fa-volume-high text-xs"></i></button>
+                <div class="w-20 h-1 bg-zinc-800 rounded-full cursor-pointer group">
+                    <div class="h-full w-3/4 bg-zinc-400 group-hover:bg-emerald-500 rounded-full transition-colors"></div>
                 </div>
             </div>
         </div>
