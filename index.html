@@ -37,7 +37,8 @@
                 <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
             </div>
             
-            <div class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
+            <!-- DYNAMIC AUTH TARGET PORTAL -->
+            <div id="auth-nav-slot" class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
                 <a href="login.html" class="hover:text-white text-zinc-400 transition-colors bg-zinc-950 px-3 py-2 rounded-lg border border-zinc-800">Log In</a>
                 <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black px-3 py-2 rounded-lg transition-colors">Sign Up</a>
             </div>
@@ -50,8 +51,8 @@
         <!-- 1. FEATURED SONG HERO MODULE -->
         <section id="featured-hero" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-900/40 to-zinc-950 border border-zinc-850 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
             <div class="space-y-4 max-w-xl z-10">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="hero-tag">FEATURED RELEASE</span>
-                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Synchronizing Base Matrix...</h1>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="hero-tag">FEATURED MASTER</span>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Loading Studio Engine...</h1>
                 <p class="text-xs md:text-sm text-zinc-400 leading-relaxed" id="hero-desc">Connecting to music engine array registry endpoints...</p>
                 <div class="flex items-center gap-3 pt-2">
                     <button id="hero-play-btn" class="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs px-6 py-3 rounded-full flex items-center gap-2 transition-all shadow-lg tracking-wider cursor-pointer">
@@ -102,7 +103,7 @@
 
                 <!-- 6. LANGUAGE PLAYLISTS -->
                 <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-sliders text-emerald-400"></i> Language Hubs</h3>
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-compact-disc text-emerald-400"></i> Language Hubs</h3>
                     <div id="language-playlists-container" class="space-y-2"></div>
                 </div>
 
@@ -134,10 +135,8 @@
         </div>
     </div>
 
-    <!-- SPOTIFY-STYLE STICKY Bottom PLAYER (WITH ASYNC EM-BED IFRAME) -->
+    <!-- SPOTIFY-STYLE STICKY BOTTOM PLAYER -->
     <div id="sticky-audio-player" class="fixed bottom-0 left-0 right-0 h-24 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800/80 z-40 px-4 lg:px-8 flex items-center justify-between shadow-2xl transition-all translate-y-full hidden">
-        
-        <!-- Track Info Left Block -->
         <div class="flex items-center gap-3.5 w-1/4 min-w-0">
             <div class="w-14 h-10 bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800 hidden sm:block relative">
                 <img id="playerImage" src="logo.png" alt="Album Artwork Art" class="w-full h-full object-cover">
@@ -148,20 +147,10 @@
             </div>
         </div>
 
-        <!-- Embedded YouTube Media Engine Iframe Center Block -->
         <div class="flex items-center justify-center w-2/4 max-w-md">
-            <iframe
-                id="youtubePlayer"
-                width="250"
-                height="60"
-                src=""
-                allow="autoplay"
-                frameborder="0"
-                class="rounded-xl border border-zinc-800 bg-zinc-950 shadow-inner">
-            </iframe>
+            <iframe id="youtubePlayer" width="250" height="60" src="" allow="autoplay" frameborder="0" class="rounded-xl border border-zinc-800 bg-zinc-950 shadow-inner"></iframe>
         </div>
 
-        <!-- System Controls Right Block -->
         <div class="flex items-center justify-end gap-4 w-1/4 text-zinc-400 text-xs">
             <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex">
                 YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
@@ -172,7 +161,7 @@
         </div>
     </div>
 
-    <!-- CORE SYSTEM INTERFACE ENGINE SCRIPT LINK -->
+    <!-- SYSTEM MODULES HUB -->
     <script>
         const channelRegistry = {
             "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
@@ -187,6 +176,10 @@
         let currentLyricsPath = "";
 
         document.addEventListener("DOMContentLoaded", () => {
+            // 1. RUN GLOBAL AUTHENTICATION CHECK FOR ACTIVE SESSIONS
+            syncSessionAuthentication();
+
+            // 2. FETCH TRACK LIST METADATA (FIXED TARGET PATTERN FOR songs.json)
             fetch('songs.json')
                 .then(response => {
                     if (!response.ok) throw new Error("Metadata registry failure.");
@@ -196,12 +189,52 @@
                 .catch(err => console.error("System Core Fault:", err));
         });
 
+        // RE-EVALUATE AND RENDER NAVIGATION BUTTONS BASED ON ACTIVE SECURITY STATE
+        function syncSessionAuthentication() {
+            const isLocalLogged = localStorage.getItem("loggedIn") === "true";
+            const isSessionLogged = sessionStorage.getItem("loggedIn") === "true";
+            const currentEmail = localStorage.getItem("currentUser");
+            const navSlot = document.getElementById("auth-nav-slot");
+
+            if ((isLocalLogged || isSessionLogged) && currentEmail) {
+                // Find user info structure inside storage loop
+                const rawUser = localStorage.getItem("user_" + currentEmail);
+                let userName = "Producer Profile";
+                let userAvatar = "logo.png";
+
+                if (rawUser) {
+                    const parsedUser = JSON.parse(rawUser);
+                    userName = parsedUser.name || userName;
+                    userAvatar = parsedUser.avatar || userAvatar;
+                }
+
+                // Render secure state layout nodes
+                navSlot.innerHTML = `
+                    <div class="flex items-center gap-3.5 bg-zinc-900 border border-zinc-800 py-1.5 pl-2 pr-3.5 rounded-full">
+                        <img src="${userAvatar}" alt="Profile Avatar" class="w-6 h-6 rounded-full object-cover border border-zinc-750">
+                        <span class="text-zinc-300 font-bold max-w-[100px] truncate">${userName}</span>
+                        <button onclick="handleUserLogout()" class="text-zinc-500 hover:text-red-400 text-xs transition-colors cursor-pointer ml-1" title="Log Out Session">
+                            <i class="fa-solid fa-power-off"></i>
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // CLEAR APPLICATION DATA STACKS UPON EXPLICIT TERMINATION COMMAND
+        function handleUserLogout() {
+            localStorage.removeItem("loggedIn");
+            sessionStorage.removeItem("loggedIn");
+            localStorage.removeItem("currentUser");
+            alert("Logged out successfully.");
+            window.location.reload();
+        }
+
         function escapeStr(str) {
             return str ? str.replace(/'/g, "\\'") : '';
         }
 
         function hydrateCompletePlatform(data) {
-            // 1. FEATURED
             const featured = data.featuredSong;
             if (featured) {
                 document.getElementById("hero-title").innerText = featured.title;
@@ -211,7 +244,6 @@
                 document.getElementById("hero-play-btn").setAttribute("onclick", `playSong('${escapeStr(featured.title)}', '${featured.youtubeId}', '${featured.language}', '${featured.lyricsFile || ""}')`);
             }
 
-            // 2. NEW RELEASES
             if (data.newReleases) {
                 document.getElementById("new-releases-container").innerHTML = data.newReleases.map(track => `
                     <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-850 flex flex-col gap-2 group relative">
@@ -229,7 +261,6 @@
                 `).join('');
             }
 
-            // 3. LATEST & TRENDING DROPS
             if (data.latest) {
                 document.getElementById("trending-songs-container").innerHTML = data.latest.slice(0, 2).map(track => `
                     <div class="bg-gradient-to-r from-zinc-900 to-zinc-950 p-3 rounded-xl border border-zinc-850 flex items-center justify-between gap-3 group">
@@ -264,7 +295,6 @@
                 }).join('');
             }
 
-            // 4. UPCOMING QUEUE
             if (data.upcoming) {
                 document.getElementById("upcoming-container").innerHTML = data.upcoming.map(track => `
                     <div class="bg-zinc-950 p-2.5 rounded-xl border border-zinc-850 flex items-center justify-between">
@@ -277,7 +307,6 @@
                 `).join('');
             }
 
-            // 5. LANGUAGE REGISTRY MAP
             if (data.languages) {
                 document.getElementById("language-playlists-container").innerHTML = Object.keys(data.languages).map(lang => `
                     <a href="${channelRegistry[lang] || 'https://www.youtube.com'}" target="_blank" class="p-2 rounded-lg hover:bg-zinc-900 transition-colors flex items-center justify-between group text-xs text-zinc-400 hover:text-white">
@@ -287,7 +316,6 @@
                 `).join('');
             }
 
-            // 6. NEWS FEED
             if (data.news) {
                 document.getElementById("news-feed-container").innerHTML = data.news.map(item => `
                     <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-850 space-y-1">
@@ -298,27 +326,22 @@
             }
         }
 
-        // INTEGRATED PLAYSONG ENGINE WITH SPOTIFY STICKY DRAWER & EMBED IFRAME INTERFACES
         function playSong(title, youtubeId, language = "Studio Track", lyricsFile = "") {
             const playerPanel = document.getElementById("sticky-audio-player");
             playerPanel.classList.remove("hidden", "translate-y-full");
             
-            // Sync runtime tracker variables
             currentLoadedId = youtubeId;
             currentLoadedTitle = title;
             currentLyricsPath = lyricsFile || `lyrics/${youtubeId}.txt`;
             
-            // Map parameters into DOM structures
             document.getElementById("playerTitle").innerText = title;
             document.getElementById("player-subtitle").innerText = `${language} Channel Production`;
             document.getElementById("playerImage").src = "https://img.youtube.com/vi/" + youtubeId + "/hqdefault.jpg";
             document.getElementById("player-external-link").href = `https://www.youtube.com/watch?v=${youtubeId}`;
             
-            // Map video token parameter into engine embed frame layout
             document.getElementById("youtubePlayer").src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
         }
 
-        // LYRICS FEED PARSER
         function displayTrackLyrics() {
             if (!currentLoadedId) return;
 
