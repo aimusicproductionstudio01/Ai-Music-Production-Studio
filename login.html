@@ -3,123 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In | AI Music Production Studio</title>
-    <!-- Tailwind CSS for styling, FontAwesome for icons -->
+    <title>Log In | Ai Music Production Studio</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col justify-between">
 
-    <!-- HEADER NAVIGATION -->
-    <header class="bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 px-6 py-3 flex items-center justify-between">
-        <!-- Company Logo -->
-        <div class="flex items-center gap-2">
-            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl"></i>
-            <span class="text-xl font-bold tracking-wider">Ai Music Production Studio</span>
-        </div>
+    <!-- FIXED BACK LINK -->
+    <div class="p-6">
+        <a href="index.html" class="inline-flex items-center gap-2 text-xs text-zinc-400 hover:text-white font-bold tracking-wider uppercase transition-colors">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i> Back to Dashboard
+        </a>
+    </div>
 
-        <!-- Navigation Links -->
-        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-zinc-400">
-            <a href="index.html" class="hover:text-white transition">Home</a>
-            <a href="about.html" class="hover:text-white transition">About</a>
-            <a href="contact.html" class="hover:text-white transition">Contact</a>
-        </nav>
-
-        <!-- Right Side: Socials -->
-        <div class="flex items-center gap-4 text-zinc-400 text-lg">
-            <a href="#" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="#" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
-        </div>
-    </header>
-
-    <!-- MAIN LOGIN CONTAINER -->
-    <main class="flex-1 flex items-center justify-center px-6 py-12">
-        <div class="w-full max-w-md bg-zinc-900 p-8 md:p-10 rounded-2xl border border-zinc-800 shadow-2xl space-y-6">
+    <!-- MAIN LOGIN CARD -->
+    <main class="w-full max-w-md mx-auto px-6 py-8">
+        <div class="bg-zinc-900/50 border border-zinc-850 rounded-3xl p-8 space-y-6 shadow-2xl backdrop-blur-md">
             
-            <!-- Welcome Header -->
-          <div class="text-center space-y-3">
-    <img src="logo.png" alt="Ai Music Production Studio Logo" class="h-16 w-16 mx-auto rounded-full object-cover shadow-lg">
-    <h1 class="text-3xl font-black tracking-tight text-white">Welcome Back</h1>
-    <p class="text-xs text-zinc-400">Log in to your Ai Music Production Studio account.</p>
-</div>
+            <!-- HEADER NODE -->
+            <div class="space-y-2 text-center">
+                <div class="flex justify-center">
+                    <img src="logo.png" alt="Studio Logo" class="h-12 w-12 rounded-full object-cover border border-zinc-800">
+                </div>
+                <h1 class="text-2xl font-black tracking-wide text-white uppercase pt-2">Welcome Back</h1>
+                <p class="text-xs text-zinc-400">Log in to manage your tracks, save playlists, and read lyrics.</p>
+            </div>
 
-            <!-- Native Credential Form -->
-            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Authentication initialized...');">
-                <!-- Email Field -->
+            <!-- INTERACTIVE LOGIN FORM -->
+            <form id="auth-login-form" onsubmit="handleUserLogin(event)" class="space-y-4">
+                
                 <div class="space-y-1.5">
-                    <label for="email" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Email Address</label>
+                    <label for="login-email" class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Email Address</label>
                     <div class="relative">
-                        <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm"></i>
-                        <input type="email" id="email" required placeholder="name@example.com" 
-                            class="w-full bg-zinc-950 text-white text-sm pl-11 pr-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                        <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+                        <input type="email" id="login-email" required placeholder="name@example.com" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-emerald-500 text-zinc-200 transition-colors">
                     </div>
                 </div>
 
-                <!-- Password Field -->
                 <div class="space-y-1.5">
-                    <div class="flex justify-between items-center">
-                        <label for="password" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Password</label>
-                        <a href="#" class="text-xs text-emerald-400 hover:underline">Forgot password?</a>
+                    <div class="flex items-center justify-between">
+                        <label for="login-password" class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Password</label>
+                        <a href="#" class="text-[10px] text-emerald-400 hover:underline font-bold">Forgot Password?</a>
                     </div>
                     <div class="relative">
-                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm"></i>
-                        <input type="password" id="password" required placeholder="••••••••" 
-                            class="w-full bg-zinc-950 text-white text-sm pl-11 pr-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-emerald-500 text-zinc-200 transition-colors">
                     </div>
                 </div>
 
-                <!-- Remember Me Checkbox -->
-                <div class="flex items-center pt-1">
-                    <label class="flex items-center gap-3 cursor-pointer select-none text-zinc-400 text-sm">
-                        <input type="checkbox" id="remember" class="w-4 h-4 rounded border-zinc-800 bg-zinc-950 accent-emerald-500 focus:ring-0 focus:ring-offset-0">
-                        <span>Remember Me</span>
-                    </label>
+                <div class="flex items-center gap-2 pt-1">
+                    <input type="checkbox" id="remember-me" class="rounded border-zinc-800 bg-zinc-950 text-emerald-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer">
+                    <label for="remember-me" class="text-[11px] text-zinc-400 select-none cursor-pointer">Remember my device signature loop</label>
                 </div>
 
-                <!-- Login Action Button -->
-                <div class="pt-2">
-                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm py-3.5 rounded-full transition shadow-lg hover:scale-[1.01]">
-                        LOG IN
-                    </button>
-                </div>
+                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs py-3.5 rounded-xl transition-all tracking-wider uppercase shadow-lg mt-2 cursor-pointer">
+                    SIGN IN TO ACCOUNT <i class="fa-solid fa-right-to-bracket ml-1 text-[10px]"></i>
+                </button>
             </form>
 
-            <!-- OR Separator Line -->
-            <div class="relative flex py-2 items-center">
-                <div class="flex-grow border-t border-zinc-800"></div>
-                <span class="flex-shrink mx-4 text-zinc-500 text-xs font-bold uppercase tracking-wider">OR</span>
-                <div class="flex-grow border-t border-zinc-800"></div>
+            <div class="relative flex py-2 items-center text-[10px] text-zinc-600 font-bold uppercase tracking-widest">
+                <div class="flex-grow border-t border-zinc-850"></div>
+                <span class="flex-shrink mx-3">OR CONNECT VIA</span>
+                <div class="flex-grow border-t border-zinc-850"></div>
             </div>
 
-            <!-- Third-Party Federated Social Login Options -->
-            <div class="space-y-3">
-                <!-- Google Login Button -->
-                <button onclick="alert('Redirecting to Google OAuth...')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800/50 text-zinc-200 text-sm font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition">
-                    <i class="fa-brands fa-google text-red-500 text-base"></i>
-                    <span>Continue with Google</span>
+            <!-- EXTERNAL ACCELERATORS -->
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="alert('Social loop mock active')" class="flex items-center justify-center gap-2 bg-zinc-950 hover:bg-zinc-900 border border-zinc-800 text-xs py-2.5 rounded-xl transition-colors font-medium text-zinc-300 cursor-pointer">
+                    <i class="fa-brands fa-google text-red-500"></i> Google
                 </button>
-
-                <!-- Facebook Login Button -->
-                <button onclick="alert('Redirecting to Facebook OAuth...')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800/50 text-zinc-200 text-sm font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition">
-                    <i class="fa-brands fa-facebook text-blue-500 text-lg"></i>
-                    <span>Continue with Facebook</span>
+                <button onclick="alert('Social loop mock active')" class="flex items-center justify-center gap-2 bg-zinc-950 hover:bg-zinc-900 border border-zinc-800 text-xs py-2.5 rounded-xl transition-colors font-medium text-zinc-300 cursor-pointer">
+                    <i class="fa-brands fa-facebook text-blue-500"></i> Facebook
                 </button>
             </div>
 
-            <!-- Sign Up Redirect Alternative -->
-            <div class="text-center pt-2">
-                <p class="text-xs text-zinc-500">Don't have an account? <a href="#" class="text-white hover:underline font-semibold">Sign up for Ai Music Production Studio</a></p>
-            </div>
+            <!-- FOOTER SWITCHLINK -->
+            <p class="text-center text-xs text-zinc-500 pt-2">
+                New to the Studio platform? <a href="signup.html" class="text-emerald-400 font-bold hover:underline">Create an account</a>
+            </p>
 
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-8 text-zinc-500 text-xs text-center">
-        <p>&copy; 2026 AI Music Production Studio Inc. Secure single sign-on deployment.</p>
+    <!-- CLEAN SYSTEM FOOTER -->
+    <footer class="text-center py-6 text-[11px] text-zinc-600 border-t border-zinc-900 bg-zinc-950">
+        &copy; 2026 Ai Music Production Studio. Authorization secured via JWT matrix tracking.
     </footer>
 
+    <!-- INTERACTIVE SYSTEM SCRIPT HUB -->
+    <script>
+        // AUTOMATIC REDIRECT IF ALREADY LOGGED IN
+        if (localStorage.getItem("loggedIn")) {
+            window.location = "index.html";
+        }
+
+        // MATCHING LOGIN LOGIC PROCESSING ENGINE
+        function handleUserLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("login-email").value.trim().toLowerCase();
+            const passwordInput = document.getElementById("login-password").value;
+
+            // Target matching string identity schema key
+            const storedUserData = localStorage.getItem("user_" + email);
+
+            if (!storedUserData) {
+                alert("User does not exist.");
+                return;
+            }
+
+            const user = JSON.parse(storedUserData);
+
+            // Reconstruct plain text configuration array signature through atob
+            if (atob(user.password) !== passwordInput) {
+                alert("Incorrect password.");
+                return;
+            }
+
+            // Set state verification metrics
+            localStorage.setItem("loggedIn", "true");
+            localStorage.setItem("currentUser", email);
+
+            alert("Login successful!");
+            window.location = "index.html";
+        }
+    </script>
 </body>
 </html>
