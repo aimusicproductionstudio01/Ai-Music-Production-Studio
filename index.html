@@ -1,565 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Music Production Studio</title>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    background:#111;
-    color:#fff;
-    padding-bottom:90px;
-}
-
-.section{
-    padding:20px;
-}
-
-.section h2{
-    color:#ffcc00;
-    margin-bottom:15px;
-}
-
-.song-grid,
-.region-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-}
-
-.card{
-    background:#1d1d1d;
-    padding:15px;
-    border-radius:12px;
-}
-
-.song-thumb{
-    width:100%;
-    border-radius:10px;
-}
-
-.thumb-container{
-    position:relative;
-    cursor:pointer;
-}
-
-.play-overlay{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    font-size:30px;
-}
-
-.song-category{
-    display:inline-block;
-    margin-top:10px;
-    padding:5px 10px;
-    background:#ff9800;
-    border-radius:20px;
-    font-size:12px;
-}
-
-.song-actions{
-    margin-top:15px;
-}
-
-.btn{
-    padding:8px 14px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    margin-right:5px;
-}
-
-.primary{
-    background:#ff9800;
-}
-
-.secondary{
-    background:#444;
-    color:#fff;
-}
-
-.music-player{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#000;
-    padding:10px;
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.music-player img{
-    width:55px;
-    height:55px;
-    border-radius:8px;
-}
-
-.music-info{
-    flex:1;
-}
-
-.player-btn{
-    color:#fff;
-    font-size:25px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Streaming Platform</title>
+    <!-- Tailwind CSS for styling, FontAwesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<body class="bg-zinc-950 text-zinc-100 font-sans pb-28">
 
-<body>
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 z-50 px-6 py-3 flex items-center justify-between">
+        <!-- Company Logo -->
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl"></i>
+            <span class="text-xl font-bold tracking-wider">MUZIK</span>
+        </div>
 
-<section class="section">
-    <h2>🌟 Featured Song</h2>
-    <div id="featuredContainer"></div>
-</section>
+        <!-- Search Bar -->
+        <div class="flex-1 max-w-md mx-8 hidden md:block">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+                <input type="text" placeholder="What do you want to listen to?" class="w-full bg-zinc-800 text-sm text-white pl-10 pr-4 py-2 rounded-full border border-transparent focus:border-zinc-700 focus:outline-none focus:bg-zinc-750 transition">
+            </div>
+        </div>
 
-<section class="section">
-    <h2>🆕 New Releases</h2>
-    <div id="newReleasesContainer" class="song-grid"></div>
-</section>
-
-<section class="section">
-    <h2>🔥 Latest Songs</h2>
-    <div id="latestContainer" class="song-grid"></div>
-</section>
-
-<section class="section">
-    <h2>🚀 Upcoming Releases</h2>
-    <div id="upcomingContainer" class="song-grid"></div>
-</section>
-
-<section class="section">
-    <h2>📰 News</h2>
-    <div id="newsContainer" class="song-grid"></div>
-</section>
-
-<section class="section">
-    <h2>🎵 Playlists</h2>
-    <div id="playlistsContainer" class="song-grid"></div>
-</section>
-
-<section class="section">
-    <h2>🌍 Regional Music</h2>
-    <div id="languagesContainer"></div>
-</section>
-
-<div class="music-player">
-    <img id="playerImage"
-         src="logo.png">
-
-    <div class="music-info">
-        <h4 id="playerTitle">
-            Select a Song
-        </h4>
-
-        <p>
-            AI Music Production Studio
-        </p>
-    </div>
-
-    <a id="playBtn"
-       href="#"
-       target="_blank"
-       class="player-btn">
-        <i class="fas fa-play"></i>
-    </a>
-</div>
-
-<script>
-
-// MUSIC PLAYER
-function playSong(title, youtubeId){
-
-    document.getElementById(
-        'playerTitle'
-    ).innerText = title;
-
-    document.getElementById(
-        'playerImage'
-    ).src =
-        `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
-
-    document.getElementById(
-        'playBtn'
-    ).href =
-        `https://youtu.be/${youtubeId}`;
-}
-
-// LYRICS
-function openLyrics(title,file){
-
-    if(!file){
-        alert(
-            'Lyrics not available'
-        );
-        return;
-    }
-
-    window.open(
-        file,
-        '_blank'
-    );
-}
-
-// CARD TEMPLATE
-function createCard(song){
-
-    const safeTitle =
-        song.title.replace(
-            /'/g,
-            "\\'"
-        );
-
-    return `
-    <div class="card">
-
-        <h3>
-            ${song.title}
-        </h3>
-
-        <div
-            class="thumb-container"
-            onclick="playSong(
-                '${safeTitle}',
-                '${song.youtubeId}'
-            )">
-
-            <img
-                src="https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg"
-                class="song-thumb"
-                onerror="
-                    this.src='logo.png'
-                ">
-
-            <div class="play-overlay">
-                ▶
+        <!-- Right Side: Socials & Auth -->
+        <div class="flex items-center gap-6">
+            <!-- Social Media Icons -->
+            <div class="flex items-center gap-4 text-zinc-400 text-lg border-r border-zinc-700 pr-6 hidden lg:flex">
+                <a href="#" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
             </div>
 
+            <!-- Auth Buttons -->
+            <div class="flex items-center gap-4">
+                <button class="text-zinc-400 hover:text-white font-medium text-sm transition">Sign Up</button>
+                <button class="bg-white text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition">Log In</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-12">
+
+        <!-- Mobile Search Bar (Visible only on mobile) -->
+        <div class="block md:hidden mb-6">
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+                <input type="text" placeholder="Search songs, artists..." class="w-full bg-zinc-800 text-sm text-white pl-10 pr-4 py-2 rounded-full focus:outline-none">
+            </div>
         </div>
 
-        <p>
-            ${song.language || ''}
-        </p>
+        <!-- HERO SECTION: Featured Song -->
+        <section class="relative bg-gradient-to-r from-emerald-800 to-zinc-900 rounded-2xl p-8 md:p-12 overflow-hidden shadow-xl">
+            <div class="relative z-10 max-w-xl space-y-4">
+                <span class="bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Featured Song</span>
+                <h1 class="text-4xl md:text-6xl font-black tracking-tight">Midnight Melancholy</h1>
+                <p class="text-zinc-300 text-sm md:text-base">Experience the brand new chart-topping synthwave single by Lunar Echoes. Available now for streaming.</p>
+                <div class="flex items-center gap-4 pt-2">
+                    <button class="bg-emerald-500 text-black px-8 py-3 rounded-full font-bold hover:bg-emerald-400 transition flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-play"></i> Play Now
+                    </button>
+                    <button class="border border-zinc-500 hover:border-white px-6 py-3 rounded-full font-bold text-sm transition">
+                        Add to Library
+                    </button>
+                </div>
+            </div>
+            <!-- Decorative background element simulating album art glow -->
+            <div class="absolute right-0 bottom-0 top-0 w-1/2 bg-radial from-emerald-500/20 to-transparent opacity-50 pointer-events-none"></div>
+        </section>
 
-        <span class="song-category">
-            ${song.category || ''}
-        </span>
+        <!-- GRID LAYOUT FOR SECTIONS -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left & Center: Music Rows -->
+            <div class="lg:col-span-2 space-y-10">
+                
+                <!-- Trending Songs -->
+                <section>
+                    <div class="flex justify-between items-end mb-4">
+                        <h2 class="text-2xl font-bold tracking-tight">Trending Songs</h2>
+                        <a href="#" class="text-zinc-400 hover:text-emerald-400 text-xs font-bold uppercase tracking-wider">See All</a>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <!-- Card 1 -->
+                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-800/80 transition group relative cursor-pointer">
+                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800">
+                                <i class="fa-solid fa-music absolute inset-0 m-auto text-3xl text-zinc-700 group-hover:scale-110 transition"></i>
+                                <button class="absolute bottom-2 right-2 bg-emerald-500 text-black p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition shadow-lg duration-300">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                            <h3 class="font-semibold text-sm truncate">Neon Horizons</h3>
+                            <p class="text-xs text-zinc-400 truncate">RetroFutz</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-800/80 transition group relative cursor-pointer">
+                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800">
+                                <i class="fa-solid fa-music absolute inset-0 m-auto text-3xl text-zinc-700 group-hover:scale-110 transition"></i>
+                                <button class="absolute bottom-2 right-2 bg-emerald-500 text-black p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition shadow-lg duration-300">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                            <h3 class="font-semibold text-sm truncate">Deep Waters</h3>
+                            <p class="text-xs text-zinc-400 truncate">Sub-Zero</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-zinc-900 p-4 rounded-xl hover:bg-zinc-800/80 transition group relative cursor-pointer">
+                            <div class="relative aspect-square mb-3 rounded-lg overflow-hidden bg-zinc-800">
+                                <i class="fa-solid fa-music absolute inset-0 m-auto text-3xl text-zinc-700 group-hover:scale-110 transition"></i>
+                                <button class="absolute bottom-2 right-2 bg-emerald-500 text-black p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition shadow-lg duration-300">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                            <h3 class="font-semibold text-sm truncate">Solar Flare</h3>
+                            <p class="text-xs text-zinc-400 truncate">Nova</p>
+                        </div>
+                    </div>
+                </section>
 
-        <div class="song-actions">
+                <!-- New Releases -->
+                <section>
+                    <div class="flex justify-between items-end mb-4">
+                        <h2 class="text-2xl font-bold tracking-tight">New Releases</h2>
+                        <a href="#" class="text-zinc-400 hover:text-emerald-400 text-xs font-bold uppercase tracking-wider">See All</a>
+                    </div>
+                    <div class="space-y-2">
+                        <!-- List Item 1 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-900 group transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-zinc-800 rounded flex items-center justify-center text-zinc-600"><i class="fa-solid fa-compact-disc"></i></div>
+                                <div>
+                                    <h4 class="text-sm font-medium">After Hours</h4>
+                                    <p class="text-xs text-zinc-400">The Weekenders</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-zinc-400">
+                                <span class="hidden sm:inline">3:45</span>
+                                <button class="opacity-0 group-hover:opacity-100 text-white hover:text-emerald-400 transition"><i class="fa-solid fa-circle-play text-lg"></i></button>
+                            </div>
+                        </div>
+                        <!-- List Item 2 -->
+                        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-zinc-900 group transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-zinc-800 rounded flex items-center justify-center text-zinc-600"><i class="fa-solid fa-compact-disc"></i></div>
+                                <div>
+                                    <h4 class="text-sm font-medium">Golden Hour</h4>
+                                    <p class="text-xs text-zinc-400">Kacey & Crew</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm text-zinc-400">
+                                <span class="hidden sm:inline">4:12</span>
+                                <button class="opacity-0 group-hover:opacity-100 text-white hover:text-emerald-400 transition"><i class="fa-solid fa-circle-play text-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-            <button
-                class="btn primary"
-                onclick="playSong(
-                    '${safeTitle}',
-                    '${song.youtubeId}'
-                )">
+                <!-- Language Playlists -->
+                <section>
+                    <h2 class="text-2xl font-bold tracking-tight mb-4">Browse by Language</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="h-24 bg-gradient-to-br from-purple-700 to-indigo-900 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
+                            <span>English</span>
+                        </div>
+                        <div class="h-24 bg-gradient-to-br from-red-600 to-orange-800 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
+                            <span>Spanish</span>
+                        </div>
+                        <div class="h-24 bg-gradient-to-br from-blue-600 to-cyan-800 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
+                            <span>French</span>
+                        </div>
+                        <div class="h-24 bg-gradient-to-br from-yellow-600 to-amber-800 rounded-xl p-4 flex items-end relative overflow-hidden font-bold cursor-pointer hover:scale-[1.02] transition">
+                            <span>Hindi</span>
+                        </div>
+                    </div>
+                </section>
 
-                ▶ Play
+                <!-- All Songs (Table view style) -->
+                <section>
+                    <h2 class="text-2xl font-bold tracking-tight mb-4">All Songs</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-zinc-400 border-collapse">
+                            <thead>
+                                <tr class="border-b border-zinc-800 text-xs uppercase text-zinc-500">
+                                    <th class="py-3 px-4 w-12">#</th>
+                                    <th class="py-3 px-4">Title</th>
+                                    <th class="py-3 px-4 hidden md:table-cell">Album</th>
+                                    <th class="py-3 px-4 w-12"><i class="fa-regular fa-clock"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-zinc-900 hover:bg-zinc-900/50 group transition cursor-pointer">
+                                    <td class="py-3 px-4 text-center group-hover:text-emerald-400">1</td>
+                                    <td class="py-3 px-4 font-medium text-white flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-zinc-800 rounded flex-shrink-0"></div>
+                                        <div>Starlight</div>
+                                    </td>
+                                    <td class="py-3 px-4 hidden md:table-cell">Cosmic Journey</td>
+                                    <td class="py-3 px-4">3:20</td>
+                                </tr>
+                                <tr class="border-b border-zinc-900 hover:bg-zinc-900/50 group transition cursor-pointer">
+                                    <td class="py-3 px-4 text-center group-hover:text-emerald-400">2</td>
+                                    <td class="py-3 px-4 font-medium text-white flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-zinc-800 rounded flex-shrink-0"></div>
+                                        <div>Echo Chamber</div>
+                                    </td>
+                                    <td class="py-3 px-4 hidden md:table-cell">Resonance</td>
+                                    <td class="py-3 px-4">4:05</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
-            </button>
+            </div>
 
-            <button
-                class="btn secondary"
-                onclick="openLyrics(
-                    '${safeTitle}',
-                    '${song.lyricsFile || ''}'
-                )">
+            <!-- Right Sidebar: Upcoming, Newsletter, Stats -->
+            <div class="space-y-10">
+                
+                <!-- Upcoming Songs -->
+                <section class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+                    <h2 class="text-xl font-bold tracking-tight mb-4 flex items-center gap-2">
+                        <i class="fa-regular fa-calendar text-emerald-400"></i> Upcoming Songs
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-800 p-3 rounded text-center min-w-[50px]">
+                                <span class="block text-xs uppercase text-zinc-400 font-bold">Jul</span>
+                                <span class="text-lg font-bold text-white leading-none">12</span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Thunderdome</h4>
+                                <p class="text-xs text-zinc-400">by DJ Blitz</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="bg-zinc-800 p-3 rounded text-center min-w-[50px]">
+                                <span class="block text-xs uppercase text-zinc-400 font-bold">Jul</span>
+                                <span class="text-lg font-bold text-white leading-none">19</span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Serenade of Rain</h4>
+                                <p class="text-xs text-zinc-400">by Acoustic Dream</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                📄 Lyrics
+                <!-- Statistics Component -->
+                <section class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+                    <h2 class="text-xl font-bold tracking-tight mb-4">Platform Stats</h2>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-zinc-800/50 p-4 rounded-xl">
+                            <span class="block text-2xl font-black text-emerald-400">2.4M</span>
+                            <span class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Active Users</span>
+                        </div>
+                        <div class="bg-zinc-800/50 p-4 rounded-xl">
+                            <span class="block text-2xl font-black text-emerald-400">45K+</span>
+                            <span class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Tracks</span>
+                        </div>
+                    </div>
+                </section>
 
-            </button>
+                <!-- Newsletter Preview Component -->
+                <section class="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-2xl border border-zinc-800 space-y-4">
+                    <div class="space-y-1">
+                        <h3 class="text-lg font-bold text-white">Weekly Drop</h3>
+                        <p class="text-xs text-zinc-400">Get fresh curators' picks, local gig notices, and early access to drops right in your inbox.</p>
+                    </div>
+                    <form class="space-y-2" onsubmit="event.preventDefault();">
+                        <input type="email" placeholder="Enter your email" class="w-full bg-zinc-800 text-xs text-white px-4 py-3 rounded-lg focus:outline-none border border-transparent focus:border-zinc-700">
+                        <button type="submit" class="w-full bg-zinc-100 hover:bg-zinc-200 text-black text-xs font-bold py-3 rounded-lg transition">Subscribe</button>
+                    </form>
+                </section>
 
+            </div>
         </div>
 
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-12 text-zinc-500 text-xs mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <p>&copy; 2026 MUZIK Inc. Built with passion for audio.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-zinc-300 transition">Legal</a>
+                <a href="#" class="hover:text-zinc-300 transition">Privacy Center</a>
+                <a href="#" class="hover:text-zinc-300 transition">Cookies</a>
+                <a href="#" class="hover:text-zinc-300 transition">About Ads</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SPOTIFY-STYLE STICKY PLAYER -->
+    <div class="fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 px-4 py-3 md:px-6 flex items-center justify-between z-50 shadow-2xl">
+        <!-- Track info -->
+        <div class="flex items-center gap-3 w-1/4 min-w-[180px]">
+            <div class="w-14 h-14 bg-zinc-800 rounded flex-shrink-0 flex items-center justify-center text-zinc-600">
+                <i class="fa-solid fa-compact-disc text-xl animate-spin-slow"></i>
+            </div>
+            <div class="truncate">
+                <h4 class="text-sm font-medium text-white truncate hover:underline cursor-pointer">Midnight Melancholy</h4>
+                <p class="text-xs text-zinc-400 truncate hover:underline cursor-pointer">Lunar Echoes</p>
+            </div>
+            <button class="text-zinc-400 hover:text-white transition text-xs ml-2"><i class="fa-regular fa-heart"></i></button>
+        </div>
+
+        <!-- Controls (Center) -->
+        <div class="flex flex-col items-center gap-2 max-w-xl flex-1 px-4">
+            <div class="flex items-center gap-6 text-zinc-400 text-sm md:text-base">
+                <button class="hover:text-white transition"><i class="fa-solid fa-shuffle"></i></button>
+                <button class="hover:text-white transition"><i class="fa-solid fa-backward-step"></i></button>
+                <button class="bg-white text-black w-8 h-8 rounded-full flex items-center justify-center hover:scale-105 transition"><i class="fa-solid fa-play ml-0.5"></i></button>
+                <button class="hover:text-white transition"><i class="fa-solid fa-forward-step"></i></button>
+                <button class="hover:text-white transition"><i class="fa-solid fa-repeat"></i></button>
+            </div>
+            <!-- Progress Bar -->
+            <div class="w-full flex items-center gap-2 text-[10px] text-zinc-400">
+                <span>1:24</span>
+                <div class="flex-1 h-1 bg-zinc-700 rounded-full group relative cursor-pointer">
+                    <div class="h-full w-1/3 bg-emerald-500 rounded-full group-hover:bg-emerald-400"></div>
+                </div>
+                <span>3:50</span>
+            </div>
+        </div>
+
+        <!-- Utility (Right) -->
+        <div class="flex items-center gap-4 w-1/4 justify-end text-zinc-400 text-sm hidden sm:flex">
+            <button class="hover:text-white transition"><i class="fa-solid fa-microphone"></i></button>
+            <button class="hover:text-white transition"><i class="fa-solid fa-layer-group"></i></button>
+            <div class="flex items-center gap-2">
+                <button class="hover:text-white transition"><i class="fa-solid fa-volume-high"></i></button>
+                <div class="w-20 h-1 bg-zinc-700 rounded-full cursor-pointer">
+                    <div class="h-full w-3/4 bg-zinc-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    `;
-}
-
-// LOAD JSON
-fetch('songs.json')
-
-.then(response=>{
-
-    if(!response.ok){
-
-        throw new Error(
-            'songs.json not found'
-        );
-
-    }
-
-    return response.json();
-
-})
-
-.then(data=>{
-
-    console.log(
-        'Loaded:',
-        data
-    );
-
-    // FEATURED
-    const featured =
-        document.getElementById(
-            'featuredContainer'
-        );
-
-    if(
-        data.featuredSong &&
-        featured
-    ){
-
-        featured.innerHTML =
-            createCard(
-                data.featuredSong
-            );
-    }
-
-    // NEW RELEASES
-    const releases =
-        document.getElementById(
-            'newReleasesContainer'
-        );
-
-    if(
-        data.newReleases &&
-        releases
-    ){
-
-        data.newReleases
-        .forEach(song=>{
-
-            releases.innerHTML +=
-                createCard(song);
-
-        });
-    }
-
-    // LATEST
-    const latest =
-        document.getElementById(
-            'latestContainer'
-        );
-
-    if(
-        data.latest &&
-        latest
-    ){
-
-        data.latest
-        .forEach(song=>{
-
-            latest.innerHTML +=
-                createCard(song);
-
-        });
-    }
-
-    // UPCOMING
-    const upcoming =
-        document.getElementById(
-            'upcomingContainer'
-        );
-
-    if(
-        data.upcoming &&
-        upcoming
-    ){
-
-        data.upcoming
-        .forEach(song=>{
-
-            upcoming.innerHTML += `
-                <div class="card">
-
-                    <h3>
-                        ${song.title}
-                    </h3>
-
-                    <p>
-                        ${song.language}
-                    </p>
-
-                    <span
-                     class="song-category">
-
-                        ${song.category}
-
-                    </span>
-
-                    <p
-                     style="
-                      margin-top:10px;
-                      color:#0f0;
-                     ">
-
-                        ${song.releaseDate}
-
-                    </p>
-
-                </div>
-            `;
-        });
-    }
-
-    // NEWS
-    const news =
-        document.getElementById(
-            'newsContainer'
-        );
-
-    if(
-        data.news &&
-        news
-    ){
-
-        data.news
-        .forEach(item=>{
-
-            news.innerHTML += `
-                <div class="card">
-
-                    <h3>
-                        ${item.title}
-                    </h3>
-
-                    <p>
-                        ${item.content}
-                    </p>
-
-                </div>
-            `;
-        });
-    }
-
-    // PLAYLISTS
-    const playlists =
-        document.getElementById(
-            'playlistsContainer'
-        );
-
-    if(
-        data.playlists &&
-        playlists
-    ){
-
-        data.playlists
-        .forEach(item=>{
-
-            playlists.innerHTML += `
-                <div class="card">
-
-                    <h3>
-                        ${item.title}
-                    </h3>
-
-                    <p>
-                        ${item.description}
-                    </p>
-
-                </div>
-            `;
-        });
-    }
-
-    // LANGUAGES
-    const languageContainer =
-        document.getElementById(
-            'languagesContainer'
-        );
-
-    if(
-        data.languages &&
-        languageContainer
-    ){
-
-        for(
-            const language
-            in
-            data.languages
-        ){
-
-            const id =
-                `lang-${
-                    language
-                    .toLowerCase()
-                    .replace(
-                        /\s+/g,
-                        '-'
-                    )
-                }`;
-
-            languageContainer
-            .innerHTML += `
-
-                <h3
-                 style="
-                  color:#ffcc00;
-                  margin:
-                  30px 0 15px;
-                 ">
-
-                    ${language} Hits
-
-                </h3>
-
-                <div
-                  class="region-grid"
-                  id="${id}">
-
-                </div>
-            `;
-
-            const grid =
-                document
-                .getElementById(
-                    id
-                );
-
-            data
-            .languages[
-                language
-            ]
-            .forEach(song=>{
-
-                grid
-                .innerHTML +=
-                    createCard(
-                        song
-                    );
-
-            });
-        }
-    }
-
-})
-
-.catch(error=>{
-
-    console.error(
-        'ERROR:',
-        error
-    );
-
-});
-
-</script>
 
 </body>
 </html>
