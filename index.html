@@ -130,53 +130,45 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            <div id="lyrics-body" class="p-8 overflow-y-auto text-center font-medium text-zinc-300 leading-loose text-base space-y-4 select-none max-h-[50vh]">
-                <!-- Dynamic TXT loader strings layout node -->
-            </div>
+            <div id="lyrics-body" class="p-8 overflow-y-auto text-center font-medium text-zinc-300 leading-loose text-base space-y-4 select-none max-h-[50vh]"></div>
         </div>
     </div>
 
-    <!-- SPOTIFY-STYLE STICKY PLAYER WITH LYRICS CAPABILITY -->
+    <!-- SPOTIFY-STYLE STICKY Bottom PLAYER (WITH ASYNC EM-BED IFRAME) -->
     <div id="sticky-audio-player" class="fixed bottom-0 left-0 right-0 h-24 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800/80 z-40 px-4 lg:px-8 flex items-center justify-between shadow-2xl transition-all translate-y-full hidden">
-        <div class="flex items-center gap-3.5 w-1/3 min-w-0">
+        
+        <!-- Track Info Left Block -->
+        <div class="flex items-center gap-3.5 w-1/4 min-w-0">
             <div class="w-14 h-10 bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800 hidden sm:block relative">
-                <img id="player-art" src="" alt="Album Artwork Art" class="w-full h-full object-cover">
+                <img id="playerImage" src="logo.png" alt="Album Artwork Art" class="w-full h-full object-cover">
             </div>
             <div class="truncate min-w-0">
-                <h4 id="player-title" class="text-sm font-bold text-white truncate">Track Node</h4>
+                <h4 id="playerTitle" class="text-sm font-bold text-white truncate">Select a Song</h4>
                 <p id="player-subtitle" class="text-[11px] text-zinc-400 truncate mt-0.5">Language Subtype</p>
             </div>
         </div>
 
-        <div class="flex flex-col items-center gap-2 w-1/3">
-            <div class="flex items-center gap-5 text-zinc-400">
-                <button class="hover:text-white text-xs opacity-50 cursor-not-allowed"><i class="fa-solid fa-shuffle"></i></button>
-                <button class="hover:text-white text-sm opacity-50 cursor-not-allowed"><i class="fa-solid fa-backward-step"></i></button>
-                <button id="player-master-toggle" onclick="togglePlaybackEngine()" class="w-9 h-9 bg-white text-black rounded-full flex items-center justify-center text-xs shadow-md hover:scale-105 transition-transform cursor-pointer"><i class="fa-solid fa-pause ml-0.5"></i></button>
-                <button class="hover:text-white text-sm opacity-50 cursor-not-allowed"><i class="fa-solid fa-forward-step"></i></button>
-                <button class="hover:text-white text-xs opacity-50 cursor-not-allowed"><i class="fa-solid fa-repeat"></i></button>
-            </div>
-            <div class="w-full max-w-md flex items-center gap-2.5 text-[10px] text-zinc-500 font-mono">
-                <span>0:42</span>
-                <div class="flex-1 h-1 bg-zinc-800 rounded-full relative overflow-hidden group cursor-pointer">
-                    <div class="absolute left-0 top-0 bottom-0 w-[30%] bg-emerald-500 rounded-full"></div>
-                </div>
-                <span>3:15</span>
-            </div>
+        <!-- Embedded YouTube Media Engine Iframe Center Block -->
+        <div class="flex items-center justify-center w-2/4 max-w-md">
+            <iframe
+                id="youtubePlayer"
+                width="250"
+                height="60"
+                src=""
+                allow="autoplay"
+                frameborder="0"
+                class="rounded-xl border border-zinc-800 bg-zinc-950 shadow-inner">
+            </iframe>
         </div>
 
-        <div class="flex items-center justify-end gap-4 w-1/3 text-zinc-400 text-xs">
+        <!-- System Controls Right Block -->
+        <div class="flex items-center justify-end gap-4 w-1/4 text-zinc-400 text-xs">
             <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex">
-                OPEN YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+                YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
             </a>
-            <!-- Dynamic Lyrics button module pointer context -->
             <button onclick="displayTrackLyrics()" class="hover:text-emerald-400 text-zinc-300 transition-colors cursor-pointer text-sm p-1" title="View Production Lyrics">
                 <i class="fa-solid fa-microphone"></i>
             </button>
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-volume-high text-zinc-500"></i>
-                <div class="w-16 h-1 bg-zinc-700 rounded-full overflow-hidden"><div class="w-3/4 h-full bg-zinc-400"></div></div>
-            </div>
         </div>
     </div>
 
@@ -190,13 +182,12 @@
             "English": "https://www.youtube.com/@Ai_EnglishSongs-01"
         };
 
-        let activePlaybackState = false;
         let currentLoadedId = "";
         let currentLoadedTitle = "";
         let currentLyricsPath = "";
 
         document.addEventListener("DOMContentLoaded", () => {
-            fetch('songs.json')
+            fetch('songs (9).json')
                 .then(response => {
                     if (!response.ok) throw new Error("Metadata registry failure.");
                     return response.json();
@@ -217,7 +208,7 @@
                 document.getElementById("hero-desc").innerText = featured.description;
                 document.getElementById("hero-tag").innerText = `FEATURED MASTER • ${featured.language} • ${featured.category}`;
                 document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`;
-                document.getElementById("hero-play-btn").setAttribute("onclick", `initializeGlobalPlayer('${escapeStr(featured.title)}', '${featured.language}', '${featured.youtubeId}', '${featured.lyricsFile || ""}')`);
+                document.getElementById("hero-play-btn").setAttribute("onclick", `playSong('${escapeStr(featured.title)}', '${featured.youtubeId}', '${featured.language}', '${featured.lyricsFile || ""}')`);
             }
 
             // 2. NEW RELEASES
@@ -226,7 +217,7 @@
                     <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-850 flex flex-col gap-2 group relative">
                         <div class="relative aspect-video rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950">
                             <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-full h-full object-cover">
-                            <button onclick="initializeGlobalPlayer('${escapeStr(track.title)}', '${track.language}', '${track.youtubeId}', '${track.lyricsFile || ""}')" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer">
+                            <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer">
                                 <div class="w-10 h-10 bg-emerald-500 text-black rounded-full flex items-center justify-center text-sm shadow-xl"><i class="fa-solid fa-play ml-0.5"></i></div>
                             </button>
                         </div>
@@ -249,7 +240,7 @@
                                 <span class="text-[9px] text-amber-400 font-bold uppercase tracking-widest"><i class="fa-solid fa-fire"></i> ${track.category}</span>
                             </div>
                         </div>
-                        <button onclick="initializeGlobalPlayer('${escapeStr(track.title)}', '${track.language}', '${track.youtubeId}', '${track.lyricsFile || ""}')" class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-xs border border-zinc-800 text-zinc-300 hover:text-white cursor-pointer"><i class="fa-solid fa-play ml-0.5"></i></button>
+                        <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-xs border border-zinc-800 text-zinc-300 hover:text-white cursor-pointer"><i class="fa-solid fa-play ml-0.5"></i></button>
                     </div>
                 `).join('');
 
@@ -265,7 +256,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2 flex-shrink-0">
-                                <button onclick="initializeGlobalPlayer('${escapeStr(track.title)}', '${track.language}', '${track.youtubeId}', '${track.lyricsFile || ""}')" class="p-1.5 text-xs text-zinc-400 hover:text-white cursor-pointer"><i class="fa-solid fa-circle-play"></i></button>
+                                <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="p-1.5 text-xs text-zinc-400 hover:text-white cursor-pointer"><i class="fa-solid fa-circle-play"></i></button>
                                 <a href="${chLink}" target="_blank" class="text-[8px] font-mono border border-zinc-800 bg-zinc-950 text-zinc-400 px-2 py-1 rounded hover:bg-emerald-500 hover:text-black">${track.language}</a>
                             </div>
                         </div>
@@ -286,7 +277,7 @@
                 `).join('');
             }
 
-            // 5. LANGUAGE REGISTRY OBJECT CHANNELS MAP
+            // 5. LANGUAGE REGISTRY MAP
             if (data.languages) {
                 document.getElementById("language-playlists-container").innerHTML = Object.keys(data.languages).map(lang => `
                     <a href="${channelRegistry[lang] || 'https://www.youtube.com'}" target="_blank" class="p-2 rounded-lg hover:bg-zinc-900 transition-colors flex items-center justify-between group text-xs text-zinc-400 hover:text-white">
@@ -296,7 +287,7 @@
                 `).join('');
             }
 
-            // 6. NEWS ASSET DRIVER
+            // 6. NEWS FEED
             if (data.news) {
                 document.getElementById("news-feed-container").innerHTML = data.news.map(item => `
                     <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-850 space-y-1">
@@ -307,31 +298,27 @@
             }
         }
 
-        // CONTROL HANDLERS FOR PERSISTENT STICKY PLAYER
-        function initializeGlobalPlayer(title, language, youtubeId, lyricsFile) {
-            const player = document.getElementById("sticky-audio-player");
-            player.classList.remove("hidden", "translate-y-full");
+        // INTEGRATED PLAYSONG ENGINE WITH SPOTIFY STICKY DRAWER & EMBED IFRAME INTERFACES
+        function playSong(title, youtubeId, language = "Studio Track", lyricsFile = "") {
+            const playerPanel = document.getElementById("sticky-audio-player");
+            playerPanel.classList.remove("hidden", "translate-y-full");
             
+            // Sync runtime tracker variables
             currentLoadedId = youtubeId;
             currentLoadedTitle = title;
-            currentLyricsPath = lyricsFile || `lyrics/${youtubeId}.txt`; // Fallback layout pattern mapping
+            currentLyricsPath = lyricsFile || `lyrics/${youtubeId}.txt`;
             
-            document.getElementById("player-title").innerText = title;
-            document.getElementById("player-subtitle").innerText = `${language} Channel Track`;
-            document.getElementById("player-art").src = `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
+            // Map parameters into DOM structures
+            document.getElementById("playerTitle").innerText = title;
+            document.getElementById("player-subtitle").innerText = `${language} Channel Production`;
+            document.getElementById("playerImage").src = "https://img.youtube.com/vi/" + youtubeId + "/hqdefault.jpg";
             document.getElementById("player-external-link").href = `https://www.youtube.com/watch?v=${youtubeId}`;
             
-            activePlaybackState = true;
-            document.getElementById("player-master-toggle").innerHTML = `<i class="fa-solid fa-pause ml-0.5"></i>`;
+            // Map video token parameter into engine embed frame layout
+            document.getElementById("youtubePlayer").src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
         }
 
-        function togglePlaybackEngine() {
-            const btn = document.getElementById("player-master-toggle");
-            activePlaybackState = !activePlaybackState;
-            btn.innerHTML = activePlaybackState ? `<i class="fa-solid fa-pause ml-0.5"></i>` : `<i class="fa-solid fa-play ml-0.5"></i>`;
-        }
-
-        // ASYNC LYRICS LOADER PATH ENGINE
+        // LYRICS FEED PARSER
         function displayTrackLyrics() {
             if (!currentLoadedId) return;
 
@@ -340,24 +327,21 @@
             document.getElementById("lyrics-track-title").innerText = currentLoadedTitle;
 
             panel.classList.remove("opacity-0", "pointer-events-none");
-            body.innerHTML = `<div class="text-zinc-500 text-xs uppercase font-bold tracking-widest py-8"><i class="fa-solid fa-circle-notch fa-spin mr-2 text-emerald-400"></i> Accessing /lyrics registry file...</div>`;
+            body.innerHTML = `<div class="text-zinc-500 text-xs uppercase font-bold tracking-widest py-8"><i class="fa-solid fa-circle-notch fa-spin mr-2 text-emerald-400"></i> Loading text nodes...</div>`;
 
             fetch(currentLyricsPath)
                 .then(res => {
-                    if (!res.ok) throw new Error("Lyrics missing.");
+                    if (!res.ok) throw new Error();
                     return res.text();
                 })
                 .then(text => {
-                    const parsedHtml = text.trim().split("\n").map(line => `
-                        <p class="hover:text-white transition-colors duration-200 py-0.5">${line}</p>
-                    `).join('');
-                    body.innerHTML = parsedHtml || `<p class="text-zinc-600 text-xs py-4">Instrumental Audio Release</p>`;
+                    body.innerHTML = text.trim().split("\n").map(line => `<p class="hover:text-white transition-colors py-0.5">${line}</p>`).join('');
                 })
                 .catch(() => {
                     body.innerHTML = `
                         <div class="text-center py-6 space-y-2">
                             <i class="fa-solid fa-microphone-slash text-zinc-700 text-xl"></i>
-                            <p class="text-xs text-zinc-500">No synchronized text file found at path:</p>
+                            <p class="text-xs text-zinc-500">No data text found at path:</p>
                             <code class="text-[10px] bg-zinc-950 px-2 py-1 rounded border border-zinc-800 font-mono text-amber-500">${currentLyricsPath}</code>
                         </div>`;
                 });
