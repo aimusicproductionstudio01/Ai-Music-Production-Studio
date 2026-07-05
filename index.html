@@ -1,43 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- REQUIRED VIEWPORT META TAG -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ai Music Production Studio | Advanced Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- SYSTEM EXPLICIT RESPONSIVE OVERRIDE STYLESHEET -->
     <style>
+        /* PREVENT HORIZONTAL SCROLLING & BASE RESETS */
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #09090b; /* Keeps layout inline with dark zinc base */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        /* MOBILE FRIENDLY WRAPPED HEADER OVERRIDES */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* RESPONSIVE AUTO-FIT SONG GRID */
+        .song-grid, .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            padding: 10px;
+        }
+
+        /* RESPONSIVE SONG CARDS */
+        .song-card {
+            background: #111113; /* Styled to match layout bg-zinc-900 layer mapping */
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 12px;
+            transition: transform .2s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .song-card:hover {
+            transform: translateY(-3px);
+        }
+        .song-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* SPOTIFY-STYLE STICKY PLAYER FOR MOBILE/DESKTOP ENGINE */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        .music-player img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        .music-info {
+            flex: 1;
+            overflow: hidden;
+            min-w: 0;
+        }
+        .music-info h4 {
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+            font-weight: bold;
+        }
+        .music-info p {
+            font-size: 12px;
+            color: #aaa;
+            margin: 2px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-btn {
+            background: #1DB954;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        .player-btn:hover {
+            background: #1ed760;
+        }
+
+        /* RESPONSIVE YOUTUBE ENGINE WRAPPER */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 280px; /* Optimized layout bounding size for sticky bottom console */
+            padding-bottom: 16%; /* Horizontal banner scaling aspect */
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            top: 0;
+            left: 0;
+        }
+
+        /* GLOBAL RESPONSIVE MEDIA QUERY LAYER */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            .song-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .btn {
+                width: 100%;
+            }
+            .music-player {
+                padding: 8px;
+                flex-wrap: wrap;
+            }
+            .music-player img {
+                width: 40px;
+                height: 40px;
+            }
+            .video-wrapper {
+                max-width: 100%;
+                width: 100%;
+                padding-bottom: 56.25%; /* Auto snap to standard wide 16:9 box on mobile layout viewport collapse */
+                order: 3;
+            }
+            .music-info {
+                width: calc(100% - 60px);
+            }
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col pb-28 relative">
+<body class="min-h-screen flex flex-col pb-28 relative">
 
-    <!-- GLOBAL HEADER NAV -->
-    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 px-4 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-lg">
-        <div class="flex items-center justify-between w-full md:w-auto gap-4">
-            <a href="index.html" class="flex items-center gap-3 group focus:outline-none">
-                <img src="logo.png" alt="Ai Music Production Studio Logo" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <span class="text-md font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase whitespace-nowrap">Ai Music Production Studio</span>
+    <!-- GLOBAL WRAPPED HEADER NAV -->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 shadow-lg">
+        <div class="flex items-center gap-3 group">
+            <a href="index.html" class="flex items-center gap-3 focus:outline-none">
+                <img src="logo.png" alt="Studio Logo" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <span class="text-md font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase whitespace-nowrap">Ai Music Studio</span>
             </a>
         </div>
 
         <div class="w-full md:max-w-md relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
-            <input type="text" id="dashboard-search" placeholder="Search tracks, languages, or creative categories..." class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-emerald-500 transition-colors text-zinc-200">
+            <input type="text" id="dashboard-search" placeholder="Search tracks, languages..." class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-emerald-500 transition-colors text-zinc-200">
         </div>
 
-        <div class="flex items-center justify-between w-full md:w-auto gap-6">
-            <div class="flex items-center gap-3.5 text-zinc-400 text-sm border-r border-zinc-800 pr-4">
+        <div class="flex items-center gap-6">
+            <div class="social-links text-zinc-400 text-sm border-r border-zinc-800 pr-4">
                 <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
                 <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
             </div>
             
-            <!-- DYNAMIC AUTH TARGET PORTAL -->
             <div id="auth-nav-slot" class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
                 <a href="login.html" class="hover:text-white text-zinc-400 transition-colors bg-zinc-950 px-3 py-2 rounded-lg border border-zinc-800">Log In</a>
                 <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black px-3 py-2 rounded-lg transition-colors">Sign Up</a>
@@ -45,69 +207,66 @@
         </div>
     </header>
 
-    <!-- MAIN DASHBOARD CONTENT ROUTER -->
+    <!-- MAIN DASHBOARD ARCHITECTURE -->
     <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 w-full space-y-12 flex-1">
         
-        <!-- 1. FEATURED SONG HERO MODULE -->
+        <!-- FEATURED SONG HERO MODULE -->
         <section id="featured-hero" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-900/40 to-zinc-950 border border-zinc-850 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-            <div class="space-y-4 max-w-xl z-10">
+            <div class="space-y-4 max-w-xl z-10 song-actions">
                 <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="hero-tag">FEATURED MASTER</span>
-                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Loading Studio Engine...</h1>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Loading Production Deck...</h1>
                 <p class="text-xs md:text-sm text-zinc-400 leading-relaxed" id="hero-desc">Connecting to music engine array registry endpoints...</p>
-                <div class="flex items-center gap-3 pt-2">
-                    <button id="hero-play-btn" class="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs px-6 py-3 rounded-full flex items-center gap-2 transition-all shadow-lg tracking-wider cursor-pointer">
+                <div class="pt-2">
+                    <button id="hero-play-btn" class="btn bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all shadow-lg tracking-wider cursor-pointer">
                         <i class="fa-solid fa-play"></i> STREAM AUDIO
                     </button>
                 </div>
             </div>
             <div class="w-full md:w-80 lg:w-96 aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden relative group z-10">
-                <img id="hero-thumbnail" src="banner.jpg" alt="Featured Video Thumbnail" class="w-full h-full object-cover">
+                <img id="hero-thumbnail" src="banner.jpg" alt="Featured Thumbnail" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
                     <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center text-md shadow-2xl"><i class="fa-solid fa-music"></i></div>
                 </div>
             </div>
         </section>
 
-        <!-- TWO COLUMN LAYOUT CORE -->
+        <!-- TWO COLUMN AUTO RESPONSIVE LAYOUT CORE -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             <div class="lg:col-span-2 space-y-12">
-                <!-- 2. NEW RELEASES SECTION -->
+                <!-- NEW RELEASES GRID -->
                 <div class="space-y-4">
                     <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-emerald-500 rounded-full"></span> New Releases</h2>
-                    <div id="new-releases-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+                    <div id="new-releases-container" class="song-grid"></div>
                 </div>
 
-                <!-- 3. TRENDING / LATEST SONGS SECTION -->
+                <!-- TRENDING MODULES CONTAINER -->
                 <div class="space-y-4">
                     <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-amber-500 rounded-full"></span> Studio Matrix Drops</h2>
-                    <div id="trending-songs-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                    <div id="trending-songs-container" class="region-grid"></div>
                 </div>
 
-                <!-- 4. ALL SONGS ARCHIVE MATRIX -->
+                <!-- GENERAL ALL PRODUCTION ARCHIVE -->
                 <div class="space-y-4">
                     <div class="flex items-center justify-between border-b border-zinc-850 pb-2">
                         <h2 class="text-xl font-black text-white uppercase tracking-wider">All Production Songs</h2>
                         <a href="channels.html" class="text-xs text-zinc-500 hover:text-emerald-400 transition-colors">View Channels</a>
                     </div>
-                    <div id="all-songs-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                    <div id="all-songs-grid" class="region-grid"></div>
                 </div>
             </div>
 
-            <!-- RIGHT 1 COLUMN: SIDEBAR METADATA DRIVERS -->
+            <!-- RIGHT CONTROL ROW: SIDEBAR MODULES -->
             <div class="space-y-8">
-                <!-- 5. UPCOMING TRACKS -->
                 <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
                     <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-hourglass-start text-emerald-400"></i> Production Schedule</h3>
                     <div id="upcoming-container" class="space-y-2.5"></div>
                 </div>
 
-                <!-- 6. LANGUAGE PLAYLISTS -->
                 <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
                     <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-compact-disc text-emerald-400"></i> Language Hubs</h3>
                     <div id="language-playlists-container" class="space-y-2"></div>
                 </div>
 
-                <!-- 7. STUDIO MONITOR NEWS FEED -->
                 <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
                     <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-bullhorn text-amber-500"></i> Live Studio News</h3>
                     <div id="news-feed-container" class="space-y-3"></div>
@@ -116,7 +275,7 @@
         </div>
     </main>
 
-    <!-- DYNAMIC OVERLAY LYRICS OVERLAY DRAWER -->
+    <!-- LYRICS DYNAMIC DISPLAY LAYER -->
     <div id="lyrics-panel" class="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-xl max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
             <div class="p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/50">
@@ -135,33 +294,32 @@
         </div>
     </div>
 
-    <!-- SPOTIFY-STYLE STICKY BOTTOM PLAYER -->
-    <div id="sticky-audio-player" class="fixed bottom-0 left-0 right-0 h-24 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800/80 z-40 px-4 lg:px-8 flex items-center justify-between shadow-2xl transition-all translate-y-full hidden">
-        <div class="flex items-center gap-3.5 w-1/4 min-w-0">
-            <div class="w-14 h-10 bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800 hidden sm:block relative">
-                <img id="playerImage" src="logo.png" alt="Album Artwork Art" class="w-full h-full object-cover">
-            </div>
-            <div class="truncate min-w-0">
-                <h4 id="playerTitle" class="text-sm font-bold text-white truncate">Select a Song</h4>
-                <p id="player-subtitle" class="text-[11px] text-zinc-400 truncate mt-0.5">Language Subtype</p>
+    <!-- RESPONSIVE SPOTIFY-STYLE STICKY PLAYER CORE -->
+    <div id="sticky-audio-player" class="music-player hidden opacity-0 translate-y-full">
+        <div class="flex items-center gap-3.5 min-w-0">
+            <img id="playerImage" src="logo.png" alt="Artwork Metadata Map">
+            <div class="music-info">
+                <h4 id="playerTitle">Select a Song</h4>
+                <p id="player-subtitle">Language Subtype</p>
             </div>
         </div>
 
-        <div class="flex items-center justify-center w-2/4 max-w-md">
-            <iframe id="youtubePlayer" width="250" height="60" src="" allow="autoplay" frameborder="0" class="rounded-xl border border-zinc-800 bg-zinc-950 shadow-inner"></iframe>
+        <!-- RESPONSIVE YOUTUBE STREAMING HUB CONTAINER -->
+        <div class="video-wrapper">
+            <iframe id="youtubePlayer" src="" allow="autoplay" allowfullscreen frameborder="0"></iframe>
         </div>
 
-        <div class="flex items-center justify-end gap-4 w-1/4 text-zinc-400 text-xs">
+        <div class="flex items-center gap-3 text-zinc-400 text-xs">
             <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex">
                 YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
             </a>
-            <button onclick="displayTrackLyrics()" class="hover:text-emerald-400 text-zinc-300 transition-colors cursor-pointer text-sm p-1" title="View Production Lyrics">
+            <button onclick="displayTrackLyrics()" class="player-btn hover:scale-105 transition-transform text-white text-xs cursor-pointer" title="View Production Lyrics">
                 <i class="fa-solid fa-microphone"></i>
             </button>
         </div>
     </div>
 
-    <!-- SYSTEM MODULES HUB -->
+    <!-- AUDIO DRIVER & RUNTIME ARCHITECTURE -->
     <script>
         const channelRegistry = {
             "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
@@ -176,10 +334,8 @@
         let currentLyricsPath = "";
 
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. RUN GLOBAL AUTHENTICATION CHECK FOR ACTIVE SESSIONS
             syncSessionAuthentication();
 
-            // 2. FETCH TRACK LIST METADATA (FIXED TARGET PATTERN FOR songs.json)
             fetch('songs.json')
                 .then(response => {
                     if (!response.ok) throw new Error("Metadata registry failure.");
@@ -189,7 +345,6 @@
                 .catch(err => console.error("System Core Fault:", err));
         });
 
-        // RE-EVALUATE AND RENDER NAVIGATION BUTTONS BASED ON ACTIVE SECURITY STATE
         function syncSessionAuthentication() {
             const isLocalLogged = localStorage.getItem("loggedIn") === "true";
             const isSessionLogged = sessionStorage.getItem("loggedIn") === "true";
@@ -197,7 +352,6 @@
             const navSlot = document.getElementById("auth-nav-slot");
 
             if ((isLocalLogged || isSessionLogged) && currentEmail) {
-                // Find user info structure inside storage loop
                 const rawUser = localStorage.getItem("user_" + currentEmail);
                 let userName = "Producer Profile";
                 let userAvatar = "logo.png";
@@ -208,12 +362,11 @@
                     userAvatar = parsedUser.avatar || userAvatar;
                 }
 
-                // Render secure state layout nodes
                 navSlot.innerHTML = `
                     <div class="flex items-center gap-3.5 bg-zinc-900 border border-zinc-800 py-1.5 pl-2 pr-3.5 rounded-full">
                         <img src="${userAvatar}" alt="Profile Avatar" class="w-6 h-6 rounded-full object-cover border border-zinc-750">
                         <span class="text-zinc-300 font-bold max-w-[100px] truncate">${userName}</span>
-                        <button onclick="handleUserLogout()" class="text-zinc-500 hover:text-red-400 text-xs transition-colors cursor-pointer ml-1" title="Log Out Session">
+                        <button onclick="handleUserLogout()" class="text-zinc-500 hover:text-red-400 text-xs transition-colors cursor-pointer ml-1">
                             <i class="fa-solid fa-power-off"></i>
                         </button>
                     </div>
@@ -221,7 +374,6 @@
             }
         }
 
-        // CLEAR APPLICATION DATA STACKS UPON EXPLICIT TERMINATION COMMAND
         function handleUserLogout() {
             localStorage.removeItem("loggedIn");
             sessionStorage.removeItem("loggedIn");
@@ -246,14 +398,14 @@
 
             if (data.newReleases) {
                 document.getElementById("new-releases-container").innerHTML = data.newReleases.map(track => `
-                    <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-850 flex flex-col gap-2 group relative">
-                        <div class="relative aspect-video rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950">
-                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-full h-full object-cover">
+                    <div class="song-card group">
+                        <div class="relative rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 aspect-video">
+                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="song-thumb">
                             <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer">
                                 <div class="w-10 h-10 bg-emerald-500 text-black rounded-full flex items-center justify-center text-sm shadow-xl"><i class="fa-solid fa-play ml-0.5"></i></div>
                             </button>
                         </div>
-                        <div class="px-1 truncate">
+                        <div class="truncate">
                             <h4 class="text-xs font-black text-white truncate group-hover:text-emerald-400 transition-colors">${track.title}</h4>
                             <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">${track.category} • ${track.language}</span>
                         </div>
@@ -263,7 +415,7 @@
 
             if (data.latest) {
                 document.getElementById("trending-songs-container").innerHTML = data.latest.slice(0, 2).map(track => `
-                    <div class="bg-gradient-to-r from-zinc-900 to-zinc-950 p-3 rounded-xl border border-zinc-850 flex items-center justify-between gap-3 group">
+                    <div class="song-card flex-row items-center justify-between gap-3 group w-full">
                         <div class="flex items-center gap-3 truncate flex-1">
                             <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-14 h-10 object-cover rounded-md border border-zinc-800 flex-shrink-0">
                             <div class="truncate">
@@ -278,7 +430,7 @@
                 document.getElementById("all-songs-grid").innerHTML = data.latest.map(track => {
                     const chLink = channelRegistry[track.language] || "https://www.youtube.com";
                     return `
-                        <div class="bg-zinc-900/60 p-2.5 rounded-xl border border-zinc-850 flex items-center justify-between gap-3 group">
+                        <div class="song-card flex-row items-center justify-between gap-3 group w-full">
                             <div class="flex items-center gap-3 truncate min-w-0 flex-1">
                                 <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-12 h-9 object-cover rounded-md border border-zinc-800">
                                 <div class="truncate">
@@ -328,7 +480,10 @@
 
         function playSong(title, youtubeId, language = "Studio Track", lyricsFile = "") {
             const playerPanel = document.getElementById("sticky-audio-player");
-            playerPanel.classList.remove("hidden", "translate-y-full");
+            playerPanel.classList.remove("hidden");
+            setTimeout(() => {
+                playerPanel.classList.remove("opacity-0", "translate-y-full");
+            }, 10);
             
             currentLoadedId = youtubeId;
             currentLoadedTitle = title;
