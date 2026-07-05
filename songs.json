@@ -1,82 +1,173 @@
 {
   "featuredSong": {
     "title": "Chandni Raat Mein",
+    "description": "Our featured release this week.",
+    "youtubeId": "PZTy8QjLwRs",
     "language": "Hindi",
-    "category": "Romantic Pop",
-    "description": "An immersive, cinematic lo-fi exploration of late-night ambient reflections, built using advanced neural tuning matrices.",
-    "youtubeId": "PZTy8QjLwRs"
+    "category": "Love",
+    "lyricsFile": "lyrics/chandni-raat.txt"
   },
+
   "newReleases": [
     {
-      "title": "Aamar Shonar Bangla Remix",
-      "language": "Bangla",
-      "category": "Folk Electronic",
-      "youtubeId": "PZTy8QjLwRs"
-    },
-    {
-      "title": "Shiva Tandava Stotram Mix",
-      "language": "Bhakti",
-      "category": "Devotional Trance",
-      "youtubeId": "PZTy8QjLwRs"
-    },
-    {
-      "title": "Neon Horizons",
-      "language": "English",
-      "category": "Synthwave / Lo-Fi",
-      "youtubeId": "PZTy8QjLwRs"
-    }
-  ],
-  "latest": [
-    {
-      "title": "Chandni Raat Mein",
+      "title": "Nach Panjabiya",
       "language": "Hindi",
-      "category": "Romantic Pop",
-      "youtubeId": "PZTy8QjLwRs"
+      "category": "Party",
+      "youtubeId": "9bxIB4MZCz8",
+      "lyricsFile": "lyrics/nach-panjabiya.txt"
     },
     {
-      "title": "Bhojpuri Dhamaal 2026",
-      "language": "Bhojpuri",
-      "category": "Festive Electronic",
-      "youtubeId": "PZTy8QjLwRs"
+      "title": "Nazron Ka Ishara ❤️",
+      "language": "Hindi",
+      "category": "Party",
+      "youtubeId": "KRUpkmJhIRI",
+      "lyricsFile": "lyrics/nazron-ka-ishara.txt"
     },
     {
-      "title": "Aamar Shonar Bangla Remix",
-      "language": "Bangla",
-      "category": "Folk Electronic",
-      "youtubeId": "PZTy8QjLwRs"
-    },
-    {
-      "title": "Shiva Tandava Stotram Mix",
-      "language": "Bhakti",
-      "category": "Devotional Trance",
-      "youtubeId": "PZTy8QjLwRs"
-    },
-    {
-      "title": "Neon Horizons",
-      "language": "English",
-      "category": "Synthwave / Lo-Fi",
-      "youtubeId": "PZTy8QjLwRs"
+      "title": "नदिया किनारे सजना",
+      "language": "Hindi",
+      "category": "Love",
+      "youtubeId": "Qql9F3YAsVM",
+      "lyricsFile": "lyrics/nadiya-kinare.txt"
     }
   ],
+
   "upcoming": [
     {
-      "title": "Mon Re (Soul Acoustic)",
-      "releaseDate": "JULY 15"
+      "title": "तोहरे नैनवा के जादू ❤️",
+      "language": "Bhojpuri",
+      "category": "Love",
+      "releaseDate": "Released"
     },
     {
-      "title": "Midnight Chill (Lofi Beat)",
-      "releaseDate": "JULY 22"
-    },
-    {
-      "title": "Krishna Bhajan Layer V3",
-      "releaseDate": "AUG 01"
+      "title": "Ganpati Mere Ghar Aao",
+      "language": "Hindi",
+      "category": "Devotional",
+      "releaseDate": "Released"
     }
   ],
+
+  "latest": [
+    {
+      "title": "তুমি আমার হৃদয় জুড়ে",
+      "language": "Bangla",
+      "category": "Love",
+      "youtubeId": "808jEfQ3OWo",
+      "lyricsFile": "lyrics/tumi-amar.txt"
+    },
+    {
+      "title": "💖Teri Aankhon Mein Mera Jahaan❤️",
+      "language": "Hindi",
+      "category": "Love",
+      "youtubeId": "AE5-sjoJ4Ew"
+    },
+    {
+  "title": "Nach Sohniye🔥",
+  "language": "Hindi",
+  "category": "Party",
+  "youtubeId": "t_Ah955G-e0"
+},
+    {
+  "title": "Tomar Chokher Shohore ❤️",
+  "language": "Bangla",
+  "category": "Love",
+  "youtubeId": "zibnMsGBW8Q"
+},
+     {
+  "title": "Tohre Naina Ke Current⚡",
+  "language": "Bhojpuri",
+  "category": "Party",
+  "youtubeId": "Xo95ahlGayc"
+},
+    {
+  "title": "Mere Bajrangbali",
+  "language": "Hindi",
+  "category": "Devotional",
+  "youtubeId": "8VpqWKykDJ0"
+}
+  ],
+
   "languages": {
-    "Hindi": {},
-    "Bangla": {},
-    "Bhakti": {},
-    "Bhojpuri": {},
-    "English": {}
-  }
+    "Hindi": [
+      {
+        "title": "TERI MERI YAARI",
+        "language": "Hindi",
+        "category": "Party",
+        "youtubeId": "VkbTSsiKy4o"
+      }
+    ],
+    "Bangla": [
+      {
+        "title": "Rongila Jhumka",
+        "language": "Bangla",
+        "category": "Party",
+        "youtubeId": "bnujIEHuvRY",
+        "lyricsFile": "lyrics/rongila-jhumka.txt"
+      }
+    ],
+    "Bhojpuri": [
+      {
+        "title": "Naina Se Current Marelu",
+        "language": "Bhojpuri",
+        "category": "Party",
+        "youtubeId": "-L-pTJPQ6Ts"
+      }
+    ],
+    "Bhakti": [
+      {
+        "title": "मइया तेरी शक्ति",
+        "language": "Bhakti",
+        "category": "Devotional",
+        "youtubeId": "JcQ_FAP0wHY"
+      }
+    ],
+    "English": [
+      {
+        "title": "English Hit",
+        "language": "English",
+        "category": "Love",
+        "youtubeId": "XRgIlkySbTw"
+      }
+    ]
+  },
+
+  "categories": [
+    "Love",
+    "DJ Remix",
+    "Sad",
+    "Baul",
+    "Party",
+    "Motivational",
+    "Devotional"
+  ],
+
+  "news": [
+    {
+      "title": "🎵 New Release",
+      "content": "Rongila Jhumka is now available on YouTube."
+    },
+    {
+      "title": "🚀 Upcoming Release",
+      "content": "Mon Pakhir Dana releasing on 20 June 2026."
+    },
+    {
+      "title": "🔥 Trending",
+      "content": "AI Bangla Gaan channel reached a new milestone."
+    }
+  ],
+
+  "playlists": [
+    {
+      "title": "❤️ Best Love Songs",
+      "description": "Hindi, Bangla and English romantic hits."
+    },
+    {
+      "title": "🎉 Party & DJ Remix",
+      "description": "Dance, remix and viral party tracks."
+    },
+    {
+      "title": "🙏 Devotional Collection",
+      "description": "Bhakti songs and spiritual music."
+    }
+  ]
 }
