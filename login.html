@@ -92,8 +92,8 @@
 
     <!-- INTERACTIVE SYSTEM SCRIPT HUB -->
     <script>
-        // AUTOMATIC REDIRECT IF ALREADY LOGGED IN
-        if (localStorage.getItem("loggedIn")) {
+        // 1. FIX THE AUTOMATIC REDIRECT
+        if (localStorage.getItem("loggedIn") === "true") {
             window.location = "index.html";
         }
 
@@ -114,19 +114,24 @@
 
             const user = JSON.parse(storedUserData);
 
-            // TRY-CATCH ERROR HANDLING FOR DECODING BASE64 STRINGS
+            // 2. ADD PROTECTION AGAINST OLD ACCOUNTS
             try {
                 if (atob(user.password) !== passwordInput) {
                     alert("Incorrect password.");
                     return;
                 }
             } catch(error) {
-                alert("Account data format error. Please create a new account.");
+                alert("Account format error. Please sign up again.");
                 return;
             }
 
-            // Set state verification metrics
-            localStorage.setItem("loggedIn", "true");
+            // 3. IMPLEMENT "REMEMBER ME"
+            if (document.getElementById("remember-me").checked) {
+                localStorage.setItem("loggedIn", "true");
+            } else {
+                sessionStorage.setItem("loggedIn", "true");
+            }
+
             localStorage.setItem("currentUser", email);
 
             alert("Login successful!");
