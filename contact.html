@@ -1,1 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | AI Music Production Studio</title>
+    <!-- Tailwind CSS for styling, FontAwesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans pb-28">
 
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 z-50 px-6 py-3 flex items-center justify-between">
+        <!-- Company Logo -->
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl"></i>
+            <span class="text-xl font-bold tracking-wider">MUZIK</span>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-zinc-400">
+            <a href="index.html" class="hover:text-white transition">Home</a>
+            <a href="about.html" class="hover:text-white transition">About</a>
+            <a href="contact.html" class="text-emerald-400">Contact</a>
+        </nav>
+
+        <!-- Right Side: Socials -->
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4 text-zinc-400 text-lg">
+                <a href="#" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        
+        <div class="text-center space-y-3 mb-12">
+            <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest px-3 py-1 bg-emerald-500/10 rounded-full">Drop Us a Line</span>
+            <h1 class="text-4xl font-black tracking-tight text-white md:text-5xl">Contact Us</h1>
+            <p class="text-zinc-400 text-sm md:text-base max-w-xl mx-auto">Have a project, license inquiry, or collaboration idea? Send a message and our team will get right back to you.</p>
+        </div>
+
+        <!-- TWO COLUMN LAYOUT: Form vs Socials/Info -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            
+            <!-- Contact Form Block (Takes 2 columns on large displays) -->
+            <div class="lg:col-span-2 bg-zinc-900 p-8 rounded-2xl border border-zinc-800 shadow-xl">
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                    
+                    <!-- Row 1: Name and Email -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="name" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Name</label>
+                            <input type="text" id="name" required placeholder="John Doe" 
+                                class="w-full bg-zinc-950 text-white text-sm px-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Email Address</label>
+                            <input type="email" id="email" required placeholder="john@example.com" 
+                                class="w-full bg-zinc-950 text-white text-sm px-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Subject -->
+                    <div class="space-y-2">
+                        <label for="subject" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Subject</label>
+                        <input type="text" id="subject" required placeholder="e.g., Music Licensing, Partnership" 
+                            class="w-full bg-zinc-950 text-white text-sm px-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                    </div>
+
+                    <!-- Row 3: Message -->
+                    <div class="space-y-2">
+                        <label for="message" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Message</label>
+                        <textarea id="message" required rows="5" placeholder="Tell us about your requirements..." 
+                            class="w-full bg-zinc-950 text-white text-sm px-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none resize-none transition"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button type="submit" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm px-8 py-3.5 rounded-full transition shadow-lg hover:scale-[1.01]">
+                            Send Message <i class="fa-solid fa-paper-plane ml-2 text-xs"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Additional Information Sidebar -->
+            <div class="space-y-6">
+                
+                <!-- Quick Connect Channels -->
+                <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 space-y-4">
+                    <h3 class="text-lg font-bold text-white tracking-tight">Direct Channels</h3>
+                    <p class="text-xs text-zinc-400">Prefer chatting on native applications? Reach out directly via our verified channels:</p>
+                    
+                    <div class="space-y-2 pt-2">
+                        <!-- WhatsApp Link -->
+                        <a href="https://wa.me/yournumber" target="_blank" class="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-850 hover:border-green-500/50 group transition">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400"><i class="fa-brands fa-whatsapp"></i></span>
+                                <span class="text-sm font-medium text-zinc-300 group-hover:text-white transition">WhatsApp Support</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-zinc-600 group-hover:text-zinc-400 transition"></i>
+                        </a>
+
+                        <!-- Instagram Link -->
+                        <a href="#" class="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-850 hover:border-pink-500/50 group transition">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400"><i class="fa-brands fa-instagram"></i></span>
+                                <span class="text-sm font-medium text-zinc-300 group-hover:text-white transition">Instagram DMs</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-zinc-600 group-hover:text-zinc-400 transition"></i>
+                        </a>
+
+                        <!-- Facebook Link -->
+                        <a href="#" class="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-850 hover:border-blue-500/50 group transition">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400"><i class="fa-brands fa-facebook"></i></span>
+                                <span class="text-sm font-medium text-zinc-300 group-hover:text-white transition">Facebook Page</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-zinc-600 group-hover:text-zinc-400 transition"></i>
+                        </a>
+
+                        <!-- YouTube Link -->
+                        <a href="#" class="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-850 hover:border-red-500/50 group transition">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400"><i class="fa-brands fa-youtube"></i></span>
+                                <span class="text-sm font-medium text-zinc-300 group-hover:text-white transition">YouTube Channel</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-zinc-600 group-hover:text-zinc-400 transition"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Studio Hours info asset -->
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 rounded-2xl border border-zinc-800 text-xs space-y-2 text-zinc-400">
+                    <h4 class="font-bold text-white text-sm uppercase tracking-wider">Response Window</h4>
+                    <p>Our operational framework assesses incoming creative proposals Monday through Friday. Turnaround durations generally hover around 24 to 48 hours.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-12 text-zinc-500 text-xs mt-12">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <p>&copy; 2026 AI Music Production Studio Inc. Secure channels enabled.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-zinc-300 transition">Legal</a>
+                <a href="#" class="hover:text-zinc-300 transition">Privacy Policy</a>
+                <a href="#" class="hover:text-zinc-300 transition">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
