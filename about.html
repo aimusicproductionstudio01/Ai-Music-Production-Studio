@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | AI Music Production Studio</title>
+    <!-- Tailwind CSS for styling, FontAwesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans pb-28">
 
+    <!-- HEADER NAVIGATION -->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 z-50 px-6 py-3 flex items-center justify-between">
+        <!-- Company Logo -->
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl"></i>
+            <span class="text-xl font-bold tracking-wider">MUZIK</span>
+        </div>
+
+        <!-- Navigation Link back to Home -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-zinc-400">
+            <a href="index.html" class="hover:text-white transition">Home</a>
+            <a href="about.html" class="text-emerald-400">About</a>
+        </nav>
+
+        <!-- Right Side: Socials -->
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4 text-zinc-400 text-lg">
+                <a href="#" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-16">
+
+        <!-- HERO INTRODUCTION -->
+        <section class="text-center space-y-4 max-w-3xl mx-auto">
+            <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest px-3 py-1 bg-emerald-500/10 rounded-full">Who We Are</span>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">AI Music Production Studio</h1>
+            <p class="text-zinc-400 text-base md:text-lg leading-relaxed pt-2">
+                AI Music Production Studio is an independent digital music production company focused on creating multilingual AI-assisted music content including Hindi, Bangla, Bhojpuri, English, and devotional songs. We merge advanced artificial intelligence with human creativity to shape the future of sound.
+            </p>
+        </section>
+
+        <hr class="border-zinc-900">
+
+        <!-- MISSION & VISION -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 space-y-3">
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-xl mb-2">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <h2 class="text-xl font-bold text-white">Our Mission</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    To democratize music creation and bridge cultural gaps by producing high-quality, emotionally resonant tracks across multiple languages using pioneering AI tools.
+                </p>
+            </div>
+
+            <div class="bg-zinc-900 p-8 rounded-2xl border border-zinc-800 space-y-3">
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-xl mb-2">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <h2 class="text-xl font-bold text-white">Our Vision</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed">
+                    To become the global benchmark for AI-driven music generation, proving that technology can honor tradition while pioneering brand-new auditory experiences.
+                </p>
+            </div>
+        </section>
+
+        <!-- COMPANY HISTORY Timeline style -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold text-white tracking-tight">Our Journey</h2>
+            <div class="border-l-2 border-zinc-800 pl-6 space-y-8 relative ml-2">
+                <!-- Timeline Item 1 -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-emerald-500 rounded-full border-4 border-zinc-950"></div>
+                    <h3 class="font-bold text-white text-base">The Spark</h3>
+                    <p class="text-xs text-zinc-500 mb-1">Founding Year</p>
+                    <p class="text-sm text-zinc-400 max-w-2xl">Started as a small collective of sound engineers and neural network enthusiasts trying to synthesize organic global languages into synthesized musical patterns.</p>
+                </div>
+                <!-- Timeline Item 2 -->
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-1.5 w-4 h-4 bg-zinc-700 rounded-full border-4 border-zinc-950"></div>
+                    <h3 class="font-bold text-white text-base">Going Multilingual</h3>
+                    <p class="text-xs text-zinc-500 mb-1">Expansion Phase</p>
+                    <p class="text-sm text-zinc-400 max-w-2xl">Successfully built and fine-tuned linguistic audio engines trained specifically for dialect nuances in Hindi, Bangla, and Bhojpuri arrangements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES & MUSIC GENRES -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Services -->
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-white tracking-tight">Services We Offer</h2>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3 text-sm text-zinc-400">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                        <div><strong class="text-white block">AI-Assisted Music Composition</strong> Tailored instrumental and full vocal generations custom-fit to modern genres.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-zinc-400">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                        <div><strong class="text-white block">Multilingual Lyrics Generation</strong> Authentic cultural phrasing matching native poetic structural bounds.</div>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-zinc-400">
+                        <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                        <div><strong class="text-white block">Next-Gen Audio Mastering</strong> Fast, reliable cloud-computed audio cleanup scaled for immediate commercial release.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Music Genres Layout -->
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-white tracking-tight">Our Specialized Genres</h2>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-full text-xs font-semibold">Hindi Pop</span>
+                    <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-full text-xs font-semibold">Bangla Folk-Fusion</span>
+                    <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-full text-xs font-semibold">Bhojpuri Dance Beats</span>
+                    <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-full text-xs font-semibold">Global English Indie</span>
+                    <span class="bg-zinc-900 border border-zinc-800 text-zinc-300 px-4 py-2 rounded-full text-xs font-semibold">Devotional & Meditation Chants</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DISTRIBUTION PARTNERS -->
+        <section class="space-y-6 text-center md:text-left bg-zinc-900/40 p-8 rounded-2xl border border-zinc-900">
+            <h2 class="text-xl font-bold text-white tracking-tight">Global Distribution Partners</h2>
+            <p class="text-sm text-zinc-400 max-w-xl">Our musical ecosystem relies heavily on distributing content instantly seamlessly across leading industry hubs:</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 items-center text-center pt-2 font-bold tracking-widest text-zinc-600 text-sm">
+                <div class="p-4 bg-zinc-900 rounded-xl hover:text-zinc-400 transition"><i class="fa-brands fa-spotify text-xl mr-2"></i>SPOTIFY</div>
+                <div class="p-4 bg-zinc-900 rounded-xl hover:text-zinc-400 transition"><i class="fa-brands fa-apple text-xl mr-2"></i>APPLE MUSIC</div>
+                <div class="p-4 bg-zinc-900 rounded-xl hover:text-zinc-400 transition"><i class="fa-brands fa-amazon text-xl mr-2"></i>AMAZON</div>
+                <div class="p-4 bg-zinc-900 rounded-xl hover:text-zinc-400 transition"><i class="fa-brands fa-youtube text-xl mr-2"></i>YT MUSIC</div>
+            </div>
+        </section>
+
+        <!-- CONTACT INFORMATION -->
+        <section class="bg-gradient-to-br from-emerald-900/20 to-zinc-900 p-8 rounded-2xl border border-zinc-800 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-1 space-y-2">
+                <h2 class="text-2xl font-bold text-white tracking-tight">Get In Touch</h2>
+                <p class="text-xs text-zinc-400">Have collaboration questions or project ideas using AI audio workflows? Reach out directly.</p>
+            </div>
+            <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+                <div class="space-y-1">
+                    <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider block">Office Address</span>
+                    <p class="text-zinc-300">102 Innovation Hub, Silicon City,<br>Audio Block - 560001</p>
+                </div>
+                <div class="space-y-1">
+                    <span class="text-xs text-zinc-500 font-bold uppercase tracking-wider block">Direct Contact</span>
+                    <p class="text-zinc-300">Email: hello@aimusicstudio.com</p>
+                    <p class="text-zinc-300">Phone: +1 (555) 019-2834</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-12 text-zinc-500 text-xs mt-12">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <p>&copy; 2026 AI Music Production Studio Inc. Audio reimagined.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-zinc-300 transition">Legal</a>
+                <a href="#" class="hover:text-zinc-300 transition">Privacy Policy</a>
+                <a href="#" class="hover:text-zinc-300 transition">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
