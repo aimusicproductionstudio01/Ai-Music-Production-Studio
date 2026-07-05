@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | AI Music Production Studio</title>
+    <!-- Tailwind CSS for styling, FontAwesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col justify-between">
 
+    <!-- HEADER NAVIGATION -->
+    <header class="bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800 px-6 py-3 flex items-center justify-between">
+        <!-- Company Logo -->
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-compact-disc text-emerald-500 text-3xl"></i>
+            <span class="text-xl font-bold tracking-wider">MUZIK</span>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-zinc-400">
+            <a href="index.html" class="hover:text-white transition">Home</a>
+            <a href="about.html" class="hover:text-white transition">About</a>
+            <a href="contact.html" class="hover:text-white transition">Contact</a>
+        </nav>
+
+        <!-- Right Side: Socials -->
+        <div class="flex items-center gap-4 text-zinc-400 text-lg">
+            <a href="#" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+    </header>
+
+    <!-- MAIN LOGIN CONTAINER -->
+    <main class="flex-1 flex items-center justify-center px-6 py-12">
+        <div class="w-full max-w-md bg-zinc-900 p-8 md:p-10 rounded-2xl border border-zinc-800 shadow-2xl space-y-6">
+            
+            <!-- Welcome Header -->
+            <div class="text-center space-y-2">
+                <h1 class="text-3xl font-black tracking-tight text-white">Welcome Back</h1>
+                <p class="text-xs text-zinc-400">Log in to sync your multilingual playlists and history.</p>
+            </div>
+
+            <!-- Native Credential Form -->
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Authentication initialized...');">
+                <!-- Email Field -->
+                <div class="space-y-1.5">
+                    <label for="email" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Email Address</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm"></i>
+                        <input type="email" id="email" required placeholder="name@example.com" 
+                            class="w-full bg-zinc-950 text-white text-sm pl-11 pr-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-1.5">
+                    <div class="flex justify-between items-center">
+                        <label for="password" class="text-xs font-bold text-zinc-400 uppercase tracking-wider">Password</label>
+                        <a href="#" class="text-xs text-emerald-400 hover:underline">Forgot password?</a>
+                    </div>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm"></i>
+                        <input type="password" id="password" required placeholder="••••••••" 
+                            class="w-full bg-zinc-950 text-white text-sm pl-11 pr-4 py-3 rounded-xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition">
+                    </div>
+                </div>
+
+                <!-- Remember Me Checkbox -->
+                <div class="flex items-center pt-1">
+                    <label class="flex items-center gap-3 cursor-pointer select-none text-zinc-400 text-sm">
+                        <input type="checkbox" id="remember" class="w-4 h-4 rounded border-zinc-800 bg-zinc-950 accent-emerald-500 focus:ring-0 focus:ring-offset-0">
+                        <span>Remember Me</span>
+                    </label>
+                </div>
+
+                <!-- Login Action Button -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm py-3.5 rounded-full transition shadow-lg hover:scale-[1.01]">
+                        LOG IN
+                    </button>
+                </div>
+            </form>
+
+            <!-- OR Separator Line -->
+            <div class="relative flex py-2 items-center">
+                <div class="flex-grow border-t border-zinc-800"></div>
+                <span class="flex-shrink mx-4 text-zinc-500 text-xs font-bold uppercase tracking-wider">OR</span>
+                <div class="flex-grow border-t border-zinc-800"></div>
+            </div>
+
+            <!-- Third-Party Federated Social Login Options -->
+            <div class="space-y-3">
+                <!-- Google Login Button -->
+                <button onclick="alert('Redirecting to Google OAuth...')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800/50 text-zinc-200 text-sm font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition">
+                    <i class="fa-brands fa-google text-red-500 text-base"></i>
+                    <span>Continue with Google</span>
+                </button>
+
+                <!-- Facebook Login Button -->
+                <button onclick="alert('Redirecting to Facebook OAuth...')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800/50 text-zinc-200 text-sm font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition">
+                    <i class="fa-brands fa-facebook text-blue-500 text-lg"></i>
+                    <span>Continue with Facebook</span>
+                </button>
+            </div>
+
+            <!-- Sign Up Redirect Alternative -->
+            <div class="text-center pt-2">
+                <p class="text-xs text-zinc-500">Don't have an account? <a href="#" class="text-white hover:underline font-semibold">Sign up for MUZIK</a></p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-8 text-zinc-500 text-xs text-center">
+        <p>&copy; 2026 AI Music Production Studio Inc. Secure single sign-on deployment.</p>
+    </footer>
+
+</body>
+</html>
