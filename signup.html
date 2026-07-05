@@ -56,6 +56,15 @@
                     </div>
                 </div>
 
+                <!-- CONFIRM PASSWORD BLOCK -->
+                <div class="space-y-1.5">
+                    <label for="confirm-password" class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Confirm Password</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+                        <input type="password" id="confirm-password" required placeholder="Confirm password" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-emerald-500 text-zinc-200 transition-colors">
+                    </div>
+                </div>
+
                 <div class="flex items-start gap-2.5 pt-1">
                     <input type="checkbox" id="terms-agree" required class="rounded border-zinc-800 bg-zinc-950 text-emerald-500 focus:ring-0 w-3.5 h-3.5 mt-0.5 cursor-pointer">
                     <label for="terms-agree" class="text-[10px] text-zinc-400 select-none leading-normal">
@@ -97,26 +106,44 @@
         &copy; 2026 Ai Music Production Studio. Verification pipelines protected by structural encryption nodes.
     </footer>
 
-    <!-- LOGIC PROCESSING INTEGRATION BLOCK -->
+    <!-- INTERACTIVE SYSTEM SCRIPT HUB -->
     <script>
+        // AUTOMATIC REDIRECT IF ALREADY LOGGED IN
+        if (localStorage.getItem("loggedIn")) {
+            window.location = "index.html";
+        }
+
+        // IMPROVED SIGNUP ENGINE
         function handleUserSignup(event) {
             event.preventDefault();
 
-            const name = document.getElementById("signup-name").value;
-            const email = document.getElementById("signup-email").value;
+            const name = document.getElementById("signup-name").value.trim();
+            const email = document.getElementById("signup-email").value.trim().toLowerCase();
             const password = document.getElementById("signup-password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must contain at least 6 characters.");
+                return;
+            }
+
+            if (localStorage.getItem("user_" + email)) {
+                alert("User already exists.");
+                return;
+            }
 
             const user = {
                 name,
                 email,
-                password,
+                password: btoa(password),
+                avatar: "logo.png",
                 created: new Date().toISOString()
             };
-
-            if (localStorage.getItem("user_" + email)) {
-                alert("User already exists");
-                return;
-            }
 
             localStorage.setItem("user_" + email, JSON.stringify(user));
             localStorage.setItem("loggedIn", "true");
