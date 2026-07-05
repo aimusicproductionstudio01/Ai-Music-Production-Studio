@@ -5,7 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ai Music Production Studio </title>
     <!-- Tailwind CSS for modern layout architecture, FontAwesome 6.5.1 for confirmed production icons -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script>
+    // System registry mapping languages directly to your specified active distribution nodes
+    const channelRegistry = {
+        "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
+        "Bangla": "https://www.youtube.com/@Ai_BanglaGaan_11",
+        "Bhakti": "https://www.youtube.com/@Ai_BhaktiGaana",
+        "Bhojpuri": "https://www.youtube.com/@Ai_BhojpuriGaana",
+        "English": "https://www.youtube.com/@Ai_EnglishSongs-01",
+        "Devotional": "https://www.youtube.com/@Ai_BhaktiGaana" // Secondary structural mapping fallback
+    };
+
+    const songsData = {
+        "featuredSong": {
+            "title": "Chandni Raat Mein",
+            "description": "Our featured release this week.",
+            "youtubeId": "PZTy8QjLwRs",
+            "language": "Hindi",
+            "category": "Love"
+        },
+        "latest": [
+            { "title": "তুমি আমার হৃদয় জুড়ে", "language": "Bangla", "category": "Love", "youtubeId": "808jEfQ3OWo" },
+            { "title": "💖Teri Aankhon Mein Mera Jahaan❤️", "language": "Hindi", "category": "Love", "youtubeId": "AE5-sjoJ4Ew" },
+            { "title": "Nach Sohniye🔥", "language": "Hindi", "category": "Party", "youtubeId": "t_Ah955G-e0" },
+            { "title": "Tomar Chokher Shohore ❤️", "language": "Bangla", "category": "Love", "youtubeId": "zibnMsGBW8Q" },
+            { "title": "Tohre Naina Ke Current⚡", "language": "Bhojpuri", "category": "Party", "youtubeId": "Xo95ahlGayc" },
+            { "title": "Mere Bajrangbali", "language": "Hindi", "category": "Devotional", "youtubeId": "8VpqWKykDJ0" }
+        ],
+        "news": [
+            { "title": "🎵 New Release", "content": "Rongila Jhumka is now available on YouTube." },
+            { "title": "🚀 Upcoming Release", "content": "Mon Pakhir Dana releasing on 20 June 2026." },
+            { "title": "🔥 Trending", "content": "AI Bangla Gaan channel reached a new milestone." }
+        ],
+        "playlists": [
+            { "title": "❤️ Best Love Songs", "description": "Hindi, Bangla and English romantic hits." },
+            { "title": "🎉 Party & DJ Remix", "description": "Dance, remix and viral party tracks." },
+            { "title": "🙏 Devotional Collection", "description": "Bhakti songs and spiritual music." }
+        ]
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Initialize Featured Audio Hero Component
+        const featured = songsData.featuredSong;
+        document.getElementById("hero-title").innerText = featured.title;
+        document.getElementById("hero-desc").innerText = featured.description;
+        document.getElementById("hero-tag").innerText = `${featured.language} // ${featured.category}`;
+        document.getElementById("hero-play-btn").href = `https://www.youtube.com/watch?v=${featured.youtubeId}`;
+        document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`;
+
+        // 2. Hydrate Latest Audio Tracks Grid with Channel Sub-linking
+        const tracksGrid = document.getElementById("latest-tracks-grid");
+        tracksGrid.innerHTML = songsData.latest.map(track => {
+            // Locate specific YouTube channel from registry baseline dictionary using asset metadata language
+            const targetChannel = channelRegistry[track.language] || "https://www.youtube.com";
+            
+            return `
+                <div class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-850 flex items-center justify-between gap-4 group">
+                    <a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" class="flex items-center gap-4 min-w-0 flex-1">
+                        <div class="relative w-20 h-14 bg-zinc-950 rounded-lg overflow-hidden flex-shrink-0 border border-zinc-800">
+                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" alt="${track.title}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <i class="fa-solid fa-play text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <h4 class="text-sm font-bold text-white truncate group-hover:text-emerald-400 transition-colors">${track.title}</h4>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-[10px] text-zinc-500 font-medium">${track.category}</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Dynamic Hub Channel Routing Tag Badge Button Link Node -->
+                    <a href="${targetChannel}" target="_blank" class="text-[10px] font-mono tracking-wider uppercase bg-zinc-950 hover:bg-emerald-500 hover:text-black text-zinc-400 px-2.5 py-1.5 rounded-md border border-zinc-800 transition-all flex-shrink-0 flex items-center gap-1">
+                        ${track.language} <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+                    </a>
+                </div>
+            `;
+        }).join('');
+
+        // 3. Render Studio Bulletins Feeds Elements Matrix
+        const newsContainer = document.getElementById("studio-news-container");
+        newsContainer.innerHTML = songsData.news.map(item => `
+            <div class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-850">
+                <h4 class="text-xs font-bold text-white">${item.title}</h4>
+                <p class="text-[11px] text-zinc-400 mt-1 leading-relaxed">${item.content}</p>
+            </div>
+        `).join('');
+
+        // 4. Render Active Playlist Target Modules
+        const playlistsContainer = document.getElementById("playlists-container");
+        playlistsContainer.innerHTML = songsData.playlists.map(pl => `
+            <div class="p-2.5 rounded-xl hover:bg-zinc-900 transition-colors cursor-pointer group flex items-center justify-between">
+                <div>
+                    <h4 class="text-xs font-bold text-zinc-300 group-hover:text-white transition-colors">${pl.title}</h4>
+                    <p class="text-[10px] text-zinc-500 mt-0.5">${pl.description}</p>
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-600 group-hover:text-emerald-400 transition-colors pr-2"></i>
+            </div>
+        `).join('');
+    });
+</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         html { scroll-behavior: smooth; }
