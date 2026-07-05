@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen flex flex-col justify-between relative">
 
     <!-- GLOBAL HEADER NAVIGATION -->
     <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 px-4 md:px-8 py-3.5 flex items-center justify-between shadow-lg">
@@ -15,10 +15,15 @@
             <img src="logo.png" alt="Ai Music Production Studio Logo" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
             <span class="text-lg font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase">Ai Music Production Studio</span>
         </a>
-        <nav class="flex items-center gap-6 text-sm font-semibold text-zinc-400">
+        <nav class="flex items-center gap-5 text-sm font-semibold text-zinc-400">
             <a href="index.html" class="text-white">Home</a>
+            <a href="channels.html" class="hover:text-white transition-colors">Channels</a>
+            <a href="news.html" class="hover:text-white transition-colors">News</a>
             <a href="about.html" class="hover:text-white transition-colors">About</a>
             <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            <div class="h-4 w-[1px] bg-zinc-800 hidden sm:block"></div>
+            <a href="login.html" class="hover:text-white transition-colors text-xs bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800 hidden sm:inline-block">Log In</a>
+            <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black text-xs px-3 py-1.5 rounded-lg font-bold hidden sm:inline-block">Sign Up</a>
         </nav>
     </header>
 
@@ -63,7 +68,10 @@
             <!-- Right 1 Column: Bulletins and Playlists -->
             <div class="space-y-8">
                 <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-850/80 space-y-4">
-                    <h2 class="text-lg font-black tracking-tight text-white flex items-center gap-2"><i class="fa-solid fa-satellite-dish text-emerald-400"></i> Studio Bulletins</h2>
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-black tracking-tight text-white flex items-center gap-2"><i class="fa-solid fa-satellite-dish text-emerald-400"></i> Studio Bulletins</h2>
+                        <a href="news.html" class="text-[11px] text-zinc-500 hover:text-emerald-400 transition-colors">View All</a>
+                    </div>
                     <div id="studio-news-container" class="space-y-3.5">
                         <!-- Loaded dynamically from JSON -->
                     </div>
@@ -81,14 +89,35 @@
 
     </main>
 
+    <!-- FLOATING WHATSAPP BUTTON HOTLINK -->
+    <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-400 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition-transform hover:scale-110 group" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="absolute right-16 bg-zinc-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-zinc-800 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">Contact Studio</span>
+    </a>
+
     <!-- UNIFIED GLOBAL FOOTER -->
-    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-8 text-zinc-500 text-xs text-center">
-        <p>&copy; 2026 Ai Music Production Studio Inc. Audio processes patented. All rights reserved.</p>
+    <footer class="border-t border-zinc-900 bg-zinc-950 px-6 py-10 text-zinc-500 text-xs space-y-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <p>&copy; 2026 Ai Music Production Studio Inc. Audio processes patented. All rights reserved.</p>
+                <div class="flex items-center gap-4 text-zinc-600">
+                    <a href="privacy-policy.html" class="hover:text-zinc-400 transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="terms.html" class="hover:text-zinc-400 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+            
+            <!-- Direct Social Anchor Cluster -->
+            <div class="flex items-center gap-5 text-base">
+                <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors" title="Facebook Page"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors" title="Instagram Profile"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors" title="WhatsApp Business Line"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
     </footer>
 
     <!-- RUNTIME ASYNC DATA INTERFACE SCRIPT -->
     <script>
-        // Channel Endpoint Registry Baseline Map
         const channelRegistry = {
             "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
             "Bangla": "https://www.youtube.com/@Ai_BanglaGaan_11",
@@ -99,7 +128,6 @@
         };
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Fetch configuration directly from target JSON database file array loop
             fetch('songs.json')
                 .then(response => {
                     if (!response.ok) throw new Error("Acoustic data channel streaming error.");
@@ -117,20 +145,20 @@
 
         function hydrateDashboard(songsData) {
             // 1. Initialize Featured Audio Hero Component
-            const featured = songsData.featuredSong;[cite: 2]
+            const featured = songsData.featuredSong;
             if (featured) {
-                document.getElementById("hero-title").innerText = featured.title;[cite: 2]
-                document.getElementById("hero-desc").innerText = featured.description;[cite: 2]
-                document.getElementById("hero-tag").innerText = `${featured.language} // ${featured.category}`;[cite: 2]
-                document.getElementById("hero-play-btn").href = `https://www.youtube.com/watch?v=${featured.youtubeId}`;[cite: 2]
-                document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`;[cite: 2]
+                document.getElementById("hero-title").innerText = featured.title;
+                document.getElementById("hero-desc").innerText = featured.description;
+                document.getElementById("hero-tag").innerText = `${featured.language} // ${featured.category}`;
+                document.getElementById("hero-play-btn").href = `https://www.youtube.com/watch?v=${featured.youtubeId}`;
+                document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`;
             }
 
             // 2. Hydrate Latest Audio Tracks Grid Array Elements
             const tracksGrid = document.getElementById("latest-tracks-grid");
-            if (songsData.latest) {[cite: 2]
-                tracksGrid.innerHTML = songsData.latest.map(track => {[cite: 2]
-                    const targetChannel = channelRegistry[track.language] || "https://www.youtube.com";[cite: 2]
+            if (songsData.latest) {
+                tracksGrid.innerHTML = songsData.latest.map(track => {
+                    const targetChannel = channelRegistry[track.language] || "https://www.youtube.com";
                     return `
                         <div class="bg-zinc-900 p-3.5 rounded-xl border border-zinc-850 flex items-center justify-between gap-4 group">
                             <a href="https://www.youtube.com/watch?v=${track.youtubeId}" target="_blank" class="flex items-center gap-4 min-w-0 flex-1">
@@ -157,18 +185,18 @@
 
             // 3. Render Studio Bulletins Feeds Elements Matrix
             const newsContainer = document.getElementById("studio-news-container");
-            if (songsData.news) {[cite: 2]
-                newsContainer.innerHTML = songsData.news.map(item => `
+            if (songsData.news) {
+                newsContainer.innerHTML = songsData.news.slice(0, 3).map(item => `
                     <div class="bg-zinc-950 p-3.5 rounded-xl border border-zinc-850">
                         <h4 class="text-xs font-bold text-white">${item.title}</h4>
                         <p class="text-[11px] text-zinc-400 mt-1 leading-relaxed">${item.content}</p>
                     </div>
-                `).join('');[cite: 2]
+                `).join('');
             }
 
             // 4. Render Active Playlist Target Modules
             const playlistsContainer = document.getElementById("playlists-container");
-            if (songsData.playlists) {[cite: 2]
+            if (songsData.playlists) {
                 playlistsContainer.innerHTML = songsData.playlists.map(pl => `
                     <div class="p-2.5 rounded-xl hover:bg-zinc-900 transition-colors cursor-pointer group flex items-center justify-between">
                         <div>
@@ -177,7 +205,7 @@
                         </div>
                         <i class="fa-solid fa-chevron-right text-[10px] text-zinc-600 group-hover:text-emerald-400 transition-colors pr-2"></i>
                     </div>
-                `).join('');[cite: 2]
+                `).join('');
             }
         }
     </script>
