@@ -1,0 +1,271 @@
+/* ==========================================================================
+   GLOBAL STRUCTURE SETUP & SCROLL SAFEGUARDS
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #09090b;
+    color: white;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Footer clearance for sticky bottom music console */
+body {
+    padding-bottom: 90px;
+}
+
+/* Custom Scrollbar configuration tokens */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+/* ==========================================================================
+   TOUCH PLATFORM & SPECIFICATIONS (MINIMUM 44PX TARGETS)
+   ========================================================================== */
+.touch-target, 
+.btn,
+.player-btn,
+header a,
+header input,
+.song-card button {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================================================
+   HEADER ACTIONS & CONTENT SEARCH FIELDS
+   ========================================================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.search-box {
+    width: 100%;
+    background-color: #0c0c0e;
+    border: 1px solid #27272a;
+    border-radius: 9999px;
+    padding: 8px 16px 8px 40px;
+    font-size: 13px;
+    color: #e4e4e7;
+    transition: border-color 0.2s;
+}
+.search-box:focus {
+    outline: none;
+    border-color: #10b981;
+}
+
+/* ==========================================================================
+   GRID ENGINE ARCHITECTURE & CONTAINER CONTEXTS
+   ========================================================================== */
+.song-grid,
+.region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 20px;
+}
+
+/* ==========================================================================
+   ANTI-OVERLAP SONG CARD PACKAGES
+   ========================================================================== */
+.song-card {
+    background: #181818;
+    border-radius: 12px;
+    padding: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.song-card:hover {
+    transform: translateY(-4px);
+    border-color: #27272a;
+}
+
+.song-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+/* Long text clipping system rules */
+.song-card h3 {
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    font-weight: bold;
+    color: #fff;
+}
+
+.card-meta {
+    font-size: 11px;
+    color: #71717a;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Flexible content card row layout buttons */
+.song-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.song-actions .btn {
+    flex: 1;
+    min-width: 80px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+/* ==========================================================================
+   SPOTIFY FOOTER STICKY COMPONENT MODULES
+   ========================================================================== */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 9999;
+    background: #111113;
+    border-top: 1px solid #27272a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 24px;
+}
+
+.music-player img {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid #27272a;
+}
+
+.music-info {
+    flex: 1;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.music-info h4 {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.music-info p {
+    font-size: 11px;
+    color: #a1a1aa;
+    margin: 2px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-btn {
+    background: #1DB954;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.player-btn:hover {
+    background: #1ed760;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   YOUTUBE EMBED MODULE HOUSING
+   ========================================================================== */
+.video-player {
+    position: relative;
+    width: 100%;
+    max-width: 240px;
+    padding-bottom: 13.5%; /* Keeps iframe sized nicely within horizontal layout context */
+}
+
+.video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    border: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE COMPACT MEDIA VIEWPORTS
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .music-player {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+    
+    .music-player img {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .video-player {
+        max-width: 100%;
+        width: 100%;
+        padding-bottom: 56.25%; /* Automatically matches standard 16:9 viewport when phone stack trips */
+        order: 3;
+    }
+    
+    .music-info {
+        width: calc(100% - 70px);
+    }
+}
