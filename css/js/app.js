@@ -24,23 +24,70 @@ function initializeApplicationRuntime() {
     setupUnifiedSearchEngine();
     registerFixedInterfaceHandlers();
 
+    // Force an absolute fallback path mapping to prevent root resolution failures
+    const jsonPath = window.location.pathname.includes('index.html') 
+        ? window.location.href.replace('index.html', 'songs.json')
+        : window.location.origin + (window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/') + 'songs.json';
+
+    console.log("System Status: Pinging Database Matrix at Location ->", jsonPath);
+
     // Fetch database matrix safely once and cache compilation string
-    fetch('songs.json')
+    fetch(jsonPath)
         .then(response => {
-            if (!response.ok) throw new Error("Metadata registry connectivity failure.");
+            console.log("Network Status Response Code:", response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP Error Status: ${response.status} - Registry connectivity failure.`);
+            }
             return response.json();
         })
-        .then(songsData => hydrateCompletePlatform(songsData))
-        .catch(err => console.error("System Runtime Core Fault:", err));
+        .then(songsData => {
+            console.log("Database successfully extracted. Parsing records...", songsData);
+            hydrateCompletePlatform(songsData);
+        })
+        .catch(err => {
+            console.error("🔴 CRITICAL Core Fetch Failure! Error Details:", err.message);
+            displayHardcodedFallbackData();
+        });
+}
+
+/**
+ * HARDCODED IN-MEMORY EMERGENCY ENGINE FALLBACK
+ * Runs safely if your local file system or deployment routing blocks the songs.json asset.
+ */
+function displayHardcodedFallbackData() {
+    console.warn("⚠️ System deploying local safe operational environment variables.");
+    const fallbackRegistry = {
+        "featuredSong": {
+            "title": "Welcome to AI Music Production Studio",
+            "description": "If you see this, your browser blocked your file fetch. Use VS Code Live Server or upload online to load songs.json automatically.",
+            "language": "System",
+            "category": "Demo",
+            "youtubeId": "dQw4w9WgXcQ"
+        },
+        "newReleases": [
+            { "title": "System Diagnostic Mode Track", "language": "English", "category": "Demo", "youtubeId": "dQw4w9WgXcQ" }
+        ],
+        "latest": [
+            { "title": "Fallback Interface Matrix Active", "language": "Hindi", "category": "Demo", "youtubeId": "dQw4w9WgXcQ" }
+        ],
+        "upcoming": [
+            { "title": "Production Deployment Syncing", "language": "System", "category": "Demo", "releaseDate": "SOON" }
+        ],
+        "languages": { "Hindi": {}, "Bangla": {} },
+        "news": [
+            { "title": "Local System Notice", "content": "Fetch sequence manually redirected to internal backup matrix arrays due to runtime environment path restrictions." }
+        ]
+    };
+    hydrateCompletePlatform(fallbackRegistry);
 }
 
 /**
  * 1. HIGH PERFORMANCE SINGLE PASS STRING ACCUMULATION DESIGN PATTERNS
  */
 function hydrateCompletePlatform(data) {
-    // 1. HIDDEN HERO CONFIGURATION
+    // 1. HERO CONFIGURATION
     const featured = data.featuredSong;
-    if (featured) {
+    if (featured && document.getElementById("hero-title")) {
         document.getElementById("hero-title").innerText = featured.title;
         document.getElementById("hero-desc").innerText = featured.description;
         document.getElementById("hero-tag").innerText = `FEATURED MASTER • ${featured.language} • ${featured.category}`;
@@ -163,7 +210,7 @@ function hydrateCompletePlatform(data) {
 }
 
 /**
- * 2. LIVE SEAMLESS INSTANT QUERY STREAM INTERACTION ARCHITECTURE
+ * 2. LIVE QUERY FILTERS
  */
 function setupUnifiedSearchEngine() {
     const searchInput = document.getElementById("searchInput");
@@ -180,7 +227,7 @@ function setupUnifiedSearchEngine() {
             const category = card.dataset.category ? card.dataset.category.toLowerCase() : "";
 
             if (title.includes(value) || category.includes(value)) {
-                card.style.display = "flex"; // Reverts clean mapping visibility
+                card.style.display = "flex";
             } else {
                 card.style.display = "none";
             }
@@ -189,18 +236,14 @@ function setupUnifiedSearchEngine() {
 }
 
 /**
- * 3. CONTROL ELEMENT LINK RUNTIME LOGIC BOUNDARIES
+ * 3. INTERFACE EVENT REGISTRATION
  */
 function registerFixedInterfaceHandlers() {
     const closeLyricsBtn = document.getElementById("close-lyrics-btn");
-    if (closeLyricsBtn) {
-        closeLyricsBtn.addEventListener("click", closeLyricsPanel);
-    }
+    if (closeLyricsBtn) closeLyricsBtn.addEventListener("click", closeLyricsPanel);
 
     const playerLyricsBtn = document.getElementById("player-lyrics-btn");
-    if (playerLyricsBtn) {
-        playerLyricsBtn.addEventListener("click", displayTrackLyrics);
-    }
+    if (playerLyricsBtn) playerLyricsBtn.addEventListener("click", displayTrackLyrics);
 }
 
 function playSong(title, youtubeId, language = "Studio Track", lyricsFile = "") {
