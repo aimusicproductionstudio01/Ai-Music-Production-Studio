@@ -3,169 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai Music Production Studio | Home Dashboard</title>
-    <!-- Core External Vector and Global Design Tokens -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>AI Music Production Studio</title>
+    
+    <!-- FontAwesome Vector Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Core Application Component Layouts -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/player.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body class="min-h-screen flex flex-col relative">
+<body class="bg-black text-white antialiased selection:bg-emerald-500/30 selection:text-emerald-400">
 
-    <!-- GLOBAL RESPONSIVE NAV HEADER BLOCK -->
-    <header class="header sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 shadow-lg">
-        <div class="flex items-center gap-3 group">
-            <a href="index.html" class="flex items-center gap-3 focus:outline-none">
-                <img src="logo/logo.png" alt="Studio Logo" onerror="this.src='logo.png'" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <span class="text-md font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase whitespace-nowrap">Ai Music Studio</span>
-            </a>
+    <!-- ==========================================================================
+       TOP NAVIGATION BAR & IDENTITY DECK
+       ========================================================================== -->
+    <header class="fixed top-0 left-0 right-0 h-16 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900 px-6 flex items-center justify-between z-50">
+        <div class="flex items-center gap-3">
+            <img src="logo/logo.png" alt="Studio Logo" class="w-8 h-8 rounded-lg shadow-md" onerror="this.src='logo.png'">
+            <span class="font-black text-sm tracking-wider uppercase text-emerald-400">AI Studio</span>
         </div>
-
-        <!-- SEARCH INPUT ARCHITECTURE -->
-        <div class="w-full md:max-w-md relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
-            <input type="text" id="searchInput" placeholder="Search songs..." class="search-box">
-        </div>
-
-        <!-- RIGHT HEAD NAV: SOCIALS & AUTH -->
-        <div class="flex items-center gap-6 justify-between md:justify-end">
-            <div class="social-links text-zinc-400 text-sm border-r border-zinc-800 pr-4">
-                <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-            
-            <div id="auth-nav-slot" class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
-                <a href="login.html" class="hover:text-white text-zinc-400 transition-colors bg-zinc-950 px-3 py-2 rounded-lg border border-zinc-800 touch-target">Log In</a>
-                <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black px-3 py-2 rounded-lg transition-colors touch-target">Sign Up</a>
+        
+        <!-- Interactive Unified Search Target Hub -->
+        <div class="flex-1 max-w-md mx-6">
+            <div class="relative w-full">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+                <input type="text" id="searchInput" placeholder="Search by title, language, genre..." 
+                       class="w-full h-9 bg-zinc-900 border border-zinc-800 rounded-full pl-10 pr-4 text-xs font-medium text-white placeholder:text-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors">
             </div>
         </div>
+
+        <!-- Identity Matrix Slot (Populated via auth.js + app.js) -->
+        <nav id="auth-nav-slot">
+            <button class="text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer touch-target" 
+                    onclick="document.getElementById('auth-modal-container').classList.remove('hidden')">
+                Sign In
+            </button>
+        </nav>
     </header>
 
-    <!-- MAIN INTERACTIVE ARCHITECTURE -->
-    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 w-full space-y-12 flex-1">
+    <!-- ==========================================================================
+       MAIN DASHBOARD GRID STRATA
+       ========================================================================== -->
+    <main class="pt-24 pb-32 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        <!-- FEATURED HERO BANNER -->
-        <section id="featured-hero" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-900/40 to-zinc-950 border border-zinc-850 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
-            <div class="space-y-4 max-w-xl z-10">
-                <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="hero-tag">FEATURED MASTER</span>
-                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Loading Active Nodes...</h1>
-                <p class="text-xs md:text-sm text-zinc-400 leading-relaxed" id="hero-desc">Connecting to music engine array registry endpoints...</p>
-                <div class="pt-2">
-                    <button id="hero-play-btn" class="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all shadow-lg tracking-wider cursor-pointer w-full md:w-auto touch-target">
-                        <i class="fa-solid fa-play"></i> STREAM AUDIO
-                    </button>
-                </div>
-            </div>
-            <div class="w-full md:w-80 lg:w-96 aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden relative group z-10">
-                <img id="hero-thumbnail" src="covers/banner.jpg" onerror="this.src='banner.jpg'" alt="Featured Media Layout Art" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center text-md shadow-2xl"><i class="fa-solid fa-music"></i></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- LAYOUT CONTENT MATRIX SPLIT -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <div class="lg:col-span-2 space-y-12">
-                <!-- NEW RELEASES GRID -->
-                <div class="space-y-4">
-                    <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-emerald-500 rounded-full"></span> New Releases</h2>
-                    <div id="new-releases-container" class="song-grid"></div>
-                </div>
-
-                <!-- TRENDING MATRIX CARDS -->
-                <div class="space-y-4">
-                    <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-amber-500 rounded-full"></span> Studio Matrix Drops</h2>
-                    <div id="trending-songs-container" class="region-grid"></div>
-                </div>
-
-                <!-- ALL SONGS COMPILATION PRODUCTION -->
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between border-b border-zinc-850 pb-2">
-                        <h2 class="text-xl font-black text-white uppercase tracking-wider">All Production Songs</h2>
-                        <a href="channels.html" class="text-xs text-zinc-500 hover:text-emerald-400 transition-colors touch-target">View Channels</a>
+        <!-- LEFT/CENTER SECTOR: PLATFORM FLOW STREAM (3 Columns) -->
+        <div class="lg:col-span-3 space-y-10">
+            
+            <!-- Dynamic Component: Featured Hero Banner Section -->
+            <section id="featured-hero" class="relative rounded-2xl overflow-hidden min-h-[280px] bg-zinc-950 border border-zinc-900 flex flex-col justify-end p-8 group">
+                <img id="hero-thumbnail" src="" class="absolute inset-0 w-full height-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" alt="">
+                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent"></div>
+                
+                <div class="relative z-10 space-y-3 max-w-xl">
+                    <span id="hero-tag" class="text-[9px] font-black tracking-widest uppercase bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/20 inline-block">Featured Master</span>
+                    <h1 id="hero-title" class="text-2xl md:text-4xl font-black tracking-tight leading-none text-white">Loading Master Track...</h1>
+                    <p id="hero-desc" class="text-xs md:text-sm text-zinc-400 leading-relaxed">Initializing dynamic studio presentation layer elements...</p>
+                    <div class="pt-2">
+                        <button id="hero-play-btn" class="bg-white text-black text-xs font-bold px-6 h-10 rounded-full flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow-lg">
+                            <i class="fa-solid fa-play text-[10px]"></i> Play Production
+                        </button>
                     </div>
-                    <div id="all-songs-grid" class="region-grid"></div>
                 </div>
-            </div>
+            </section>
 
-            <!-- RIGHT CONTROL SIDEBAR FEEDS -->
-            <div class="space-y-8">
-                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-hourglass-start text-emerald-400"></i> Production Schedule</h3>
-                    <div id="upcoming-container" class="space-y-2.5"></div>
+            <!-- Dynamic Component: New Releases Dynamic Grid Section -->
+            <section class="space-y-4">
+                <h2 class="text-base font-black uppercase tracking-wider text-zinc-200 flex items-center gap-2">
+                    <span class="w-1.5 h-3 bg-emerald-500 rounded-sm"></span> New Releases
+                </h2>
+                <div id="new-releases-container" class="song-grid grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Cards Hydrated via app.js -->
                 </div>
+            </section>
 
-                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-compact-disc text-emerald-400"></i> Language Hubs</h3>
-                    <div id="language-playlists-container" class="space-y-2"></div>
+            <!-- Dynamic Component: Trending Dynamic Row Grid Section -->
+            <section class="space-y-4">
+                <h2 class="text-base font-black uppercase tracking-wider text-zinc-200 flex items-center gap-2">
+                    <span class="w-1.5 h-3 bg-amber-500 rounded-sm"></span> Trending Tracks
+                </h2>
+                <div id="trending-songs-container" class="region-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Cards Hydrated via app.js -->
                 </div>
+            </section>
 
-                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
-                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-bullhorn text-amber-500"></i> Live Studio News</h3>
-                    <div id="news-feed-container" class="space-y-3"></div>
+            <!-- Dynamic Component: Latest / Master Catalog Section -->
+            <section class="space-y-4">
+                <h2 class="text-base font-black uppercase tracking-wider text-zinc-200 flex items-center gap-2">
+                    <span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span> Full Catalog Production Stems
+                </h2>
+                <div id="all-songs-grid" class="song-grid grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Cards Hydrated via app.js -->
                 </div>
-            </div>
+            </section>
         </div>
+
+        <!-- RIGHT SIDEBAR: AUXILIARY MANAGEMENT PANELS (1 Column) -->
+        <aside class="space-y-8 lg:col-span-1">
+            
+            <!-- Dynamic Component: Upcoming Releases Feed Section -->
+            <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
+                <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Upcoming Drops</h3>
+                <div id="upcoming-container" class="space-y-3">
+                    <!-- Content Hydrated via app.js -->
+                </div>
+            </section>
+
+            <!-- Dynamic Component: Language Routers Directory Section -->
+            <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
+                <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Language Hubs</h3>
+                <div id="language-playlists-container" class="divide-y divide-zinc-900/50">
+                    <!-- Content Hydrated via app.js -->
+                </div>
+            </section>
+
+            <!-- Dynamic Component: Broadcast Studio News Feed Section -->
+            <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
+                <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Studio Broadcast News</h3>
+                <div id="news-feed-container" class="space-y-3">
+                    <!-- Content Hydrated via app.js -->
+                </div>
+            </section>
+
+            <!-- Telemetry System Counter Display Footer Widget Section -->
+            <section class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900/60 flex items-center justify-around text-center">
+                <div>
+                    <span id="analytics-total-visitors" class="block text-sm font-mono font-bold text-white">0</span>
+                    <span class="text-[9px] uppercase tracking-widest text-zinc-600 font-bold">Unique Visitors</span>
+                </div>
+                <div class="h-6 w-[1px] bg-zinc-900"></div>
+                <div>
+                    <span id="analytics-total-views" class="block text-sm font-mono font-bold text-white">0</span>
+                    <span class="text-[9px] uppercase tracking-widest text-zinc-600 font-bold">Page Views</span>
+                </div>
+            </section>
+        </aside>
     </main>
 
-    <!-- FOOTER ARTIFACTS -->
-    <footer class="bg-zinc-950 border-t border-zinc-900 py-6 text-center text-xs text-zinc-500 space-y-3">
-        <div class="flex flex-wrap justify-center gap-6 font-semibold">
-            <a href="about.html" class="hover:text-white transition-colors touch-target">About</a>
-            <a href="contact.html" class="hover:text-white transition-colors touch-target">Contact</a>
-            <a href="privacy-policy.html" class="hover:text-white transition-colors touch-target">Privacy Policy</a>
-            <a href="terms.html" class="hover:text-white transition-colors touch-target">Terms</a>
-        </div>
-        <p>&copy; 2026 AI Music Production Studio. All Rights Reserved.</p>
+    <!-- ==========================================================================
+       ISOLATED CORE SYSTEM COMPONENT LAYOUTS (STICKY PLAYER & OVERLAYS)
+       ========================================================================== -->
+    
+    <!-- 🎵 Spotify Bottom Player Platform App Matrix (CSS mapped inside player.css) -->
+    <footer id="sticky-audio-player" class="hidden">
+        <!-- Structural markup and components are dynamically generated inside player.js -->
     </footer>
 
-    <!-- LYRICS TEXT PANEL MODAL -->
-    <div id="lyrics-panel" class="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-xl max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
-            <div class="p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/50">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-microphone text-emerald-400 text-sm"></i>
-                    <div>
-                        <h3 id="lyrics-track-title" class="text-sm font-black text-white">Track Lyrics</h3>
-                        <p class="text-[10px] text-zinc-500 tracking-wide uppercase font-semibold">Studio Sync Feed</p>
-                    </div>
-                </div>
-                <button id="close-lyrics-btn" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer touch-target">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+    <!-- 📜 Dynamic Overlay Popup Component: Live Synchronized Lyrics Terminal -->
+    <div id="lyrics-panel" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[10000] hidden items-center justify-center p-6 opacity-0 transition-opacity duration-350 pointer-events-none">
+        <button id="close-lyrics-btn" class="absolute top-6 right-6 w-10 h-10 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
+            <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+        <div class="max-w-xl w-full flex flex-col max-h-[80vh]">
+            <h2 id="lyrics-track-title" class="text-center font-black text-lg text-emerald-400 mb-8 tracking-wide">Track Transcription</h2>
+            <div id="lyrics-body" class="overflow-y-auto px-4 custom-scrollbar space-y-2 text-zinc-300">
+                <!-- Data loaded text segments generated dynamically via lyrics.js -->
             </div>
-            <div id="lyrics-body" class="p-8 overflow-y-auto text-center font-medium text-zinc-300 leading-loose text-base space-y-4 select-none max-h-[50vh]"></div>
         </div>
     </div>
 
-    <!-- SPOTIFY-STYLE STICKY PLAYER CONSOLE -->
-    <div id="sticky-audio-player" class="music-player hidden">
-        <div class="flex items-center gap-3.5 min-w-0 flex-1 md:flex-initial">
-            <img id="playerImage" src="logo/logo.png" onerror="this.src='logo.png'" alt="Artwork Frame">
-            <div class="music-info">
-                <h4 id="playerTitle">Select a Song</h4>
-                <p id="player-subtitle">Language Subtype</p>
-            </div>
-        </div>
-
-        <!-- RESPONSIVE YOUTUBE ENGINE CORE LAYER -->
-        <div class="video-player">
-            <iframe id="youtubePlayer" src="" allow="autoplay" allowfullscreen frameborder="0"></iframe>
-        </div>
-
-        <div class="flex items-center gap-3 text-zinc-400 text-xs justify-end">
-            <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex touch-target">
-                YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
-            </a>
-            <button id="player-lyrics-btn" class="player-btn hover:scale-105 transition-transform text-white text-xs cursor-pointer touch-target" title="View Production Lyrics">
-                <i class="fa-solid fa-microphone"></i>
+    <!-- 🔒 Dynamic Overlay Popup Component: User Account Gate Modal System -->
+    <div id="auth-modal-container" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[10001] hidden items-center justify-center p-4">
+        <div class="bg-zinc-950 border border-zinc-900 rounded-2xl w-full max-w-sm p-6 relative shadow-2xl space-y-6">
+            <button class="absolute top-4 right-4 text-zinc-600 hover:text-zinc-400 text-sm cursor-pointer" onclick="document.getElementById('auth-modal-container').classList.add('hidden')">
+                <i class="fa-solid fa-xmark"></i>
             </button>
+            
+            <!-- Unified Identity Login Portal Form -->
+            <form id="studio-login-form" class="space-y-4">
+                <h3 class="text-sm font-black uppercase tracking-wider text-emerald-400">Account Authentication</h3>
+                <div class="space-y-1">
+                    <label class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Email Token</label>
+                    <input type="email" id="login-email" required class="w-full h-9 bg-zinc-900 border border-zinc-800 text-xs px-3 rounded focus:outline-none focus:border-emerald-500 text-white">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Access Signature</label>
+                    <input type="password" id="login-password" required class="w-full h-9 bg-zinc-900 border border-zinc-800 text-xs px-3 rounded focus:outline-none focus:border-emerald-500 text-white">
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                    <input type="checkbox" id="login-remember" class="accent-emerald-500 rounded">
+                    <label for="login-remember" class="text-[11px] text-zinc-400 font-medium select-none cursor-pointer">Remember device persistence keys</label>
+                </div>
+                <button type="submit" class="w-full h-9 bg-emerald-500 text-black font-bold text-xs rounded hover:bg-emerald-400 transition-colors cursor-pointer shadow-md">Authenticate</button>
+            </form>
         </div>
     </div>
 
-    <!-- RUNTIME APPARATUS LINK -->
+    <!-- ==========================================================================
+       MODULAR ARCHITECTURE DEPENDENCY INJECTION STACK
+       ========================================================================== -->
+    <!-- 1. Identity context security system runs guards prior to structural loops -->
+    <script src="js/auth.js"></script>
+    <!-- 2. Secure resource delivery controller -->
+    <script src="js/download.js"></script>
+    <!-- 3. Dynamic content engine parses songs.json database mapping parameters -->
     <script src="js/app.js"></script>
+    <!-- 4. Media streaming engine controls audio timing matrix -->
+    <script src="js/player.js"></script>
+    <!-- 5. Search filtering framework catalogs queries across dashboard grids -->
+    <script src="js/search.js"></script>
+    <!-- 6. Transcription reader fetches text segments -->
+    <script src="js/lyrics.js"></script>
+    <!-- 7. Analytics tracking engine monitors click/telemetry conversion models -->
+    <script src="js/analytics.js"></script>
 </body>
 </html>
