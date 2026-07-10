@@ -1,289 +1,342 @@
 /**
- * AI Music Production Studio - CORE RECOGNITION ENGINE (app.js)
- * Purpose: Centralized data pipeline that reads songs.json and dynamically maps 
- * layout elements, components, collections, categories, and channels.[cite: 1]
+ * AI Music Production Studio - CORE APPLICATION LAYER (app.js)
+ * Features: High-Performance Single-Pass Hydration, Native Custom Event System, 
+ * Comprehensive WCAG Keyboard Navigation, toast-driven feedback, and resilient fallbacks.
  */
 
-// Centralized channel hub mappings matching official studio targets
-const channelRegistry = {
-    "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
-    "Bangla": "https://www.youtube.com/@Ai_BanglaGaan_11",
-    "Bhakti": "https://www.youtube.com/@Ai_BhaktiGaana",
-    "Bhojpuri": "https://www.youtube.com/@Ai_BhojpuriGaana",
-    "English": "https://www.youtube.com/@Ai_EnglishSongs-01"
-};
+(function () {
+    // Config & Fallback Constants
+    const DATABASE_URL = "./songs.json"; 
+    const FALLBACK_STUDIO_DEMO_ID = "388481260"; // Custom studio showcase ID fallback
+    const COVERS_DEFAULT_IMG = "covers/default.jpg"; // Strict image error recovery route
 
-// Application Global Memory Array State Cache
-let masterStudioPlaylist = [];
+    /**
+     * 1. BOOTLOADER INITIATION
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+        runStudioBootLoader();
+    });
 
-document.addEventListener("DOMContentLoaded", () => {
-    runStudioBootLoader();
-});
-
-/**
- * Initializes the presentation runtime lifecycle.
- */
-function runStudioBootLoader() {
-    syncUserAuthentication();
-    setupUnifiedSearchEngine();
-    
-    console.log("System Status: Synchronizing data pipelines via songs.json...");
-    
-    // Dynamic absolute path resolver safely prevents root-level breaking loops
-    const databaseEndpoint = window.location.pathname.includes('index.html') 
-        ? window.location.href.replace('index.html', 'songs.json')
-        : window.location.origin + (window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/') + 'songs.json';
-
-    fetch(databaseEndpoint)
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP Matrix Disconnect: Status code ${response.status}`);
-            return response.json();
-        })
-        .then(databasePayload => {
-            console.log("Database payload extracted successfully. Processing blocks...");
-            compileAndHydrateDashboard(databasePayload);
-        })
-        .catch(err => {
-            console.error("🔴 Matrix Boot Failure: ", err.message);
-            deployLocalEmergencyBackup();
-        });
-}
-
-/**
- * Single pass template generator. Reads JSON arrays and paints structural grids.
- */
-function compileAndHydrateDashboard(data) {
-    // 1. EXTRACT STATE TO GLOBAL PLAYLIST MEMORY LOOP FOR THE MEDIA PLAYER
-    if (data.latest) masterStudioPlaylist = [...data.latest];
-    if (data.newReleases) {
-        data.newReleases.forEach(track => {
-            if (!masterStudioPlaylist.some(t => t.youtubeId === track.youtubeId)) {
-                masterStudioPlaylist.unshift(track); // Add fresh unique records to head of track stream
-            }
-        });
+    async function runStudioBootLoader() {
+        showLoading(); // Prevent layout flashing with active spinner state
+        try {
+            const response = await fetch(DATABASE_URL); 
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            
+            // Hydrate system layout panels
+            compileAndHydrateDashboard(data);
+            
+        } catch (error) {
+            console.error("Studio Boot Error: Fallback data triggered.", error);
+            renderRecoveryEnvironment();
+        } finally {
+            hideLoading(); // Teardown presentation spinner cleanly[cite: 2]
+        }
     }
 
-    // Inform playback layer that the centralized manifest playlist is cached
-    window.studioTrackCache = masterStudioPlaylist;
+    /**
+     * 2. HIGH-PERFORMANCE HYDRATION ENGINE
+     */
+    function compileAndHydrateDashboard(data) {
+        if (!data || !data.songs) return;
 
-    // 2. COMPONENT HYDRATION: FEATURED HERO BANNER ARCHITECTURE[cite: 1]
-    const hero = data.featuredSong;
-    if (hero && document.getElementById("featured-hero")) {
-        document.getElementById("hero-title").innerText = hero.title;[cite: 1]
-        document.getElementById("hero-desc").innerText = hero.description;[cite: 1]
-        document.getElementById("hero-tag").innerText = `FEATURED MASTER • ${hero.language} • ${hero.category}`;[cite: 1]
-        document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${hero.youtubeId}/maxresdefault.jpg`;[cite: 1]
-        document.getElementById("hero-play-btn").setAttribute("data-video-id", hero.youtubeId);
-        document.getElementById("hero-play-btn").setAttribute("data-title", hero.title);
-        document.getElementById("hero-play-btn").setAttribute("data-meta", `${hero.language} • ${hero.category}`);
-        document.getElementById("hero-play-btn").setAttribute("data-lyrics", hero.lyricsFile || "");
-    }
+        // Render Hero Section
+        if (data.hero) {
+            hydrateHeroBanner(data.hero);
+        }
 
-    // 3. COMPONENT HYDRATION: NEW RELEASES MODAL GRID LAYER[cite: 1]
-    if (data.newReleases && document.getElementById("new-releases-container")) {
-        let buffer = "";
-        data.newReleases.forEach(track => {
-            buffer += `
-                <div class="song-card group" data-category="${track.category} ${track.language}">
-                    <div class="relative rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 aspect-video">
-                        <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="song-thumb" loading="lazy">
-                        <button class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer core-play-trigger" 
-                                data-video-id="${track.youtubeId}" data-title="${cleanQuotes(track.title)}" data-meta="${track.language} • ${track.category}" data-lyrics="${track.lyricsFile || ""}">
-                            <div class="w-10 h-10 bg-emerald-500 text-black rounded-full flex items-center justify-center text-sm shadow-xl"><i class="fa-solid fa-play ml-0.5"></i></div>
-                        </button>
-                    </div>
-                    <div>
-                        <h3>${track.title}</h3>
-                        <p class="card-meta">${track.category} • ${track.language}</p>
-                    </div>
-                </div>`;
-        });
-        document.getElementById("new-releases-container").innerHTML = buffer;
-    }
-
-    // 4. COMPONENT HYDRATION: TRENDING MATRIX LOOPS[cite: 1]
-    if (data.latest && document.getElementById("trending-songs-container")) {
-        let buffer = "";
-        data.latest.slice(0, 2).forEach(track => {
-            buffer += `
-                <div class="song-card group" data-category="${track.category} ${track.language}">
-                    <div class="flex items-center justify-between gap-3 w-full">
-                        <div class="flex items-center gap-3 truncate flex-1">
-                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-14 h-10 object-cover rounded-md border border-zinc-800 flex-shrink-0" loading="lazy">
-                            <div class="truncate flex-1 min-w-0">
-                                <h3>${track.title}</h3>
-                                <p class="card-meta"><i class="fa-solid fa-fire text-amber-500"></i> ${track.category}</p>
-                            </div>
-                        </div>
-                        <button class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-xs border border-zinc-800 text-zinc-300 hover:text-white flex-shrink-0 cursor-pointer core-play-trigger" 
-                                data-video-id="${track.youtubeId}" data-title="${cleanQuotes(track.title)}" data-meta="${track.language} • ${track.category}" data-lyrics="${track.lyricsFile || ""}">
-                            <i class="fa-solid fa-play ml-0.5"></i>
-                        </button>
-                    </div>
-                </div>`;
-        });
-        document.getElementById("trending-songs-container").innerHTML = buffer;
-    }
-
-    // 5. COMPONENT HYDRATION: LATEST & ALL MASTER ENTRIES LISTING[cite: 1]
-    if (data.latest && document.getElementById("all-songs-grid")) {
-        let buffer = "";
-        data.latest.forEach(track => {
-            const channelUrl = channelRegistry[track.language] || "https://www.youtube.com";
-            buffer += `
-                <div class="song-card group" data-category="${track.category} ${track.language}">
-                    <div class="flex items-center justify-between gap-3 w-full">
-                        <div class="flex items-center gap-3 truncate min-w-0 flex-1">
-                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-12 h-9 object-cover rounded-md border border-zinc-800 flex-shrink-0" loading="lazy">
-                            <div class="truncate flex-1 min-w-0">
-                                <h3>${track.title}</h3>
-                                <p class="card-meta">${track.category} • ${track.language}</p>
-                            </div>
-                        </div>
-                        <div class="song-actions flex-shrink-0 flex items-center gap-1">
-                            <button class="w-8 h-8 rounded-full text-zinc-400 hover:text-emerald-400 flex items-center justify-center cursor-pointer core-play-trigger" 
-                                    data-video-id="${track.youtubeId}" data-title="${cleanQuotes(track.title)}" data-meta="${track.language} • ${track.category}" data-lyrics="${track.lyricsFile || ""}">
-                                <i class="fa-solid fa-circle-play text-lg"></i>
-                            </button>
-                            <a href="${channelUrl}" target="_blank" class="text-[9px] font-bold border border-zinc-800 bg-zinc-950 text-zinc-400 px-2 py-1 rounded hover:bg-emerald-500 hover:text-black transition-all touch-target">${track.language}</a>
-                        </div>
-                    </div>
-                </div>`;
-        });
-        document.getElementById("all-songs-grid").innerHTML = buffer;
-    }
-
-    // 6. COMPONENT HYDRATION: UPCOMING RELEASES SCHEDULE FEED[cite: 1]
-    if (data.upcoming && document.getElementById("upcoming-container")) {
-        let buffer = "";
-        data.upcoming.forEach(track => {
-            buffer += `
-                <div class="bg-zinc-950 p-2.5 rounded-xl border border-zinc-850 flex items-center justify-between">
-                    <div class="truncate pr-2">
-                        <span class="text-xs font-bold text-zinc-300 block truncate">${track.title}</span>
-                        <span class="text-[9px] text-zinc-500">${track.language} • ${track.category}</span>
-                    </div>
-                    <span class="text-[8px] font-black uppercase tracking-widest bg-zinc-900 border border-zinc-800 px-2 py-1 rounded text-emerald-400">${track.releaseDate}</span>
-                </div>`;
-        });
-        document.getElementById("upcoming-container").innerHTML = buffer;
-    }
-
-    // 7. COMPONENT HYDRATION: LANGUAGES & CATEGORY HUB ROUTERS[cite: 1]
-    if (data.languages && document.getElementById("language-playlists-container")) {
-        let buffer = "";
-        Object.keys(data.languages).forEach(lang => {
-            buffer += `
-                <a href="${channelRegistry[lang] || 'https://www.youtube.com'}" target="_blank" class="p-2 rounded-lg hover:bg-zinc-900 transition-colors flex items-center justify-between group text-xs text-zinc-400 hover:text-white touch-target">
-                    <span class="font-bold flex items-center gap-2"><i class="fa-solid fa-compact-disc text-zinc-600 group-hover:text-emerald-400"></i> ${lang} Studio Hub</span>
-                    <i class="fa-solid fa-chevron-right text-[9px] text-zinc-700"></i>
-                </a>`;
-        });
-        document.getElementById("language-playlists-container").innerHTML = buffer;
-    }
-
-    // 8. COMPONENT HYDRATION: LIVE BROADCAST STUDIO NEWS FEED[cite: 1]
-    if (data.news && document.getElementById("news-feed-container")) {
-        let buffer = "";
-        data.news.forEach(item => {
-            buffer += `
-                <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-850 space-y-1">
-                    <h4 class="text-xs font-bold text-zinc-200">${item.title}</h4>
-                    <p class="text-[11px] text-zinc-400 leading-normal">${item.content}</p>
-                </div>`;
-        });
-        document.getElementById("news-feed-container").innerHTML = buffer;
-    }
-
-    // Attach global tracking handlers to modern click interception channels
-    attachGlobalClickInterceptors();
-}
-
-/**
- * Intercepts clicks on play triggers and broadcasts them to the player.js file.
- */
-function attachGlobalClickInterceptors() {
-    document.body.addEventListener("click", event => {
-        const trigger = event.target.closest(".core-play-trigger, #hero-play-btn");
-        if (!trigger) return;
-
-        event.preventDefault();
+        // Performance Optimization: Single-pass partition loop O(N) instead of multiple filters[cite: 2]
+        const trendingList = [];
+        const newReleasesList = [];
         
-        const trackData = {
-            id: trigger.getAttribute("data-video-id"),
-            title: trigger.getAttribute("data-title"),
-            meta: trigger.getAttribute("data-meta"),
-            lyrics: trigger.getAttribute("data-lyrics")
+        data.songs.forEach(song => {
+            if (song.isTrending) trendingList.push(song);
+            if (song.isNewRelease) newReleasesList.push(song);
+        });
+
+        // Hydrate Grids
+        hydrateSongGrid("new-releases-container", newReleasesList);
+        hydrateSongGrid("trending-songs-container", trendingList);
+        hydrateSongGrid("all-songs-grid", data.songs);
+
+        // SAFE TRIGGER SEQUENCE: Event-delegation duplicate guard
+        if (!window.playerAttached) {
+            attachGlobalClickInterceptors();
+            window.playerAttached = true; 
+        }
+
+        setupUnifiedSearchEngine(); 
+    }
+
+    function hydrateHeroBanner(hero) {
+        const heroTitle = document.getElementById("hero-title");
+        const heroArtist = document.getElementById("hero-artist");
+        const heroImg = document.getElementById("hero-thumbnail");
+
+        if (heroTitle) heroTitle.textContent = hero.title || "Featured Production";
+        if (heroArtist) heroArtist.textContent = hero.artist || "AI Studio";
+        
+        if (heroImg) {
+            const videoId = hero.youtubeId || FALLBACK_STUDIO_DEMO_ID; // Fallback to custom studio demo[cite: 2]
+            heroImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+            heroImg.setAttribute("loading", "lazy"); 
+            heroImg.setAttribute("decoding", "async"); 
+
+            // Resilient image error boundaries[cite: 2]
+            heroImg.onerror = function() {
+                this.src = COVERS_DEFAULT_IMG;
+                this.onerror = null; // Prevent infinite loop triggers
+            };
+        }
+    }
+
+    function hydrateSongGrid(containerId, songsList) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        let gridHtml = ""; 
+
+        songsList.forEach(song => {
+            const thumbUrl = song.youtubeId 
+                ? `https://img.youtube.com/vi/${song.youtubeId}/hqdefault.jpg` 
+                : song.coverUrl || COVERS_DEFAULT_IMG;
+
+            // Expanded metadata attributes & dynamic focus bindings for strict WCAG support[cite: 2]
+            gridHtml += `
+                <div class="song-card fade-in" 
+                     data-song-id="${song.id}" 
+                     data-title="${song.title || ''}"
+                     data-artist="${song.artist || ''}"
+                     data-youtube="${song.youtubeId || ''}"
+                     data-audio="${song.audioUrl || ''}" 
+                     data-download="${song.downloadUrl || ''}"
+                     data-language="${song.language || ''}"
+                     data-genre="${song.genre || ''}"
+                     data-lyrics="${encodeURIComponent(song.lyrics || '')}"
+                     tabindex="0"
+                     role="button"
+                     aria-label="Track card: ${song.title} by ${song.artist}. Press Enter or Space to play.">
+                    <div class="song-card-img-wrap">
+                        <img class="song-thumb" 
+                             src="${thumbUrl}" 
+                             loading="lazy" 
+                             decoding="async" 
+                             alt="${song.title} Cover"
+                             onerror="this.src='${COVERS_DEFAULT_IMG}'; this.onerror=null;">
+                        <button class="card-hover-play-trigger" aria-label="Play Track" tabindex="-1">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
+                    </div>
+                    <div class="song-details-wrap py-2">
+                        <h4 class="song-title">${song.title}</h4>
+                        <p class="song-artist">${song.artist}</p>
+                    </div>
+                    <div class="card-action-cluster mt-2">
+                        <button class="btn btn-primary play-btn" tabindex="-1">Play</button>
+                        <button class="btn btn-secondary lyrics-btn" tabindex="-1">Lyrics</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = gridHtml; 
+    }
+
+    /**
+     * 3. EXPANDED SEARCH MATCHING WITH BLANK STATE INJECTIONS
+     */
+    function setupUnifiedSearchEngine() {
+        const searchInput = document.getElementById("searchInput");
+        if (!searchInput) return;
+
+        searchInput.oninput = function (e) {
+            const query = e.target.value.toLowerCase().trim();
+            const cards = document.querySelectorAll(".song-card");
+            let totalVisible = 0;
+
+            cards.forEach(card => {
+                const title = card.dataset.title?.toLowerCase() || "";
+                const artist = card.dataset.artist?.toLowerCase() || "";
+                const genre = card.dataset.genre?.toLowerCase() || "";
+                const language = card.dataset.language?.toLowerCase() || "";
+                
+                // Flexible deep-string searching indexing criteria[cite: 2]
+                const searchableString = `${title} ${artist} ${genre} ${language}`;
+
+                if (searchableString.includes(query)) {
+                    card.classList.remove("hidden"); 
+                    totalVisible++;
+                } else {
+                    card.classList.add("hidden"); 
+                }
+            });
+
+            // Dynamic Empty Search Result feedback[cite: 2]
+            toggleEmptySearchResultsState(totalVisible === 0 && query !== "");
+        };
+    }
+
+    function toggleEmptySearchResultsState(shouldShow) {
+        let emptyStateMsg = document.getElementById("search-empty-state");
+        
+        if (shouldShow) {
+            if (!emptyStateMsg) {
+                emptyStateMsg = document.createElement("div");
+                emptyStateMsg.id = "search-empty-state";
+                emptyStateMsg.className = "text-center py-12 w-full fade-in";
+                emptyStateMsg.innerHTML = `
+                    <p class="text-zinc-400 text-lg font-medium">No songs found</p>
+                    <p class="text-zinc-500 text-sm mt-1">Try searching another keyword, genre, or language.</p>
+                `;
+                // Inserts notice gracefully beneath core grid systems
+                const primaryGrid = document.getElementById("all-songs-grid");
+                if (primaryGrid) primaryGrid.parentNode.insertBefore(emptyStateMsg, primaryGrid.nextSibling);
+            }
+        } else {
+            if (emptyStateMsg) emptyStateMsg.remove();
+        }
+    }
+
+    /**
+     * 4. ATTACH EVENT DELEGATION & ACCESSIBILITY HANDLERS
+     */
+    function attachGlobalClickInterceptors() {
+        // Handle all click execution trees natively[cite: 2]
+        document.body.onclick = function (event) {
+            handleInteraction(event, event.target);
         };
 
-        // Fire custom window cross-module script dispatch
-        const dispatchEvent = new CustomEvent("StudioModulePlayRequest", { detail: trackData });
-        window.dispatchEvent(dispatchEvent);
-    });
-}
-
-/**
- * Provides an instant live query search filter matching both titles and metadata.[cite: 1]
- */
-function setupUnifiedSearchEngine() {
-    const searchInput = document.getElementById("searchInput");
-    if (!searchInput) return;
-
-    searchInput.addEventListener("keyup", function() {
-        const query = this.value.toLowerCase();
-        document.querySelectorAll(".song-grid .song-card, .region-grid .song-card").forEach(card => {
-            const title = card.querySelector("h3") ? card.querySelector("h3").innerText.toLowerCase() : "";
-            const category = card.dataset.category ? card.dataset.category.toLowerCase() : "";
-
-            if (title.includes(query) || category.includes(query)) {
-                card.style.display = "flex";
-            } else {
-                card.style.display = "none";
+        // Strict WCAG Accessible Keyboard Interaction Support (Enter/Space Keys)[cite: 2]
+        document.body.onkeydown = function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+                const targetCard = event.target.closest(".song-card");
+                if (targetCard && event.target === targetCard) {
+                    event.preventDefault(); // Stop native viewport scrolling on spacebar key strikes
+                    handleInteraction(event, targetCard.querySelector(".play-btn") || targetCard);
+                }
             }
-        });
-    });
-}
-
-/**
- * Synchronizes browser memory structures for active accounts.
- */
-function syncUserAuthentication() {
-    const isLogged = localStorage.getItem("loggedIn") === "true" || sessionStorage.getItem("loggedIn") === "true";
-    const currentEmail = localStorage.getItem("currentUser");
-    const slot = document.getElementById("auth-nav-slot");
-
-    if (!slot) return;
-
-    if (isLogged && currentEmail) {
-        const raw = localStorage.getItem("user_" + currentEmail);
-        let name = "Producer Account";
-        if (raw) name = JSON.parse(raw).name || name;
-
-        slot.innerHTML = `
-            <div class="flex items-center gap-3 bg-zinc-900 border border-zinc-800 py-1 px-3 rounded-full">
-                <div class="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-[10px] text-black font-black"><i class="fa-solid fa-user"></i></div>
-                <span class="text-zinc-300 text-xs font-bold max-w-[90px] truncate">${name}</span>
-                <button onclick="handleGlobalLogout()" class="text-zinc-600 hover:text-red-400 text-xs pl-1 cursor-pointer transition-colors"><i class="fa-solid fa-power-off"></i></button>
-            </div>`;
+        };
     }
-}
 
-function handleGlobalLogout() {
-    localStorage.removeItem("loggedIn");
-    sessionStorage.removeItem("loggedIn");
-    localStorage.removeItem("currentUser");
-    window.location.reload();
-}
+    function handleInteraction(event, target) {
+        const songCard = target.closest(".song-card");
+        if (!songCard) return;
 
-function deployLocalEmergencyBackup() {
-    console.warn("Deploying local environment recovery configurations.");
-    const productionRecoveryMatrix = {
-        "featuredSong": { "title": "AI Production Engine Live", "description": "Local server configurations are offline. Run via live environment servers to load external files.", "language": "System", "category": "Core", "youtubeId": "dQw4w9WgXcQ" },
-        "newReleases": [], "latest": [], "upcoming": [], "languages": {}, "news": [{ "title": "System Diagnostic Note", "content": "Running fallback context architecture parameters." }]
-    };
-    compileAndHydrateDashboard(productionRecoveryMatrix);
-}
+        const songId = songCard.dataset.id || songCard.getAttribute("data-song-id");
+        const songTitle = songCard.dataset.title;
+        const songArtist = songCard.dataset.artist;
+        const songAudio = songCard.dataset.audio;
 
-function cleanQuotes(str) {
-    return str ? str.replace(/"/g, '&quot;').replace(/'/g, "\\'") : "";
-}
+        // Route 1: Lyrics trigger
+        if (target.classList.contains("lyrics-btn")) {
+            event.stopPropagation();
+            const rawLyrics = songCard.getAttribute("data-lyrics");
+            triggerLyricsPopup(decodeURIComponent(rawLyrics));
+            return;
+        }
+
+        // Route 2: Play actions
+        if (target.classList.contains("play-btn") || target.closest(".card-hover-play-trigger") || target === songCard) {
+            event.stopPropagation();
+            dispatchMediaTrackPlay(songId, songTitle, songArtist, songAudio);
+            return;
+        }
+    }
+
+    /**
+     * 5. EVENT-DRIVEN DISPATCH PIPELINE & CORE FUNCTIONS
+     */
+    function dispatchMediaTrackPlay(songId, title, artist, url) {
+        // Decoupled communication via standard custom events[cite: 2]
+        window.dispatchEvent(
+            new CustomEvent("songPlay", {
+                detail: {
+                    id: songId,
+                    title: title,
+                    artist: artist,
+                    url: url
+                }
+            })
+        );
+    }
+
+    function triggerLyricsPopup(lyrics) {
+        if (!lyrics || lyrics === "undefined" || lyrics === "") {
+            showToast("Lyrics unavailable"); // Smooth modern notification toasts[cite: 2]
+            return;
+        }
+        
+        // Dispatches structural Event for lyric modal views
+        window.dispatchEvent(
+            new CustomEvent("showLyrics", {
+                detail: { lyrics: lyrics }
+            })
+        );
+    }
+
+    /**
+     * 6. MODERN RUNTIME TOAST ALERTS
+     */
+    function showToast(message) {
+        let toastContainer = document.getElementById("studio-toast-container");
+        if (!toastContainer) {
+            toastContainer = document.createElement("div");
+            toastContainer.id = "studio-toast-container";
+            toastContainer.style.cssText = "position:fixed; bottom:96px; right:24px; z-index:10001; display:flex; flex-direction:column; gap:8px; pointer-events:none;";
+            document.body.appendChild(toastContainer);
+        }
+
+        const toast = document.createElement("div");
+        toast.className = "fade-in";
+        toast.style.cssText = "background:#10b981; color:#fff; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; box-shadow:0 10px 15px -3px rgba(0,0,0,0.3); pointer-events:auto; transition: opacity 0.3s ease;";
+        toast.textContent = message;
+
+        toastContainer.appendChild(toast);
+
+        // Graceful Fade Out Lifecycle
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    /**
+     * 7. STATE LOADING & RECOVERY MANAGEMENT
+     */
+    function showLoading() {
+        let spinner = document.getElementById("studio-global-spinner");
+        if (!spinner) {
+            spinner = document.createElement("div");
+            spinner.id = "studio-global-spinner";
+            spinner.className = "text-center py-20 w-full";
+            spinner.innerHTML = `
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
+                <p class="text-zinc-400 text-sm mt-3">Tuning instruments...</p>
+            `;
+            const primaryGrid = document.getElementById("all-songs-grid");
+            if (primaryGrid) primaryGrid.parentNode.insertBefore(spinner, primaryGrid);
+        }
+    }
+
+    function hideLoading() {
+        const spinner = document.getElementById("studio-global-spinner");
+        if (spinner) spinner.remove();
+    }
+
+    function renderRecoveryEnvironment() {
+        // High fidelity user recovery interface replacing system layouts on error[cite: 2]
+        const recoveryHTML = `
+            <div class="text-center py-20 max-w-md mx-auto fade-in">
+                <p class="text-red-400 text-2xl mb-2">⚠️ Unable to load songs.</p>
+                <p class="text-zinc-500 text-sm mb-6">Verify your network credentials or server status and try again.</p>
+                <button onclick="window.location.reload()" class="btn btn-primary py-2 px-6 rounded-full font-bold">
+                    Reload
+                </button>
+            </div>
+        `;
+        const container = document.getElementById("all-songs-grid");
+        if (container) container.innerHTML = recoveryHTML;
+    }
+})();
