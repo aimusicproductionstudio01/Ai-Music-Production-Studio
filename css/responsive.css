@@ -1,1 +1,300 @@
+/* ==========================================================================
+   AI MUSIC PRODUCTION STUDIO - MASTER RESPONSIVE GRID MATRIX[cite: 1]
+   Breakpoints: 1200px (Large Screens) | 992px (Tablets Landscape) | 
+                768px (Tablets Portrait) | 576px (Mobile Portrait)[cite: 1]
+   ========================================================================== */
 
+/* ==========================================================================
+   1. LAPTOPS & SMALL DESKTOPS (max-width: 1200px)
+   ========================================================================== */
+@media (max-width: 1200px) {
+    /* Grid Engine Adjustments - Forces 4 Cards per Row on Large Desktop/Laptops */
+    .song-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .region-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    /* Main Housing Frame Metrics */
+    main {
+        max-width: 95% !important;
+        padding-left: 16px;
+        padding-right: 16px;
+        gap: 24px;
+    }
+
+    /* Featured Hero Unit Resizing */
+    #featured-hero {
+        padding: 32px;
+        gap: 24px;
+    }
+
+    #featured-hero h1 {
+        font-size: 2.5rem;
+        line-height: 1.15;
+    }
+}
+
+/* ==========================================================================
+   2. TABLETS LANDSCAPE & SMALL LAPTOPS (max-width: 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+    /* Split Frame Breakdown - Pushes Sidebars under main loops */
+    main.grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .grid-cols-1.lg\:grid-cols-3 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+
+    /* Grid Layout Updates - Transitioning down to 3 Cards per Row */
+    .song-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .region-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    /* Application Header Re-balancing */
+    .header {
+        padding: 12px 20px;
+        gap: 12px;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    /* Secondary Sidebar Blocks layout conversions */
+    .space-y-8 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 32px;
+    }
+
+    .space-y-8 > div {
+        margin-top: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   3. TABLETS PORTRAIT (max-width: 768px)[cite: 1]
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Core Layout Request: 2 Cards in One Row for Tablets */
+    .song-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px;
+    }
+
+    .region-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px;
+    }
+
+    /* App Header Compression Elements[cite: 1] */
+    .header {
+        flex-direction: column;
+        align-items: stretch !important;
+        padding: 14px;
+    }
+
+    .header > div {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .social-links {
+        border-right: none !important;
+        padding-right: 0 !important;
+        justify-content: center;
+        gap: 24px;
+    }
+
+    /* Hero Banner Mobile/Tablet Layout Flattening[cite: 1] */
+    #featured-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    #featured-hero .max-w-xl {
+        max-width: 100%;
+    }
+
+    #featured-hero h1 {
+        font-size: 2rem;
+    }
+
+    #featured-hero .w-full.md\:w-80 {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    /* Adaptive Sticky Player Panel Framework Shifts[cite: 1] */
+    body {
+        padding-bottom: 180px; /* Expands bottom margin to clear taller stacked console */
+    }
+
+    .music-player {
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 16px;
+        gap: 12px;
+        background: #121214;
+    }
+
+    .music-player > div:first-child {
+        width: 100%;
+    }
+
+    .music-info {
+        width: auto;
+        flex-grow: 1;
+    }
+
+    /* YouTube Engine Fluid Aspect Calculation Scaling[cite: 1] */
+    .video-player {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-bottom: 56.25% !important; /* Forces perfect widescreen box when collapsed[cite: 1] */
+        order: 2;
+    }
+
+    .music-player > div:last-child {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        border-t: 1px solid #27272a;
+        padding-top: 8px;
+    }
+
+    /* Lyrics Display Overlay Tuning */
+    #lyrics-panel {
+        padding: 12px;
+    }
+
+    #lyrics-body {
+        padding: 40px 16px;
+        font-size: 1.1rem;
+    }
+}
+
+/* ==========================================================================
+   4. SMARTPHONES & MOBILE PORTRAIT (max-width: 576px)[cite: 1]
+   ========================================================================== */
+@media (max-width: 576px) {
+    /* Core Layout Request: 1 Card Per Row for Mobile Devices[cite: 1] */
+    .song-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        gap: 16px;
+    }
+
+    .region-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        gap: 12px;
+    }
+
+    /* Absolute Horizontal Boundary Guardrails[cite: 1] */
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Song Card Micro-Layout Adjustments[cite: 1] */
+    .song-card {
+        padding: 12px;
+        border-radius: 10px;
+        background: #141416;
+    }
+
+    .song-card h3 {
+        font-size: 14px;
+    }
+
+    /* Interactive Target Amplifications (Minimum 44px Safe Touch Regions)[cite: 1] */
+    .btn, 
+    .touch-target,
+    .player-btn {
+        min-height: 46px !important;
+        padding: 10px 16px;
+    }
+
+    .song-actions {
+        width: 100%;
+        display: flex;
+        gap: 6px;
+    }
+
+    .song-actions .btn {
+        flex: 1;
+        font-size: 10px;
+    }
+
+    /* Navigation Header Mobile Micro-stacking[cite: 1] */
+    .header {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .header span {
+        font-size: 14px;
+    }
+
+    .search-box {
+        padding: 10px 12px 10px 36px;
+        font-size: 12px;
+    }
+
+    /* Global Typography Scale Trimming */
+    h2 {
+        font-size: 1.15rem !important;
+        letter-spacing: 0.02em;
+    }
+
+    /* Sidebar Conversion Modules to Single Columns[cite: 1] */
+    .space-y-8 {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    /* Audio Footer Component Optimizations */
+    .music-player img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .music-info h4 {
+        font-size: 12px;
+    }
+
+    .music-info p {
+        font-size: 10px;
+    }
+
+    #player-external-link {
+        display: none !important; /* Dropping textual buttons on tiny viewports to keep UI pristine */
+    }
+
+    /* Global App Footer Stacking Layout Rules[cite: 1] */
+    footer {
+        padding: 24px 12px 110px 12px !important;
+    }
+
+    footer .flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px !important;
+    }
+}
