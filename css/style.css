@@ -1,271 +1,174 @@
+/**
+ * AI Music Production Studio - MAIN APP INTERFACE DESIGN LAYER (style.css)
+ * Purpose: Design tokens, layout grids, scrollbar aesthetics, and typography weights.
+ */
+
 /* ==========================================================================
-   GLOBAL STRUCTURE SETUP & SCROLL SAFEGUARDS
+   1. BASE CSS INITIALIZATION & CUSTOM PROPERTIES
    ========================================================================== */
+:root {
+    --bg-black: #000000;
+    --zinc-950: #09090b;
+    --zinc-900: #18181b;
+    --zinc-800: #27272a;
+    --zinc-700: #3f3f46;
+    --zinc-500: #71717a;
+    --zinc-400: #a1a1aa;
+    --emerald-500: #10b981;
+    --emerald-400: #34d399;
+}
+
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: #09090b;
-    color: white;
-    font-family: Arial, sans-serif;
-    scroll-behavior: smooth;
-}
-
-/* Footer clearance for sticky bottom music console */
 body {
-    padding-bottom: 90px;
+    background-color: var(--bg-black);
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
 }
 
-/* Custom Scrollbar configuration tokens */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #09090b; }
-::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #10b981; }
-
-/* ==========================================================================
-   TOUCH PLATFORM & SPECIFICATIONS (MINIMUM 44PX TARGETS)
-   ========================================================================== */
-.touch-target, 
-.btn,
-.player-btn,
-header a,
-header input,
-.song-card button {
-    min-height: 44px;
-    min-width: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+/* Custom Modern Scannable Scrollbar Configuration */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
 }
-
-/* ==========================================================================
-   HEADER ACTIONS & CONTENT SEARCH FIELDS
-   ========================================================================== */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 15px;
+::-webkit-scrollbar-track {
+    background: var(--bg-black);
 }
-
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.search-box {
-    width: 100%;
-    background-color: #0c0c0e;
-    border: 1px solid #27272a;
+::-webkit-scrollbar-thumb {
+    background: var(--zinc-800);
     border-radius: 9999px;
-    padding: 8px 16px 8px 40px;
-    font-size: 13px;
-    color: #e4e4e7;
-    transition: border-color 0.2s;
 }
-.search-box:focus {
-    outline: none;
-    border-color: #10b981;
+::-webkit-scrollbar-thumb:hover {
+    background: var(--zinc-700);
+}
+
+/* Utility classes used by frameworks */
+.hidden { display: none !important; }
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--zinc-800) var(--bg-black);
 }
 
 /* ==========================================================================
-   GRID ENGINE ARCHITECTURE & CONTAINER CONTEXTS
+   2. SITE HEAD NAV HEADER (LOGO FIXED SIZE SECURITY BOUNDS)
    ========================================================================== */
-.song-grid,
-.region-grid {
+header {
+    transition: background-color 0.3s ease;
+}
+
+/* Strict Logo Dimension Locking Matrix */
+header img[alt="Studio Logo"] {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/* Focus animation highlights for standard form text terminals */
+header #searchInput:focus {
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* ==========================================================================
+   3. SOUND TRACK MUSIC CARDS INTERACTIVE GRID LAYOUT
+   ========================================================================== */
+.song-grid, .region-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 20px;
+    width: 100%;
 }
 
-/* ==========================================================================
-   ANTI-OVERLAP SONG CARD PACKAGES
-   ========================================================================== */
+/* Premium Dynamic Hover Effects for Cards */
 .song-card {
-    background: #181818;
+    background-color: var(--zinc-950);
+    border: 1px solid rgba(39, 39, 42, 0.4);
     border-radius: 12px;
-    padding: 15px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-    border: 1px solid transparent;
+    padding: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
 }
 
 .song-card:hover {
-    transform: translateY(-4px);
-    border-color: #27272a;
+    background-color: var(--zinc-900);
+    border-color: var(--zinc-700);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.7);
 }
 
-.song-thumb {
+/* Image container aspects inside cards */
+.song-card-img-wrap {
     width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    border-radius: 10px;
-    display: block;
-}
-
-/* Long text clipping system rules */
-.song-card h3 {
-    font-size: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 0;
-    font-weight: bold;
-    color: #fff;
-}
-
-.card-meta {
-    font-size: 11px;
-    color: #71717a;
-    margin: 0;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Flexible content card row layout buttons */
-.song-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: auto;
-}
-
-.song-actions .btn {
-    flex: 1;
-    min-width: 80px;
-    font-size: 11px;
-    font-weight: bold;
-    border-radius: 6px;
-    transition: all 0.2s;
-}
-
-/* ==========================================================================
-   SPOTIFY FOOTER STICKY COMPONENT MODULES
-   ========================================================================== */
-.music-player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    z-index: 9999;
-    background: #111113;
-    border-top: 1px solid #27272a;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 10px 24px;
-}
-
-.music-player img {
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
-    object-fit: cover;
-    border: 1px solid #27272a;
-}
-
-.music-info {
-    flex: 1;
-    overflow: hidden;
-    min-width: 0;
-}
-
-.music-info h4 {
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.music-info p {
-    font-size: 11px;
-    color: #a1a1aa;
-    margin: 2px 0 0 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.player-btn {
-    background: #1DB954;
-    color: white;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-}
-
-.player-btn:hover {
-    background: #1ed760;
-    transform: scale(1.05);
-}
-
-/* ==========================================================================
-   YOUTUBE EMBED MODULE HOUSING
-   ========================================================================== */
-.video-player {
+    aspect-ratio: 1 / 1;
     position: relative;
-    width: 100%;
-    max-width: 240px;
-    padding-bottom: 13.5%; /* Keeps iframe sized nicely within horizontal layout context */
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: var(--zinc-900);
+    margin-bottom: 8px;
 }
 
-.video-player iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+.song-card-img-wrap img {
     width: 100%;
     height: 100%;
-    border-radius: 6px;
-    border: none;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.song-card:hover .song-card-img-wrap img {
+    transform: scale(1.04);
+}
+
+/* Hidden visual play action triggers shown only on mouse hover entries */
+.card-hover-play-trigger {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.song-card:hover .card-hover-play-trigger {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-hover-play-trigger:hover {
+    transform: scale(1.06) !important;
+    background-color: var(--emerald-400);
 }
 
 /* ==========================================================================
-   RESPONSIVE COMPACT MEDIA VIEWPORTS
+   4. MODAL GATEWAY OVERLAY DIALOG LAYER OVERRIDE
    ========================================================================== */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .music-player {
-        height: auto;
-        flex-wrap: wrap;
-        padding: 12px;
-    }
-    
-    .music-player img {
-        width: 44px;
-        height: 44px;
-    }
-    
-    .video-player {
-        max-width: 100%;
-        width: 100%;
-        padding-bottom: 56.25%; /* Automatically matches standard 16:9 viewport when phone stack trips */
-        order: 3;
-    }
-    
-    .music-info {
-        width: calc(100% - 70px);
-    }
+#auth-modal-container, #lyrics-panel {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: opacity 0.3s ease;
+}
+
+#auth-modal-container input {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#auth-modal-container input:focus {
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
