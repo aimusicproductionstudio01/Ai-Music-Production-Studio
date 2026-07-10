@@ -33,12 +33,11 @@
             </div>
         </div>
 
-        <!-- Identity Matrix Slot (Populated via auth.js + app.js) -->
+        <!-- Identity Matrix Slot (Populated dynamically via auth.js + app.js) -->
         <nav id="auth-nav-slot">
-            <button class="text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer touch-target" 
-                    onclick="document.getElementById('auth-modal-container').classList.remove('hidden')">
+            <a href="login.html" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer tracking-wide">
                 Sign In
-            </button>
+            </a>
         </nav>
     </header>
 
@@ -52,7 +51,7 @@
             
             <!-- Dynamic Component: Featured Hero Banner Section -->
             <section id="featured-hero" class="relative rounded-2xl overflow-hidden min-h-[280px] bg-zinc-950 border border-zinc-900 flex flex-col justify-end p-8 group">
-                <img id="hero-thumbnail" src="" class="absolute inset-0 w-full height-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" alt="">
+                <img id="hero-thumbnail" src="" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" alt="">
                 <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent"></div>
                 
                 <div class="relative z-10 space-y-3 max-w-xl">
@@ -73,7 +72,7 @@
                     <span class="w-1.5 h-3 bg-emerald-500 rounded-sm"></span> New Releases
                 </h2>
                 <div id="new-releases-container" class="song-grid grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <!-- Cards Hydrated via app.js -->
+                    <!-- Cards dynamically generated via app.js -->
                 </div>
             </section>
 
@@ -83,7 +82,7 @@
                     <span class="w-1.5 h-3 bg-amber-500 rounded-sm"></span> Trending Tracks
                 </h2>
                 <div id="trending-songs-container" class="region-grid grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Cards Hydrated via app.js -->
+                    <!-- Cards dynamically generated via app.js -->
                 </div>
             </section>
 
@@ -93,7 +92,7 @@
                     <span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span> Full Catalog Production Stems
                 </h2>
                 <div id="all-songs-grid" class="song-grid grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Cards Hydrated via app.js -->
+                    <!-- Cards dynamically generated via app.js -->
                 </div>
             </section>
         </div>
@@ -105,7 +104,7 @@
             <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
                 <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Upcoming Drops</h3>
                 <div id="upcoming-container" class="space-y-3">
-                    <!-- Content Hydrated via app.js -->
+                    <!-- Content dynamically generated via app.js -->
                 </div>
             </section>
 
@@ -113,7 +112,7 @@
             <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
                 <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Language Hubs</h3>
                 <div id="language-playlists-container" class="divide-y divide-zinc-900/50">
-                    <!-- Content Hydrated via app.js -->
+                    <!-- Content dynamically generated via app.js -->
                 </div>
             </section>
 
@@ -121,11 +120,11 @@
             <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
                 <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Studio Broadcast News</h3>
                 <div id="news-feed-container" class="space-y-3">
-                    <!-- Content Hydrated via app.js -->
+                    <!-- Content dynamically generated via app.js -->
                 </div>
             </section>
 
-            <!-- Telemetry System Counter Display Footer Widget Section -->
+            <!-- Telemetry System Counter Display Widget Section -->
             <section class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900/60 flex items-center justify-around text-center">
                 <div>
                     <span id="analytics-total-visitors" class="block text-sm font-mono font-bold text-white">0</span>
@@ -144,9 +143,9 @@
        ISOLATED CORE SYSTEM COMPONENT LAYOUTS (STICKY PLAYER & OVERLAYS)
        ========================================================================== -->
     
-    <!-- 🎵 Spotify Bottom Player Platform App Matrix (CSS mapped inside player.css) -->
+    <!-- 🎵 Spotify-Style Sticky Bottom Audio Player Wrapper -->
     <footer id="sticky-audio-player" class="hidden">
-        <!-- Structural markup and components are dynamically generated inside player.js -->
+        <!-- Structural components are injected and configured via player.js -->
     </footer>
 
     <!-- 📜 Dynamic Overlay Popup Component: Live Synchronized Lyrics Terminal -->
@@ -157,54 +156,27 @@
         <div class="max-w-xl w-full flex flex-col max-h-[80vh]">
             <h2 id="lyrics-track-title" class="text-center font-black text-lg text-emerald-400 mb-8 tracking-wide">Track Transcription</h2>
             <div id="lyrics-body" class="overflow-y-auto px-4 custom-scrollbar space-y-2 text-zinc-300">
-                <!-- Data loaded text segments generated dynamically via lyrics.js -->
+                <!-- Text segments loaded dynamically via lyrics.js -->
             </div>
-        </div>
-    </div>
-
-    <!-- 🔒 Dynamic Overlay Popup Component: User Account Gate Modal System -->
-    <div id="auth-modal-container" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[10001] hidden items-center justify-center p-4">
-        <div class="bg-zinc-950 border border-zinc-900 rounded-2xl w-full max-w-sm p-6 relative shadow-2xl space-y-6">
-            <button class="absolute top-4 right-4 text-zinc-600 hover:text-zinc-400 text-sm cursor-pointer" onclick="document.getElementById('auth-modal-container').classList.add('hidden')">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <!-- Unified Identity Login Portal Form -->
-            <form id="studio-login-form" class="space-y-4">
-                <h3 class="text-sm font-black uppercase tracking-wider text-emerald-400">Account Authentication</h3>
-                <div class="space-y-1">
-                    <label class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Email Token</label>
-                    <input type="email" id="login-email" required class="w-full h-9 bg-zinc-900 border border-zinc-800 text-xs px-3 rounded focus:outline-none focus:border-emerald-500 text-white">
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Access Signature</label>
-                    <input type="password" id="login-password" required class="w-full h-9 bg-zinc-900 border border-zinc-800 text-xs px-3 rounded focus:outline-none focus:border-emerald-500 text-white">
-                </div>
-                <div class="flex items-center gap-2 pt-1">
-                    <input type="checkbox" id="login-remember" class="accent-emerald-500 rounded">
-                    <label for="login-remember" class="text-[11px] text-zinc-400 font-medium select-none cursor-pointer">Remember device persistence keys</label>
-                </div>
-                <button type="submit" class="w-full h-9 bg-emerald-500 text-black font-bold text-xs rounded hover:bg-emerald-400 transition-colors cursor-pointer shadow-md">Authenticate</button>
-            </form>
         </div>
     </div>
 
     <!-- ==========================================================================
        MODULAR ARCHITECTURE DEPENDENCY INJECTION STACK
        ========================================================================== -->
-    <!-- 1. Identity context security system runs guards prior to structural loops -->
+    <!-- 1. Identity context checks local tokens before visual render loops load -->
     <script src="js/auth.js"></script>
-    <!-- 2. Secure resource delivery controller -->
+    <!-- 2. Secure resource delivery controller handles protected file transfers -->
     <script src="js/download.js"></script>
-    <!-- 3. Dynamic content engine parses songs.json database mapping parameters -->
+    <!-- 3. Core dynamic application engine reads songs.json and renders catalogs -->
     <script src="js/app.js"></script>
-    <!-- 4. Media streaming engine controls audio timing matrix -->
+    <!-- 4. Audio media layout streaming controller coordinates timeline streams -->
     <script src="js/player.js"></script>
-    <!-- 5. Search filtering framework catalogs queries across dashboard grids -->
+    <!-- 5. Live instant query string module filters grids on keypress -->
     <script src="js/search.js"></script>
-    <!-- 6. Transcription reader fetches text segments -->
+    <!-- 6. Localized translation text asset file fetching processor -->
     <script src="js/lyrics.js"></script>
-    <!-- 7. Analytics tracking engine monitors click/telemetry conversion models -->
+    <!-- 7. Analytics telemetry tracker updates view counters and triggers gtag tracking -->
     <script src="js/analytics.js"></script>
 </body>
 </html>
