@@ -1,134 +1,251 @@
 /**
- * AI Music Production Studio - ADAPTIVE RESPONSIVE LAYER (responsive.css)
- * Purpose: Ensures high-fidelity presentation on desktop, tablet, and mobile (down to 360px).
+ * AI Music Production Studio - COMPONENT-BASED RESPONSIVE LAYER (responsive.css)
+ * Architecture: Mobile-First Core / Upward Scale-Out Design Parameters
+ * Breakpoints Matrix: 360px -> 480px -> 576px -> 768px -> 992px -> 1024px -> 1200px -> 1400px+
  */
 
 /* ==========================================================================
-   1. LAPTOP & LARGE TABLET SCALES VIEWPORTS (Under 1024px)
+   1. GLOBAL COMPONENT DEFAULTS (MOBILE-FIRST BASE SYSTEM)
    ========================================================================== */
-@media (max-width: 1024px) {
-    main {
-        grid-template-columns: 1fr !important; /* Forces layout grid stack blocks downwards */
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-        gap: 2.5rem !important;
-    }
+.studio-container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
 
-    aside {
-        grid-column: span 1 / span 1 !important;
-        display: grid;
+/* Base Form Control Fallbacks */
+.search-box {
+    width: 100%;
+}
+
+/* Image Aspect Locking Rule */
+.song-thumb {
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    width: 100%;
+}
+
+/* Core Responsive Flex Grid Mechanics */
+.responsive-grid-deck {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* Component: Global Hero Section Block */
+.studio-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    width: 100%;
+}
+
+/* Component: Song Card Button Layout Flows */
+.card-action-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* Component: App Footer Directory Lists */
+.site-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+
+/* ==========================================================================
+   2. MOBILE NAV & INTERACTIVE FLY-OUT OVERLAYS (ALL VIEWPORTS)
+   ========================================================================== */
+.hamburger-trigger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 16px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.hamburger-trigger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 9999px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Hamburger Morph States when .active class is applied via js */
+.hamburger-trigger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger-trigger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-trigger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-slide-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: #09090b;
+    border-left: 1px solid #18181b;
+    z-index: 9999;
+    padding: 6rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-slide-menu.open {
+    right: 0;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.mobile-menu-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   3. STICKY MEDIA STREAM PLAYER COMPONENT (SPOTIFY LAYOUT MATRIX)
+   ========================================================================== */
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background-color: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid #18181b;
+    padding: 10px 16px;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Mobile Player optimization: Condense text blocks or hide scrub bars safely */
+@media (max-width: 576px) {
+    .music-player-timeline-bar {
+        display: none !important; /* Drops progress row on micro viewports to avoid crunch */
+    }
+}
+
+/* ==========================================================================
+   4. SYSTEM-WIDE CHRONOLOGICAL BREAKPOINTS STRATA
+   ========================================================================== */
+
+/* --- VERY SMALL HANDSETS (360px up) --- */
+@media (min-width: 360px) {
+    .responsive-grid-deck {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .studio-hero {
+        min-height: 200px;
+    }
+}
+
+/* --- SMALL MOBILE VIEWPORTS (480px up) --- */
+@media (min-width: 480px) {
+    .card-action-cluster {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* --- MOBILE LANDSCAPE VIEWPORTS (576px up) --- */
+@media (min-width: 576px) {
+    .studio-container {
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
+    }
+}
+
+/* --- TABLET PORTRAIT SCALE MATRIX (768px up) --- */
+@media (min-width: 768px) {
+    .responsive-grid-deck {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1.25rem;
-        space-y: 0 !important; /* Wipe spacing stack overrides */
-    }
-
-    aside section {
-        margin-top: 0 !important;
     }
     
-    aside section:last-child {
-        grid-column: span 2 / span 2; /* Center tracking dashboard counters raw array */
+    .site-footer-links {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
     }
 }
 
-/* ==========================================================================
-   2. MOBILE PORTRAIT / SMALL HANDSET SCREEN TUNING (Under 768px)
-   ========================================================================== */
-@media (max-width: 768px) {
-    /* Tighten main document padding margins */
-    main {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        pt: 5rem;
-    }
-
-    /* Compress elements inside Header navigation layout deck */
-    header {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-
-    header #searchInput {
-        font-size: 11px;
-        padding-left: 2rem !important;
-        height: 32px !important;
+/* --- STANDARD TABLET LANDSCAPE INTERFACE (992px up) --- */
+@media (min-width: 992px) {
+    .studio-hero {
+        flex-direction: row;
+        align-items: center;
+        min-height: 280px;
     }
     
-    header i.fa-magnifying-glass {
-        left: 12px !important;
-    }
-
-    /* Collapse sidebars completely down to clean, separate component stacks */
-    aside {
-        grid-template-columns: 1fr;
+    .hero-visual-frame {
+        width: 40%;
+        flex-shrink: 0;
     }
     
-    aside section:last-child {
-        grid-column: span 1 / span 1;
-    }
-
-    /* Enforce 2-column layout pattern rule boundaries over grid nodes */
-    #new-releases-container, #trending-songs-container {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 0.75rem !important;
-    }
-
-    /* Reformat full catalog into single item block rows to optimize vertical footprint */
-    #all-songs-grid {
-        grid-template-columns: 1fr !important;
-        gap: 0.5rem !important;
-    }
-
-    /* Hero Banner design modifications for premium view visibility scale balance */
-    #featured-hero {
-        min-h: 220px !important;
-        padding: 1.25rem !important;
-    }
-
-    #featured-hero h1 {
-        font-size: 1.5rem !important;
-    }
-
-    #featured-hero p {
-        font-size: 11px !important;
-        line-height: 1.4;
+    .hero-content-frame {
+        width: 60%;
     }
 }
 
-/* ==========================================================================
-   3. MINIMAL ULTRA-NARROW HANDSETS (Under 480px)
-   ========================================================================== */
-@media (max-width: 480px) {
-    header img[alt="Studio Logo"] {
-        width: 28px !important;
-        height: 28px !important;
-        min-width: 28px !important;
-        min-height: 28px !important;
-        max-width: 28px !important;
-        max-height: 28px !important;
-    }
-
-    header span {
-        display: none; /* Hides typography brand string token to give query inputs space */
-    }
-
-    /* Drops secondary tracking details to maintain cell card dimensions */
-    .song-card h4 {
-        font-size: 11px !important;
+/* --- LAPTOP SYSTEMS AND DISPLAY INTERFACES (1024px up) --- */
+@media (min-width: 1024px) {
+    .responsive-grid-deck {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     
-    .song-card p {
-        font-size: 10px !important;
+    /* Layout split: Primary content streams run parallel to auxiliary modules */
+    .dashboard-split-layout {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 2rem;
     }
+}
 
-    .card-hover-play-trigger {
-        width: 32px;
-        height: 32px;
-        bottom: 6px;
-        right: 6px;
+/* --- STANDARD LAPTOP & DESKTOP ENVIRONMENT CONFIG (1200px up) --- */
+@media (min-width: 1200px) {
+    .studio-container {
+        max-width: 1140px;
     }
     
-    .card-hover-play-trigger i {
-        font-size: 9px;
+    .responsive-grid-deck {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+/* --- HIGH-RESOLUTION ULTRA-WIDE DESKTOP DECK (1400px up) --- */
+@media (min-width: 1400px) {
+    .studio-container {
+        max-width: 1320px;
     }
 }
