@@ -1,110 +1,186 @@
 /**
- * AI Music Production Studio - COMPONENT-BASED RESPONSIVE LAYER (responsive.css)
- * Architecture: Mobile-First Core / Upward Scale-Out Design Parameters
- * Breakpoints Matrix: 360px -> 480px -> 576px -> 768px -> 992px -> 1024px -> 1200px -> 1400px+
+ * AI Music Production Studio - STABLE COMPONENT LAYER (responsive.css)
+ * Architecture: Mobile-First Core / Fluid Layout Adaptations / Hardware Optimizations
+ * Breakpoints Matrix: 360px -> 480px -> 576px -> 768px -> 991px/992px -> 1200px -> 1400px+
  */
 
 /* ==========================================================================
-   1. GLOBAL COMPONENT DEFAULTS (MOBILE-FIRST BASE SYSTEM)
+   1. SYSTEM-WIDE HYDRATION, LOCKS & BASE PREVENTIONS
    ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    color-scheme: dark; /* Signals browser engine to render built-in forms/scrollbars in dark scheme natively */
+}
+
+html, body {
+    overflow-x: hidden; /* Prevent horizontal layout spill scrolling */
+}
+
+body {
+    padding-bottom: 80px; /* Safe frame boundary clearance so sticky player never overlaps cards */
+}
+
+/* Base Image Layout Shift (CLS) Shield */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Native Premium Scrollbar Override */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 20px;
+}
+
 .studio-container {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    max-width: 1400px;
 }
 
-/* Base Form Control Fallbacks */
-.search-box {
-    width: 100%;
+/* Global Interactive Element Smooth Kinetic Hovers */
+button, .btn {
+    transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
-/* Image Aspect Locking Rule */
-.song-thumb {
-    aspect-ratio: 1 / 1 !important;
-    object-fit: cover !important;
-    width: 100%;
+button:hover, .btn:hover {
+    transform: translateY(-2px);
 }
 
-/* Core Responsive Flex Grid Mechanics */
-.responsive-grid-deck {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-}
+/* Human Interface Guidelines Mobile Touch Target Minimums */
+button { min-height: 44px; }
+a      { min-height: 44px; }
 
-/* Component: Global Hero Section Block */
-.studio-hero {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    position: relative;
-    width: 100%;
-}
-
-/* Component: Song Card Button Layout Flows */
-.card-action-cluster {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-}
-
-/* Component: App Footer Directory Lists */
-.site-footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
+/* Pure Keyboard Access Focus States (Hidden cleanly on standard mouse click streams) */
+*:focus-visible {
+    outline: 2px solid #10b981 !important;
+    outline-offset: 2px !important;
 }
 
 /* ==========================================================================
-   2. MOBILE NAV & INTERACTIVE FLY-OUT OVERLAYS (ALL VIEWPORTS)
+   2. REUSABLE FLUID COMPONENT GRID MATRICES
    ========================================================================== */
-.hamburger-trigger {
+/* Dynamic Fluid Adaptive Grid System */
+.song-grid, .responsive-grid-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+/* Song Container Uniform Height & Layout Alignment Locking Matrix */
+.song-card {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 22px;
-    height: 16px;
-    cursor: pointer;
-    z-index: 10000;
+    height: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.hamburger-trigger span {
-    display: block;
-    height: 2px;
+/* Strict Aspect Scale Guardian & Overlap Prevention */
+.song-thumb {
     width: 100%;
-    background-color: #ffffff;
-    border-radius: 9999px;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
 }
 
-/* Hamburger Morph States when .active class is applied via js */
-.hamburger-trigger.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-.hamburger-trigger.active span:nth-child(2) {
-    opacity: 0;
-}
-.hamburger-trigger.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+.song-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
+.song-card:hover .song-thumb {
+    transform: scale(1.05);
+}
+
+/* Typography Ellipsis Safety Bounds */
+.song-title, .song-artist {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* Input Fields Functional Containment */
+.search-box {
+    width: 100%;
+    max-width: 450px;
+}
+
+.search-box input {
+    width: 100%;
+}
+
+/* Balanced Interactive Dual Grid Systems Layout */
+.card-action-cluster {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Enforces identical dimension block constraints over core card action triggers */
+.card-action-cluster button,
+.card-action-cluster .btn {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fluid Cinematic Aspect Billboard Component Layout */
+.hero-image {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+}
+
+/* Modern Multi-Column Adaptive App Footer Matrix */
+.site-footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+.site-footer-links a {
+    text-decoration: none;
+    color: #a1a1aa;
+    transition: color 0.25s ease;
+}
+
+.site-footer-links a:hover {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   3. MOBILE DRAWER SYSTEM STRUCTURES
+   ========================================================================== */
 .mobile-slide-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 280px;
+    width: 85%;
+    max-width: 320px;
     height: 100vh;
-    background-color: #09090b;
-    border-left: 1px solid #18181b;
     z-index: 9999;
-    padding: 6rem 2rem 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -112,140 +188,112 @@
     right: 0;
 }
 
-.mobile-menu-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    z-index: 9998;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-}
-
-.mobile-menu-overlay.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 /* ==========================================================================
-   3. STICKY MEDIA STREAM PLAYER COMPONENT (SPOTIFY LAYOUT MATRIX)
+   4. SYSTEM-WIDE CHRONOLOGICAL BREAKPOINTS MEDIA STRATA
    ========================================================================== */
-.music-player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 72px;
-    background-color: rgba(9, 9, 11, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid #18181b;
-    padding: 10px 16px;
-    z-index: 9000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-/* Mobile Player optimization: Condense text blocks or hide scrub bars safely */
+/* --- PHONE PORTRAIT AND EXTRA COMPACT SCREENS (Under 576px) --- */
 @media (max-width: 576px) {
-    .music-player-timeline-bar {
-        display: none !important; /* Drops progress row on micro viewports to avoid crunch */
+    .song-grid, .responsive-grid-deck {
+        /* minmax 155px guarantees balanced double column layouts on narrow 360px display formats */
+        grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+        gap: 0.75rem;
     }
 }
 
-/* ==========================================================================
-   4. SYSTEM-WIDE CHRONOLOGICAL BREAKPOINTS STRATA
-   ========================================================================== */
-
-/* --- VERY SMALL HANDSETS (360px up) --- */
-@media (min-width: 360px) {
-    .responsive-grid-deck {
-        grid-template-columns: minmax(0, 1fr);
-    }
-    .studio-hero {
-        min-height: 200px;
-    }
-}
-
-/* --- SMALL MOBILE VIEWPORTS (480px up) --- */
-@media (min-width: 480px) {
-    .card-action-cluster {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-
-/* --- MOBILE LANDSCAPE VIEWPORTS (576px up) --- */
-@media (min-width: 576px) {
+/* --- SMALL TO MEDIUM HANDSETS & TABLETS (Under 768px) --- */
+@media (max-width: 768px) {
     .studio-container {
-        padding-right: 1.5rem;
-        padding-left: 1.5rem;
+        padding-left: 12px;
+        padding-right: 12px;
     }
-}
 
-/* --- TABLET PORTRAIT SCALE MATRIX (768px up) --- */
-@media (min-width: 768px) {
-    .responsive-grid-deck {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.25rem;
+    section {
+        margin-bottom: 24px; /* Clean structural component grouping break spacing */
+    }
+
+    /* Spotify Media Layout Frame Compaction Overrides */
+    .music-player {
+        height: 65px !important;
+        padding: 8px 12px !important;
+    }
+
+    .music-info h4 {
+        font-size: 13px !important;
+    }
+
+    .music-info p {
+        font-size: 11px !important;
     }
     
-    .site-footer-links {
-        flex-direction: row;
-        justify-content: center;
-        gap: 2rem;
+    .studio-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 
-/* --- STANDARD TABLET LANDSCAPE INTERFACE (992px up) --- */
+/* --- MID-SCALE MEDIUM TABLETS OVERRIDE FRAMEWORK (Under 991px) --- */
+@media (max-width: 991px) {
+    .song-grid, .responsive-grid-deck {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Retains item densities safely across tablet spectrums */
+    }
+}
+
+/* --- UPPER DESKTOP / SIDEBAR FLOW LAYOUT ALIGNMENTS (992px up) --- */
 @media (min-width: 992px) {
     .studio-hero {
+        display: flex;
         flex-direction: row;
         align-items: center;
-        min-height: 280px;
+        gap: 2rem;
     }
     
     .hero-visual-frame {
-        width: 40%;
+        width: 35%;
         flex-shrink: 0;
     }
     
     .hero-content-frame {
-        width: 60%;
+        width: 65%;
     }
 }
 
-/* --- LAPTOP SYSTEMS AND DISPLAY INTERFACES (1024px up) --- */
-@media (min-width: 1024px) {
-    .responsive-grid-deck {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    
-    /* Layout split: Primary content streams run parallel to auxiliary modules */
-    .dashboard-split-layout {
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-        gap: 2rem;
-    }
-}
-
-/* --- STANDARD LAPTOP & DESKTOP ENVIRONMENT CONFIG (1200px up) --- */
+/* --- PREMIUM HIGH-RESOLUTION LAPTOPS CONFIG (1200px up) --- */
 @media (min-width: 1200px) {
     .studio-container {
-        max-width: 1140px;
-    }
-    
-    .responsive-grid-deck {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        padding-left: 32px;
+        padding-right: 32px; /* Amplifies page margins for spacious high-end desktop visual rhythm */
     }
 }
 
-/* --- HIGH-RESOLUTION ULTRA-WIDE DESKTOP DECK (1400px up) --- */
+/* --- CINEMATIC DISPLAY INTERFACES (1400px up) --- */
 @media (min-width: 1400px) {
-    .studio-container {
-        max-width: 1320px;
+    .song-grid {
+        /* Prevents cards from over-stretching on vast display configurations */
+        grid-template-columns: repeat(5, minmax(220px, 1fr));
+    }
+}
+
+/* ==========================================================================
+   5. UTILITY STACK HELPER INTERFACES
+   ========================================================================== */
+.text-center { text-align: center; }
+.w-full      { width: 100%; }
+.hidden      { display: none !important; }
+
+/* Micro-interaction DOM Node Animation Triggers */
+.fade-in {
+    animation: fade .4s ease;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
     }
 }
