@@ -1,1 +1,328 @@
+/* ==========================================================================
+   AI MUSIC STUDIO - SPOTIFY CORE PLAYER APP MATRIX[cite: 1]
+   Isolated Layout Framework for the Bottom Sticky Playback Engine
+   ========================================================================== */
 
+/* --- Main Player Container Layout --- */
+#sticky-audio-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    background-color: #121214;
+    border-top: 1px solid #27272a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 9999;
+    box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#sticky-audio-player.hidden {
+    display: none !important;
+    transform: translateY(100%);
+}
+
+/* ==========================================================================
+   1. LEFT FLANK: TRACK METADATA DISPLAY (COVER IMAGE & INFO)[cite: 1]
+   ========================================================================== */
+.player-track-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 180px;
+    max-width: 30%;
+    flex: 1;
+}
+
+#playerImage {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+#playerImage:hover {
+    transform: scale(1.04);
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+}
+
+#playerTitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#playerTitle:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#player-subtitle {
+    font-size: 11px;
+    color: #b3b3b3;
+    margin: 2px 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+#player-subtitle:hover {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   2. CENTER DECK: MEDIA STREAM INJECTOR & TIMING HOUSING
+   ========================================================================== */
+.player-center-deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 2;
+    max-width: 45%;
+}
+
+/* Hidden/Embedded Iframe Containment Field */
+.video-player {
+    position: relative;
+    width: 140px;
+    height: 32px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid #27272a;
+}
+
+.video-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Native Control Micro-Row (Play, Pause, Progress Nodes) */
+.player-transport-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.transport-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+}
+
+.transport-btn:hover {
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Specialized High-Accent Play/Pause Circular Action Configurations */
+.transport-btn.master-toggle {
+    width: 38px;
+    height: 38px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 50%;
+    font-size: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.transport-btn.master-toggle:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.08);
+    color: #000000;
+}
+
+/* --- Interactive Timeline/Progress Slider Infrastructure --- */
+.timeline-scrubber-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.playback-time {
+    font-size: 11px;
+    color: #a7a7a7;
+    font-family: monospace;
+    min-width: 32px;
+    text-align: center;
+}
+
+.progress-slider-container {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 12px;
+    cursor: pointer;
+}
+
+.player-progress-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #4d4d4d;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill-node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 35%; /* Default fallback starting value */
+    background-color: #1db954;
+    border-radius: 2px;
+    transition: background-color 0.1s ease;
+}
+
+.progress-slider-container:hover .progress-fill-node {
+    background-color: #1ed760;
+}
+
+/* ==========================================================================
+   3. RIGHT FLANK: MIXING ENGINE TERMINALS (VOLUME & AUDIO LYRICS BUTTON)[cite: 1]
+   ========================================================================== */
+.player-right-deck {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    flex: 1;
+    max-width: 25%;
+    min-width: 140px;
+}
+
+/* Target Trigger Interfaces (Lyrics, Redirect Options) */
+#player-lyrics-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 13px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+#player-lyrics-btn:hover {
+    color: #1db954;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+#player-lyrics-btn.active {
+    color: #1db954;
+}
+
+/* --- System Master Volume Layout Blocks --- */
+.volume-control-cluster {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+    max-width: 130px;
+}
+
+.volume-icon-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.volume-icon-btn:hover {
+    color: #ffffff;
+}
+
+.volume-slider-track {
+    flex: 1;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.volume-progress-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #4d4d4d;
+    position: relative;
+}
+
+.volume-fill-node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 75%; /* System default fallback level */
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+.volume-slider-track:hover .volume-fill-node {
+    background-color: #1db954;
+}
+
+/* ==========================================================================
+   4. SYSTEM BREAKPOINTS (FLUID SCALING MODES)[cite: 1]
+   ========================================================================== */
+@media (max-width: 840px) {
+    #sticky-audio-player {
+        padding: 0 16px;
+    }
+    .volume-control-cluster {
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 680px) {
+    /* Compress secondary right deck structures onto small screens */
+    .volume-control-cluster {
+        display: none !important;
+    }
+    .player-right-deck {
+        min-width: auto;
+        justify-content: flex-end;
+    }
+}
