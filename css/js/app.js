@@ -40,35 +40,64 @@
      * 2. HIGH-PERFORMANCE HYDRATION ENGINE
      */
     function compileAndHydrateDashboard(data) {
-        if (!data || !data.songs) return;
 
-        // Render Hero Section
-        if (data.hero) {
-            hydrateHeroBanner(data.hero);
-        }
+    if (!data) return;
 
-        // Performance Optimization: Single-pass partition loop O(N) instead of multiple filters[cite: 2]
-        const trendingList = [];
-        const newReleasesList = [];
-        
-        data.songs.forEach(song => {
-            if (song.isTrending) trendingList.push(song);
-            if (song.isNewRelease) newReleasesList.push(song);
+    // Hero
+    if (data.featuredSong) {
+        hydrateHeroBanner({
+            title: data.featuredSong.title,
+            artist: data.featuredSong.language,
+            youtubeId: data.featuredSong.youtubeId
         });
-
-        // Hydrate Grids
-        hydrateSongGrid("new-releases-container", newReleasesList);
-        hydrateSongGrid("trending-songs-container", trendingList);
-        hydrateSongGrid("all-songs-grid", data.songs);
-
-        // SAFE TRIGGER SEQUENCE: Event-delegation duplicate guard
-        if (!window.playerAttached) {
-            attachGlobalClickInterceptors();
-            window.playerAttached = true; 
-        }
-
-        setupUnifiedSearchEngine(); 
     }
+
+    // Build one master songs array
+    const allSongs = [];
+
+    (data.newReleases || []).forEach((song, index) => {
+        allSongs.push({
+            id: "new-" + index,
+            title: song.title,
+            artist: song.language,
+            language: song.language,
+            genre: song.category,
+            youtubeId: song.youtubeId,
+            lyrics: "",
+            audioUrl: "",
+            downloadUrl: "",
+            isNewRelease: true,
+            isTrending: false
+        });
+    });
+
+    (data.latest || []).forEach((song, index) => {
+        allSongs.push({
+            id: "latest-" + index,
+            title: song.title,
+            artist: song.language,
+            language: song.language,
+            genre: song.category,
+            youtubeId: song.youtubeId,
+            lyrics: "",
+            audioUrl: "",
+            downloadUrl: "",
+            isNewRelease: false,
+            isTrending: true
+        });
+    });
+
+    hydrateSongGrid("new-releases-container", allSongs.filter(s => s.isNewRelease));
+    hydrateSongGrid("trending-songs-container", allSongs.filter(s => s.isTrending));
+    hydrateSongGrid("all-songs-grid", allSongs);
+
+    if (!window.playerAttached) {
+        attachGlobalClickInterceptors();
+        window.playerAttached = true;
+    }
+
+    setupUnifiedSearchEngine();
+}
 
     function hydrateHeroBanner(hero) {
         const heroTitle = document.getElementById("hero-title");
