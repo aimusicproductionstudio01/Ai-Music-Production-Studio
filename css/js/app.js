@@ -103,10 +103,7 @@
         const heroTitle = document.getElementById("hero-title");
         const heroArtist = document.getElementById("hero-artist");
         const heroImg = document.getElementById("hero-thumbnail");
-
-        if (heroTitle) heroTitle.textContent = hero.title || "Featured Production";
-        if (heroArtist) heroArtist.textContent = hero.artist || "AI Studio";
-        
+  
         if (heroImg) {
             const videoId = hero.youtubeId || FALLBACK_STUDIO_DEMO_ID; // Fallback to custom studio demo[cite: 2]
             heroImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
