@@ -1,182 +1,1156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- REQUIRED VIEWPORT META TAG -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Music Production Studio</title>
+    <title>Ai Music Production Studio | Advanced Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- FontAwesome Vector Icon Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Core Application Component Layouts -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/player.css">
-    <link rel="stylesheet" href="css/responsive.css">
-</head>
-<body class="bg-black text-white antialiased selection:bg-emerald-500/30 selection:text-emerald-400">
+    <!-- SYSTEM EXPLICIT RESPONSIVE DESIGN STYLESHEET OVERRIDES -->
+    <style>
+        /* 7. PREVENT HORIZONTAL SCROLLING & BOX CONFIGS */
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: #09090b;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
 
-    <!-- ==========================================================================
-       TOP NAVIGATION BAR & IDENTITY DECK
-       ========================================================================== -->
-    <header class="fixed top-0 left-0 right-0 h-16 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900 px-6 flex items-center justify-between z-50">
-        <div class="flex items-center gap-3">
-            <img src="logo/logo.png" alt="Studio Logo" class="w-8 h-8 rounded-lg shadow-md" onerror="this.src='logo.png'">
-            <span class="font-black text-sm tracking-wider uppercase text-emerald-400">AI Studio</span>
+        /* 6. STICKY PLAYER CONTROLLER SPACING */
+        body {
+            padding-bottom: 90px;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        /* 8. RESPONSIVE HEADER LAYOUT ENGINE */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* 3. RESPONSIVE RELEASES & REGION GRIDS */
+        .song-grid,
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 20px;
+        }
+
+        /* 2. COMPACT ANTI-OVERLAP SONG CARD GRAPHICS */
+        .song-card {
+            background: #181818;
+            border-radius: 12px;
+            padding: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .song-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+
+        /* 4. LONG TITLES FIX WITH TEXT-ELLIPSIS TRUNCATION */
+        .song-card h3 {
+            font-size: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin: 0;
+            font-weight: bold;
+            color: #fff;
+        }
+        .song-card p.card-meta {
+            font-size: 11px;
+            color: #71717a;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        /* 5. FLEX ACTION BUTTON LAYOUT NODES */
+        .song-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+        .song-actions .btn {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* 6. SPOTIFY STICKY FOOTER CORE DIMENSIONS */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            z-index: 9999;
+            background: #111;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        .music-player img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        .music-info {
+            flex: 1;
+            overflow: hidden;
+            min-w: 0;
+        }
+        .music-info h4 {
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+            font-weight: bold;
+        }
+        .music-info p {
+            font-size: 12px;
+            color: #aaa;
+            margin: 2px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-btn {
+            background: #1DB954;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 9. RESPONSIVE YOUTUBE IFRAME MEDIA WRAPPER */
+        .video-player {
+            position: relative;
+            width: 100%;
+            max-width: 240px;
+            padding-bottom: 13.5%; /* Banner configuration ratio within sticky panel dimensions */
+        }
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+        }
+
+        /* CUSTOM TAILORED INPUT TEXT FIELD CONFIGS */
+        .search-box {
+            width: 100%;
+            background-color: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 9999px;
+            padding: 8px 16px 8px 40px;
+            font-size: 12px;
+            color: #e4e4e7;
+            transition: border-color 0.2s;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        /* SYSTEM RESPONSIVE COMPACT MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .music-player {
+                height: auto;
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+            .music-player img {
+                width: 40px;
+                height: 40px;
+            }
+            .video-player {
+                max-width: 100%;
+                width: 100%;
+                padding-bottom: 56.25%; /* Auto snap configuration back to widescreen 16:9 box when viewport collapses */
+                order: 3;
+            }
+            .music-info {
+                width: calc(100% - 70px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 8. GLOBAL RESPONSIVE NAV HEADER BLOCK -->
+    <header class="header sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 shadow-lg">
+        <div class="flex items-center gap-3 group">
+            <a href="index.html" class="flex items-center gap-3 focus:outline-none">
+                <img src="logo.png" alt="Studio Logo" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <span class="text-md font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase whitespace-nowrap">Ai Music Studio</span>
+            </a>
         </div>
-        
-        <!-- Interactive Unified Search Target Hub -->
-        <div class="flex-1 max-w-md mx-6">
-            <div class="relative w-full">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
-                <input type="text" id="searchInput" placeholder="Search by title, language, genre..." 
-                       class="w-full h-9 bg-zinc-900 border border-zinc-800 rounded-full pl-10 pr-4 text-xs font-medium text-white placeholder:text-zinc-500 focus:outline-none focus:border-emerald-500 transition-colors">
+
+        <!-- 1. INTEGRATED RE-STYLED SEARCH CONSOLE FIELD -->
+        <div class="w-full md:max-w-md relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+            <input type="text" id="searchInput" placeholder="Search songs..." class="search-box">
+        </div>
+
+        <div class="flex items-center gap-6 justify-between md:justify-end">
+            <div class="social-links text-zinc-400 text-sm border-r border-zinc-800 pr-4">
+                <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            
+            <div id="auth-nav-slot" class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
+                <a href="login.html" class="hover:text-white text-zinc-400 transition-colors bg-zinc-950 px-3 py-2 rounded-lg border border-zinc-800">Log In</a>
+                <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black px-3 py-2 rounded-lg transition-colors">Sign Up</a>
             </div>
         </div>
-
-        <!-- Identity Matrix Slot (Populated dynamically via auth.js + app.js) -->
-        <nav id="auth-nav-slot">
-            <a href="login.html" class="text-xs font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer tracking-wide">
-                Sign In
-            </a>
-        </nav>
     </header>
 
-    <!-- ==========================================================================
-       MAIN DASHBOARD GRID STRATA
-       ========================================================================== -->
-    <main class="pt-24 pb-32 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- MAIN APP FLOW DISPLAY LAYOUT -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 w-full space-y-12">
         
-        <!-- LEFT/CENTER SECTOR: PLATFORM FLOW STREAM (3 Columns) -->
-        <div class="lg:col-span-3 space-y-10">
-            
-            <!-- Dynamic Component: Featured Hero Banner Section -->
-            <section id="featured-hero" class="relative rounded-2xl overflow-hidden min-h-[280px] bg-zinc-950 border border-zinc-900 flex flex-col justify-end p-8 group">
-                <img id="hero-thumbnail" src="" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" alt="">
-                <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent"></div>
-                
-                <div class="relative z-10 space-y-3 max-w-xl">
-                    <span id="hero-tag" class="text-[9px] font-black tracking-widest uppercase bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/20 inline-block">Featured Master</span>
-                    <h1 id="hero-title" class="text-2xl md:text-4xl font-black tracking-tight leading-none text-white">Loading Master Track...</h1>
-                    <p id="hero-desc" class="text-xs md:text-sm text-zinc-400 leading-relaxed">Initializing dynamic studio presentation layer elements...</p>
-                    <div class="pt-2">
-                        <button id="hero-play-btn" class="bg-white text-black text-xs font-bold px-6 h-10 rounded-full flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform cursor-pointer shadow-lg">
-                            <i class="fa-solid fa-play text-[10px]"></i> Play Production
-                        </button>
+        <!-- FEATURED MASTER FOCUS DASHBOARD DISPLAY BANNER -->
+        <section id="featured-hero" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-900/40 to-zinc-950 border border-zinc-850 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+            <div class="space-y-4 max-w-xl z-10">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="hero-tag">FEATURED MASTER</span>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Loading Active Nodes...</h1>
+                <p class="text-xs md:text-sm text-zinc-400 leading-relaxed" id="hero-desc">Connecting to music engine array registry endpoints...</p>
+                <div class="pt-2">
+                    <button id="hero-play-btn" class="bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all shadow-lg tracking-wider cursor-pointer w-full md:w-auto">
+                        <i class="fa-solid fa-play"></i> STREAM AUDIO
+                    </button>
+                </div>
+            </div>
+            <div class="w-full md:w-80 lg:w-96 aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden relative group z-10">
+                <img id="hero-thumbnail" src="banner.jpg" alt="Featured Media Layout Art" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center text-md shadow-2xl"><i class="fa-solid fa-music"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- APP CONTENT BODY MODULE SPLIT LAYER -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:col-span-2 space-y-12">
+                <!-- 3. NEW RELEASES GRID LAYER -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-emerald-500 rounded-full"></span> New Releases</h2>
+                    <div id="new-releases-container" class="song-grid"></div>
+                </div>
+
+                <!-- 3. TRENDING TRACK MATRIX DRIFT DROPS -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-amber-500 rounded-full"></span> Studio Matrix Drops</h2>
+                    <div id="trending-songs-container" class="region-grid"></div>
+                </div>
+
+                <!-- 3. ALL SONGS ARCHIVE COMPILATIONS -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-zinc-850 pb-2">
+                        <h2 class="text-xl font-black text-white uppercase tracking-wider">All Production Songs</h2>
+                        <a href="channels.html" class="text-xs text-zinc-500 hover:text-emerald-400 transition-colors">View Channels</a>
                     </div>
+                    <div id="all-songs-grid" class="region-grid"></div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Dynamic Component: New Releases Dynamic Grid Section -->
-            <section class="space-y-4">
-                <h2 class="text-base font-black uppercase tracking-wider text-zinc-200 flex items-center gap-2">
-                    <span class="w-1.5 h-3 bg-emerald-500 rounded-sm"></span> New Releases
-                </h2>
-                <div id="new-releases-container" class="song-grid grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <!-- Cards dynamically generated via app.js -->
+            <!-- RIGHT CONTROL SLIDERS: SIDEBAR FEED PACKETS -->
+            <div class="space-y-8">
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-hourglass-start text-emerald-400"></i> Production Schedule</h3>
+                    <div id="upcoming-container" class="space-y-2.5"></div>
                 </div>
-            </section>
 
-            <!-- Dynamic Component: Trending Dynamic Row Grid Section -->
-            <section class="space-y-4">
-                <h2 class="text-base font-black uppercase tracking-wider text-zinc-200 flex items-center gap-2">
-                    <span class="w-1.5 h-3 bg-amber-500 rounded-sm"></span> Trending Tracks
-                </h2>
-                <div id="trending-songs-container" class="region-grid grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Cards dynamically generated via app.js -->
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-compact-disc text-emerald-400"></i> Language Hubs</h3>
+                    <div id="language-playlists-container" class="space-y-2"></div>
                 </div>
-            </section>
 
-            <!-- Dynamic Component: Latest / Master Catalog Section -->
-            <section class="space-y-4">
-                <h2 class="text-base font-black uppercase tracking-wider text-zinc-200 flex items-center gap-2">
-                    <span class="w-1.5 h-3 bg-blue-500 rounded-sm"></span> Full Catalog Production Stems
-                </h2>
-                <div id="all-songs-grid" class="song-grid grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Cards dynamically generated via app.js -->
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-bullhorn text-amber-500"></i> Live Studio News</h3>
+                    <div id="news-feed-container" class="space-y-3"></div>
                 </div>
-            </section>
+            </div>
         </div>
-
-        <!-- RIGHT SIDEBAR: AUXILIARY MANAGEMENT PANELS (1 Column) -->
-        <aside class="space-y-8 lg:col-span-1">
-            
-            <!-- Dynamic Component: Upcoming Releases Feed Section -->
-            <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
-                <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Upcoming Drops</h3>
-                <div id="upcoming-container" class="space-y-3">
-                    <!-- Content dynamically generated via app.js -->
-                </div>
-            </section>
-
-            <!-- Dynamic Component: Language Routers Directory Section -->
-            <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
-                <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Language Hubs</h3>
-                <div id="language-playlists-container" class="divide-y divide-zinc-900/50">
-                    <!-- Content dynamically generated via app.js -->
-                </div>
-            </section>
-
-            <!-- Dynamic Component: Broadcast Studio News Feed Section -->
-            <section class="bg-zinc-950 p-5 rounded-2xl border border-zinc-900 space-y-4">
-                <h3 class="text-xs font-black uppercase tracking-widest text-zinc-400">Studio Broadcast News</h3>
-                <div id="news-feed-container" class="space-y-3">
-                    <!-- Content dynamically generated via app.js -->
-                </div>
-            </section>
-
-            <!-- Telemetry System Counter Display Widget Section -->
-            <section class="p-4 bg-zinc-950/40 rounded-xl border border-zinc-900/60 flex items-center justify-around text-center">
-                <div>
-                    <span id="analytics-total-visitors" class="block text-sm font-mono font-bold text-white">0</span>
-                    <span class="text-[9px] uppercase tracking-widest text-zinc-600 font-bold">Unique Visitors</span>
-                </div>
-                <div class="h-6 w-[1px] bg-zinc-900"></div>
-                <div>
-                    <span id="analytics-total-views" class="block text-sm font-mono font-bold text-white">0</span>
-                    <span class="text-[9px] uppercase tracking-widest text-zinc-600 font-bold">Page Views</span>
-                </div>
-            </section>
-        </aside>
     </main>
 
-    <!-- ==========================================================================
-       ISOLATED CORE SYSTEM COMPONENT LAYOUTS (STICKY PLAYER & OVERLAYS)
-       ========================================================================== -->
-    
-    <!-- 🎵 Spotify-Style Sticky Bottom Audio Player Wrapper -->
-    <footer id="sticky-audio-player" class="hidden">
-        <!-- Structural components are injected and configured via player.js -->
-    </footer>
-
-    <!-- 📜 Dynamic Overlay Popup Component: Live Synchronized Lyrics Terminal -->
-    <div id="lyrics-panel" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[10000] hidden items-center justify-center p-6 opacity-0 transition-opacity duration-350 pointer-events-none">
-        <button id="close-lyrics-btn" class="absolute top-6 right-6 w-10 h-10 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer">
-            <i class="fa-solid fa-xmark text-sm"></i>
-        </button>
-        <div class="max-w-xl w-full flex flex-col max-h-[80vh]">
-            <h2 id="lyrics-track-title" class="text-center font-black text-lg text-emerald-400 mb-8 tracking-wide">Track Transcription</h2>
-            <div id="lyrics-body" class="overflow-y-auto px-4 custom-scrollbar space-y-2 text-zinc-300">
-                <!-- Text segments loaded dynamically via lyrics.js -->
+    <!-- LYRICS TEXT DRAWER VIEW MODULE OVERLAY -->
+    <div id="lyrics-panel" class="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-xl max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/50">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-microphone text-emerald-400 text-sm"></i>
+                    <div>
+                        <h3 id="lyrics-track-title" class="text-sm font-black text-white">Track Lyrics</h3>
+                        <p class="text-[10px] text-zinc-500 tracking-wide uppercase font-semibold">Studio Sync Feed</p>
+                    </div>
+                </div>
+                <button onclick="closeLyricsPanel()" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
+            <div id="lyrics-body" class="p-8 overflow-y-auto text-center font-medium text-zinc-300 leading-loose text-base space-y-4 select-none max-h-[50vh]"></div>
         </div>
     </div>
 
-    <!-- ==========================================================================
-       MODULAR ARCHITECTURE DEPENDENCY INJECTION STACK
-       ========================================================================== -->
-    <!-- 1. Identity context checks local tokens before visual render loops load -->
-    <script src="js/auth.js"></script>
-    <!-- 2. Secure resource delivery controller handles protected file transfers -->
-    <script src="js/download.js"></script>
-    <!-- 3. Core dynamic application engine reads songs.json and renders catalogs -->
-    <script src="js/app.js"></script>
-    <!-- 4. Audio media layout streaming controller coordinates timeline streams -->
-    <script src="js/player.js"></script>
-    <!-- 5. Live instant query string module filters grids on keypress -->
-    <script src="js/search.js"></script>
-    <!-- 6. Localized translation text asset file fetching processor -->
-    <script src="js/lyrics.js"></script>
-    <!-- 7. Analytics telemetry tracker updates view counters and triggers gtag tracking -->
-    <script src="js/analytics.js"></script>
+    <!-- 6. SPOTIFY-STYLE STICKY AUDIO PLAYER NODE CONSOLE -->
+    <div id="sticky-audio-player" class="music-player hidden">
+        <div class="flex items-center gap-3.5 min-w-0">
+            <img id="playerImage" src="logo.png" alt="Artwork Frame">
+            <div class="music-info">
+                <h4 id="playerTitle">Select a Song</h4>
+                <p id="player-subtitle">Language Subtype</p>
+            </div>
+        </div>
+
+        <!-- 9. RESPONSIVE YOUTUBE VIDEO IFRAME MODULE WRAPPER -->
+        <div class="video-player">
+            <iframe id="youtubePlayer" src="" allow="autoplay" allowfullscreen frameborder="0"></iframe>
+        </div>
+
+        <div class="flex items-center gap-3 text-zinc-400 text-xs">
+            <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex">
+                YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+            </a>
+            <button onclick="displayTrackLyrics()" class="player-btn hover:scale-105 transition-transform text-white text-xs cursor-pointer" title="View Production Lyrics">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN SYSTEM CONTROLLER APPLICATION DRIVE HUB -->
+    <script>
+        const channelRegistry = {
+            "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
+            "Bangla": "https://www.youtube.com/@Ai_BanglaGaan_11",
+            "Bhakti": "https://www.youtube.com/@Ai_BhaktiGaana",
+            "Bhojpuri": "https://www.youtube.com/@Ai_BhojpuriGaana",
+            "English": "https://www.youtube.com/@Ai_EnglishSongs-01"
+        };
+
+        let currentLoadedId = "";
+        let currentLoadedTitle = "";
+        let currentLyricsPath = "";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            syncSessionAuthentication();
+            setupUnifiedSearchEngine();
+
+            fetch('songs.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Metadata registry failure.");
+                    return response.json();
+                })
+                .then(songsData => hydrateCompletePlatform(songsData))
+                .catch(err => console.error("System Core Fault:", err));
+        });
+
+        // 1. UNIFIED LIVE FILTER SEARCH SCRIPT CAPTURE CONTROLLER ENGINE
+        function setupUnifiedSearchEngine() {
+            document.getElementById("searchInput").addEventListener("keyup", function() {
+                const value = this.value.toLowerCase();
+
+                document.querySelectorAll(".song-card").forEach(card => {
+                    // Match query text targets using defined h3 title headers
+                    const title = card.querySelector("h3").innerText.toLowerCase();
+                    const category = card.dataset.category ? card.dataset.category.toLowerCase() : "";
+
+                    if (title.includes(value) || category.includes(value)) {
+                        card.style.display = "flex"; // Restores structural cards to flex block layout configs
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            });
+        }
+
+        function syncSessionAuthentication() {
+            const isLocalLogged = localStorage.getItem("loggedIn") === "true";
+            const isSessionLogged = sessionStorage.getItem("loggedIn") === "true";
+            const currentEmail = localStorage.getItem("currentUser");
+            const navSlot = document.getElementById("auth-nav-slot");
+
+            if ((isLocalLogged || isSessionLogged) && currentEmail) {
+                const rawUser = localStorage.getItem("user_" + currentEmail);
+                let userName = "Producer Profile";
+                let userAvatar = "logo.png";
+
+                if (rawUser) {
+                    const parsedUser = JSON.parse(rawUser);
+                    userName = parsedUser.name || userName;
+                    userAvatar = parsedUser.avatar || userAvatar;
+                }
+
+                navSlot.innerHTML = `
+                    <div class="flex items-center gap-3.5 bg-zinc-900 border border-zinc-800 py-1.5 pl-2 pr-3.5 rounded-full">
+                        <img src="${userAvatar}" alt="Profile Avatar" class="w-6 h-6 rounded-full object-cover border border-zinc-750">
+                        <span class="text-zinc-300 font-bold max-w-[100px] truncate">${userName}</span>
+                        <button onclick="handleUserLogout()" class="text-zinc-500 hover:text-red-400 text-xs transition-colors cursor-pointer ml-1">
+                            <i class="fa-solid fa-power-off"></i>
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem("loggedIn");
+            sessionStorage.removeItem("loggedIn");
+            localStorage.removeItem("currentUser");
+            alert("Logged out successfully.");
+            window.location.reload();
+        }
+
+        function escapeStr(str) {
+            return str ? str.replace(/'/g, "\\'") : '';
+        }
+
+        // 10. PREVENT INTERIOR INNER-HTML ITERATION DESTRUCTION - COMPILING PACKETS FIRST
+        function hydrateCompletePlatform(data) {
+            // HYDRATING HERO CONTAINER DATA NODES
+            const featured = data.featuredSong;
+            if (featured) {
+                document.getElementById("hero-title").innerText = featured.title;
+                document.getElementById("hero-desc").innerText = featured.description;
+                document.getElementById("hero-tag").innerText = `FEATURED MASTER • ${featured.language} • ${featured.category}`;
+                document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`;
+                document.getElementById("hero-play-btn").setAttribute("onclick", `playSong('${escapeStr(featured.title)}', '${featured.youtubeId}', '${featured.language}', '${featured.lyricsFile || ""}')`);
+            }
+
+            // HYDRATING NEW RELEASES THROUGH A SINGLE BUFFERED STRING FLUSH LAYER
+            if (data.newReleases) {
+                let newReleasesHtml = "";
+                data.newReleases.forEach(track => {
+                    newReleasesHtml += `
+                        <div class="song-card group" data-category="${track.category} ${track.language}">
+                            <div class="relative rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 aspect-video">
+                                <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="song-thumb">
+                                <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer">
+                                    <div class="w-10 h-10 bg-emerald-500 text-black rounded-full flex items-center justify-center text-sm shadow-xl"><i class="fa-solid fa-play ml-0.5"></i></div>
+                                </button>
+                            </div>
+                            <div>
+                                <h3>${track.title}</h3>
+                                <p class="card-meta">${track.category} • ${track.language}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById("new-releases-container").innerHTML = newReleasesHtml;
+            }
+
+            // HYDRATING LATEST & TRENDING ARCHIVE THROUGH SINGLE ASSIGNMENTS
+            if (data.latest) {
+                let trendingHtml = "";
+                data.latest.slice(0, 2).forEach(track => {
+                    trendingHtml += `
+                        <div class="song-card group" data-category="${track.category} ${track.language}">
+                            <div class="flex items-center justify-between gap-3 w-full">
+                                <div class="flex items-center gap-3 truncate flex-1">
+                                    <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-14 h-10 object-cover rounded-md border border-zinc-800 flex-shrink-0">
+                                    <div class="truncate">
+                                        <h3>${track.title}</h3>
+                                        <p class="card-meta"><i class="fa-solid fa-fire text-amber-500"></i> ${track.category}</p>
+                                    </div>
+                                </div>
+                                <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-xs border border-zinc-800 text-zinc-300 hover:text-white flex-shrink-0 cursor-pointer"><i class="fa-solid fa-play ml-0.5"></i></button>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById("trending-songs-container").innerHTML = trendingHtml;
+
+                let allSongsHtml = "";
+                data.latest.forEach(track => {
+                    const chLink = channelRegistry[track.language] || "https://www.youtube.com";
+                    allSongsHtml += `
+                        <div class="song-card group" data-category="${track.category} ${track.language}">
+                            <div class="flex items-center justify-between gap-3 w-full">
+                                <div class="flex items-center gap-3 truncate min-w-0 flex-1">
+                                    <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-12 h-9 object-cover rounded-md border border-zinc-800 flex-shrink-0">
+                                    <div class="truncate flex-1 min-w-0">
+                                        <h3>${track.title}</h3>
+                                        <p class="card-meta">${track.category}</p>
+                                    </div>
+                                </div>
+                                <div class="song-actions flex-shrink-0">
+                                    <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="btn p-1 text-sm text-zinc-400 hover:text-white cursor-pointer"><i class="fa-solid fa-circle-play"></i></button>
+                                    <a href="${chLink}" target="_blank" class="btn text-[8px] font-mono border border-zinc-800 bg-zinc-950 text-zinc-400 px-2 py-1 rounded hover:bg-emerald-500 hover:text-black">${track.language}</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById("all-songs-grid").innerHTML = allSongsHtml;
+            }
+
+            // HYDRATING SIDEBAR COMPONENTS RE-USING STRING FLUSH NODES
+            if (data.upcoming) {
+                let upcomingHtml = "";
+                data.upcoming.forEach(track => {
+                    upcomingHtml += `
+                        <div class="bg-zinc-950 p-2.5 rounded-xl border border-zinc-850 flex items-center justify-between">
+                            <div class="truncate pr-2">
+                                <span class="text-xs font-bold text-zinc-300 block truncate">${track.title}</span>
+                                <span class="text-[9px] text-zinc-500">${track.language} • ${track.category}</span>
+                            </div>
+                            <span class="text-[8px] font-black uppercase tracking-widest bg-zinc-900 border border-zinc-800 px-2 py-1 rounded text-emerald-400">${track.releaseDate}</span>
+                        </div>
+                    `;
+                });
+                document.getElementById("upcoming-container").innerHTML = upcomingHtml;
+            }
+
+            if (data.languages) {
+                let languagesHtml = "";
+                Object.keys(data.languages).forEach(lang => {
+                    languagesHtml += `
+                        <a href="${channelRegistry[lang] || 'https://www.youtube.com'}" target="_blank" class="p-2 rounded-lg hover:bg-zinc-900 transition-colors flex items-center justify-between group text-xs text-zinc-400 hover:text-white">
+                            <span class="font-bold flex items-center gap-2"><i class="fa-solid fa-compact-disc text-zinc-600 group-hover:text-emerald-400"></i> ${lang} Production</span>
+                            <i class="fa-solid fa-chevron-right text-[9px] text-zinc-700"></i>
+                        </a>
+                    `;
+                });
+                document.getElementById("language-playlists-container").innerHTML = languagesHtml;
+            }
+
+            if (data.news) {
+                let newsHtml = "";
+                data.news.forEach(item => {
+                    newsHtml += `
+                        <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-850 space-y-1">
+                            <h4 class="text-xs font-bold text-zinc-200">${item.title}</h4>
+                            <p class="text-[11px] text-zinc-400 leading-normal">${item.content}</p>
+                        </div>
+                    `;
+                });
+                document.getElementById("news-feed-container").innerHTML = newsHtml;
+            }
+        }
+
+        function playSong(title, youtubeId, language = "Studio Track", lyricsFile = "") {
+            const playerPanel = document.getElementById("sticky-audio-player");
+            playerPanel.classList.remove("hidden");
+            
+            currentLoadedId = youtubeId;
+            currentLoadedTitle = title;
+            currentLyricsPath = lyricsFile || `lyrics/${youtubeId}.txt`;
+            
+            document.getElementById("playerTitle").innerText = title;
+            document.getElementById("player-subtitle").innerText = `${language} Channel Production`;
+            document.getElementById("playerImage").src = "https://img.youtube.com/vi/" + youtubeId + "/hqdefault.jpg";
+            document.getElementById("player-external-link").href = `https://www.youtube.com/watch?v=${youtubeId}`;
+            
+            document.getElementById("youtubePlayer").src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+        }
+
+        function displayTrackLyrics() {
+            if (!currentLoadedId) return;
+
+            const panel = document.getElementById("lyrics-panel");
+            const body = document.getElementById("lyrics-body");
+            document.getElementById("lyrics-track-title").innerText = currentLoadedTitle;
+
+            panel.classList.remove("opacity-0", "pointer-events-none");
+            body.innerHTML = `<div class="text-zinc-500 text-xs uppercase font-bold tracking-widest py-8"><i class="fa-solid fa-circle-notch fa-spin mr-2 text-emerald-400"></i> Loading text nodes...</div>`;
+
+            fetch(currentLyricsPath)
+                .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.text();
+                })
+                .then(text => {
+                    body.innerHTML = text.trim().split("\n").map(line => `<p class="hover:text-white transition-colors py-0.5">${line}</p>`).join('');
+                })
+                .catch(() => {
+                    body.innerHTML = `
+                        <div class="text-center py-6 space-y-2">
+                            <i class="fa-solid fa-microphone-slash text-zinc-700 text-xl"></i>
+                            <p class="text-xs text-zinc-500">No data text found at path:</p>
+                            <code class="text-[10px] bg-zinc-950 px-2 py-1 rounded border border-zinc-800 font-mono text-amber-500">${currentLyricsPath}</code>
+                        </div>`;
+                });
+        }
+
+        function closeLyricsPanel() {
+            document.getElementById("lyrics-panel").classList.add("opacity-0", "pointer-events-none");
+        }
+    </script>
+</body>
+</html><html lang="en">
+<head>
+    <!-- REQUIRED VIEWPORT META TAG -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai Music Production Studio | Advanced Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- SYSTEM EXPLICIT RESPONSIVE OVERRIDE STYLESHEET -->
+    <style>
+        /* PREVENT HORIZONTAL SCROLLING & BASE RESETS */
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #09090b; /* Keeps layout inline with dark zinc base */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        /* MOBILE FRIENDLY WRAPPED HEADER OVERRIDES */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* RESPONSIVE AUTO-FIT SONG GRID */
+        .song-grid, .region-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            padding: 10px;
+        }
+
+        /* RESPONSIVE SONG CARDS */
+        .song-card {
+            background: #111113; /* Styled to match layout bg-zinc-900 layer mapping */
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 12px;
+            transition: transform .2s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .song-card:hover {
+            transform: translateY(-3px);
+        }
+        .song-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* SPOTIFY-STYLE STICKY PLAYER FOR MOBILE/DESKTOP ENGINE */
+        .music-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #111;
+            border-top: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        .music-player img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        .music-info {
+            flex: 1;
+            overflow: hidden;
+            min-w: 0;
+        }
+        .music-info h4 {
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+            font-weight: bold;
+        }
+        .music-info p {
+            font-size: 12px;
+            color: #aaa;
+            margin: 2px 0 0 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-btn {
+            background: #1DB954;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        .player-btn:hover {
+            background: #1ed760;
+        }
+
+        /* RESPONSIVE YOUTUBE ENGINE WRAPPER */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 280px; /* Optimized layout bounding size for sticky bottom console */
+            padding-bottom: 16%; /* Horizontal banner scaling aspect */
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            top: 0;
+            left: 0;
+        }
+
+        /* GLOBAL RESPONSIVE MEDIA QUERY LAYER */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            .song-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .btn {
+                width: 100%;
+            }
+            .music-player {
+                padding: 8px;
+                flex-wrap: wrap;
+            }
+            .music-player img {
+                width: 40px;
+                height: 40px;
+            }
+            .video-wrapper {
+                max-width: 100%;
+                width: 100%;
+                padding-bottom: 56.25%; /* Auto snap to standard wide 16:9 box on mobile layout viewport collapse */
+                order: 3;
+            }
+            .music-info {
+                width: calc(100% - 60px);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-28 relative">
+
+    <!-- GLOBAL WRAPPED HEADER NAV -->
+    <header class="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-zinc-800/80 z-50 shadow-lg">
+        <div class="flex items-center gap-3 group">
+            <a href="index.html" class="flex items-center gap-3 focus:outline-none">
+                <img src="logo.png" alt="Studio Logo" class="h-9 w-9 rounded-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <span class="text-md font-black tracking-wider bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent uppercase whitespace-nowrap">Ai Music Studio</span>
+            </a>
+        </div>
+
+        <div class="w-full md:max-w-md relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-xs"></i>
+            <input type="text" id="dashboard-search" placeholder="Search tracks, languages..." class="w-full bg-zinc-950 border border-zinc-800 rounded-full pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-emerald-500 transition-colors text-zinc-200">
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="social-links text-zinc-400 text-sm border-r border-zinc-800 pr-4">
+                <a href="https://www.facebook.com/aimusicps/" target="_blank" rel="noopener" class="hover:text-blue-500 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ai_music_production_studio/" target="_blank" rel="noopener" class="hover:text-pink-500 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/919064941269" target="_blank" rel="noopener" class="hover:text-green-500 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://www.youtube.com/@Ai_HindiGaana-p4w" target="_blank" rel="noopener" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            
+            <div id="auth-nav-slot" class="flex items-center gap-3 text-xs font-bold whitespace-nowrap">
+                <a href="login.html" class="hover:text-white text-zinc-400 transition-colors bg-zinc-950 px-3 py-2 rounded-lg border border-zinc-800">Log In</a>
+                <a href="signup.html" class="bg-emerald-500 hover:bg-emerald-400 text-black px-3 py-2 rounded-lg transition-colors">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD ARCHITECTURE -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 w-full space-y-12 flex-1">
+        
+        <!-- FEATURED SONG HERO MODULE -->
+        <section id="featured-hero" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 via-zinc-900/40 to-zinc-950 border border-zinc-850 p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+            <div class="space-y-4 max-w-xl z-10 song-actions">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20" id="hero-tag">FEATURED MASTER</span>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight" id="hero-title">Loading Production Deck...</h1>
+                <p class="text-xs md:text-sm text-zinc-400 leading-relaxed" id="hero-desc">Connecting to music engine array registry endpoints...</p>
+                <div class="pt-2">
+                    <button id="hero-play-btn" class="btn bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all shadow-lg tracking-wider cursor-pointer">
+                        <i class="fa-solid fa-play"></i> STREAM AUDIO
+                    </button>
+                </div>
+            </div>
+            <div class="w-full md:w-80 lg:w-96 aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden relative group z-10">
+                <img id="hero-thumbnail" src="banner.jpg" alt="Featured Thumbnail" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center text-md shadow-2xl"><i class="fa-solid fa-music"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TWO COLUMN AUTO RESPONSIVE LAYOUT CORE -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div class="lg:col-span-2 space-y-12">
+                <!-- NEW RELEASES GRID -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-emerald-500 rounded-full"></span> New Releases</h2>
+                    <div id="new-releases-container" class="song-grid"></div>
+                </div>
+
+                <!-- TRENDING MODULES CONTAINER -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2"><span class="h-4 w-1 bg-amber-500 rounded-full"></span> Studio Matrix Drops</h2>
+                    <div id="trending-songs-container" class="region-grid"></div>
+                </div>
+
+                <!-- GENERAL ALL PRODUCTION ARCHIVE -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-zinc-850 pb-2">
+                        <h2 class="text-xl font-black text-white uppercase tracking-wider">All Production Songs</h2>
+                        <a href="channels.html" class="text-xs text-zinc-500 hover:text-emerald-400 transition-colors">View Channels</a>
+                    </div>
+                    <div id="all-songs-grid" class="region-grid"></div>
+                </div>
+            </div>
+
+            <!-- RIGHT CONTROL ROW: SIDEBAR MODULES -->
+            <div class="space-y-8">
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-hourglass-start text-emerald-400"></i> Production Schedule</h3>
+                    <div id="upcoming-container" class="space-y-2.5"></div>
+                </div>
+
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-compact-disc text-emerald-400"></i> Language Hubs</h3>
+                    <div id="language-playlists-container" class="space-y-2"></div>
+                </div>
+
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-850 space-y-4">
+                    <h3 class="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 text-zinc-300"><i class="fa-solid fa-bullhorn text-amber-500"></i> Live Studio News</h3>
+                    <div id="news-feed-container" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- LYRICS DYNAMIC DISPLAY LAYER -->
+    <div id="lyrics-panel" class="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4 transition-all duration-300 opacity-0 pointer-events-none">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-xl max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-5 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/50">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-microphone text-emerald-400 text-sm"></i>
+                    <div>
+                        <h3 id="lyrics-track-title" class="text-sm font-black text-white">Track Lyrics</h3>
+                        <p class="text-[10px] text-zinc-500 tracking-wide uppercase font-semibold">Studio Sync Feed</p>
+                    </div>
+                </div>
+                <button onclick="closeLyricsPanel()" class="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="lyrics-body" class="p-8 overflow-y-auto text-center font-medium text-zinc-300 leading-loose text-base space-y-4 select-none max-h-[50vh]"></div>
+        </div>
+    </div>
+
+    <!-- RESPONSIVE SPOTIFY-STYLE STICKY PLAYER CORE -->
+    <div id="sticky-audio-player" class="music-player hidden opacity-0 translate-y-full">
+        <div class="flex items-center gap-3.5 min-w-0">
+            <img id="playerImage" src="logo.png" alt="Artwork Metadata Map">
+            <div class="music-info">
+                <h4 id="playerTitle">Select a Song</h4>
+                <p id="player-subtitle">Language Subtype</p>
+            </div>
+        </div>
+
+        <!-- RESPONSIVE YOUTUBE STREAMING HUB CONTAINER -->
+        <div class="video-wrapper">
+            <iframe id="youtubePlayer" src="" allow="autoplay" allowfullscreen frameborder="0"></iframe>
+        </div>
+
+        <div class="flex items-center gap-3 text-zinc-400 text-xs">
+            <a id="player-external-link" href="#" target="_blank" class="hover:text-emerald-400 transition-colors items-center gap-1.5 font-bold tracking-wider text-[10px] bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-md hidden md:flex">
+                YOUTUBE <i class="fa-solid fa-arrow-up-right-from-square text-[8px]"></i>
+            </a>
+            <button onclick="displayTrackLyrics()" class="player-btn hover:scale-105 transition-transform text-white text-xs cursor-pointer" title="View Production Lyrics">
+                <i class="fa-solid fa-microphone"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- AUDIO DRIVER & RUNTIME ARCHITECTURE -->
+    <script>
+        const channelRegistry = {
+            "Hindi": "https://www.youtube.com/@Ai_HindiGaana-p4w",
+            "Bangla": "https://www.youtube.com/@Ai_BanglaGaan_11",
+            "Bhakti": "https://www.youtube.com/@Ai_BhaktiGaana",
+            "Bhojpuri": "https://www.youtube.com/@Ai_BhojpuriGaana",
+            "English": "https://www.youtube.com/@Ai_EnglishSongs-01"
+        };
+
+        let currentLoadedId = "";
+        let currentLoadedTitle = "";
+        let currentLyricsPath = "";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            syncSessionAuthentication();
+
+            fetch('songs.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Metadata registry failure.");
+                    return response.json();
+                })
+                .then(songsData => hydrateCompletePlatform(songsData))
+                .catch(err => console.error("System Core Fault:", err));
+        });
+
+        function syncSessionAuthentication() {
+            const isLocalLogged = localStorage.getItem("loggedIn") === "true";
+            const isSessionLogged = sessionStorage.getItem("loggedIn") === "true";
+            const currentEmail = localStorage.getItem("currentUser");
+            const navSlot = document.getElementById("auth-nav-slot");
+
+            if ((isLocalLogged || isSessionLogged) && currentEmail) {
+                const rawUser = localStorage.getItem("user_" + currentEmail);
+                let userName = "Producer Profile";
+                let userAvatar = "logo.png";
+
+                if (rawUser) {
+                    const parsedUser = JSON.parse(rawUser);
+                    userName = parsedUser.name || userName;
+                    userAvatar = parsedUser.avatar || userAvatar;
+                }
+
+                navSlot.innerHTML = `
+                    <div class="flex items-center gap-3.5 bg-zinc-900 border border-zinc-800 py-1.5 pl-2 pr-3.5 rounded-full">
+                        <img src="${userAvatar}" alt="Profile Avatar" class="w-6 h-6 rounded-full object-cover border border-zinc-750">
+                        <span class="text-zinc-300 font-bold max-w-[100px] truncate">${userName}</span>
+                        <button onclick="handleUserLogout()" class="text-zinc-500 hover:text-red-400 text-xs transition-colors cursor-pointer ml-1">
+                            <i class="fa-solid fa-power-off"></i>
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem("loggedIn");
+            sessionStorage.removeItem("loggedIn");
+            localStorage.removeItem("currentUser");
+            alert("Logged out successfully.");
+            window.location.reload();
+        }
+
+        function escapeStr(str) {
+            return str ? str.replace(/'/g, "\\'") : '';
+        }
+
+        function hydrateCompletePlatform(data) {
+            const featured = data.featuredSong;
+            if (featured) {
+                document.getElementById("hero-title").innerText = featured.title;
+                document.getElementById("hero-desc").innerText = featured.description;
+                document.getElementById("hero-tag").innerText = `FEATURED MASTER • ${featured.language} • ${featured.category}`;
+                document.getElementById("hero-thumbnail").src = `https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`;
+                document.getElementById("hero-play-btn").setAttribute("onclick", `playSong('${escapeStr(featured.title)}', '${featured.youtubeId}', '${featured.language}', '${featured.lyricsFile || ""}')`);
+            }
+
+            if (data.newReleases) {
+                document.getElementById("new-releases-container").innerHTML = data.newReleases.map(track => `
+                    <div class="song-card group">
+                        <div class="relative rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950 aspect-video">
+                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="song-thumb">
+                            <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all cursor-pointer">
+                                <div class="w-10 h-10 bg-emerald-500 text-black rounded-full flex items-center justify-center text-sm shadow-xl"><i class="fa-solid fa-play ml-0.5"></i></div>
+                            </button>
+                        </div>
+                        <div class="truncate">
+                            <h4 class="text-xs font-black text-white truncate group-hover:text-emerald-400 transition-colors">${track.title}</h4>
+                            <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">${track.category} • ${track.language}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            if (data.latest) {
+                document.getElementById("trending-songs-container").innerHTML = data.latest.slice(0, 2).map(track => `
+                    <div class="song-card flex-row items-center justify-between gap-3 group w-full">
+                        <div class="flex items-center gap-3 truncate flex-1">
+                            <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-14 h-10 object-cover rounded-md border border-zinc-800 flex-shrink-0">
+                            <div class="truncate">
+                                <h4 class="text-xs font-bold text-white truncate">${track.title}</h4>
+                                <span class="text-[9px] text-amber-400 font-bold uppercase tracking-widest"><i class="fa-solid fa-fire"></i> ${track.category}</span>
+                            </div>
+                        </div>
+                        <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center text-xs border border-zinc-800 text-zinc-300 hover:text-white cursor-pointer"><i class="fa-solid fa-play ml-0.5"></i></button>
+                    </div>
+                `).join('');
+
+                document.getElementById("all-songs-grid").innerHTML = data.latest.map(track => {
+                    const chLink = channelRegistry[track.language] || "https://www.youtube.com";
+                    return `
+                        <div class="song-card flex-row items-center justify-between gap-3 group w-full">
+                            <div class="flex items-center gap-3 truncate min-w-0 flex-1">
+                                <img src="https://img.youtube.com/vi/${track.youtubeId}/mqdefault.jpg" class="w-12 h-9 object-cover rounded-md border border-zinc-800">
+                                <div class="truncate">
+                                    <h4 class="text-xs font-bold text-zinc-200 truncate group-hover:text-emerald-400 transition-colors">${track.title}</h4>
+                                    <p class="text-[9px] text-zinc-500 font-semibold">${track.category}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <button onclick="playSong('${escapeStr(track.title)}', '${track.youtubeId}', '${track.language}', '${track.lyricsFile || ""}')" class="p-1.5 text-xs text-zinc-400 hover:text-white cursor-pointer"><i class="fa-solid fa-circle-play"></i></button>
+                                <a href="${chLink}" target="_blank" class="text-[8px] font-mono border border-zinc-800 bg-zinc-950 text-zinc-400 px-2 py-1 rounded hover:bg-emerald-500 hover:text-black">${track.language}</a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            if (data.upcoming) {
+                document.getElementById("upcoming-container").innerHTML = data.upcoming.map(track => `
+                    <div class="bg-zinc-950 p-2.5 rounded-xl border border-zinc-850 flex items-center justify-between">
+                        <div class="truncate pr-2">
+                            <span class="text-xs font-bold text-zinc-300 block truncate">${track.title}</span>
+                            <span class="text-[9px] text-zinc-500">${track.language} • ${track.category}</span>
+                        </div>
+                        <span class="text-[8px] font-black uppercase tracking-widest bg-zinc-900 border border-zinc-800 px-2 py-1 rounded text-emerald-400">${track.releaseDate}</span>
+                    </div>
+                `).join('');
+            }
+
+            if (data.languages) {
+                document.getElementById("language-playlists-container").innerHTML = Object.keys(data.languages).map(lang => `
+                    <a href="${channelRegistry[lang] || 'https://www.youtube.com'}" target="_blank" class="p-2 rounded-lg hover:bg-zinc-900 transition-colors flex items-center justify-between group text-xs text-zinc-400 hover:text-white">
+                        <span class="font-bold flex items-center gap-2"><i class="fa-solid fa-compact-disc text-zinc-600 group-hover:text-emerald-400"></i> ${lang} Production</span>
+                        <i class="fa-solid fa-chevron-right text-[9px] text-zinc-700"></i>
+                    </a>
+                `).join('');
+            }
+
+            if (data.news) {
+                document.getElementById("news-feed-container").innerHTML = data.news.map(item => `
+                    <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-850 space-y-1">
+                        <h4 class="text-xs font-bold text-zinc-200">${item.title}</h4>
+                        <p class="text-[11px] text-zinc-400 leading-normal">${item.content}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function playSong(title, youtubeId, language = "Studio Track", lyricsFile = "") {
+            const playerPanel = document.getElementById("sticky-audio-player");
+            playerPanel.classList.remove("hidden");
+            setTimeout(() => {
+                playerPanel.classList.remove("opacity-0", "translate-y-full");
+            }, 10);
+            
+            currentLoadedId = youtubeId;
+            currentLoadedTitle = title;
+            currentLyricsPath = lyricsFile || `lyrics/${youtubeId}.txt`;
+            
+            document.getElementById("playerTitle").innerText = title;
+            document.getElementById("player-subtitle").innerText = `${language} Channel Production`;
+            document.getElementById("playerImage").src = "https://img.youtube.com/vi/" + youtubeId + "/hqdefault.jpg";
+            document.getElementById("player-external-link").href = `https://www.youtube.com/watch?v=${youtubeId}`;
+            
+            document.getElementById("youtubePlayer").src = "https://www.youtube.com/embed/" + youtubeId + "?autoplay=1";
+        }
+
+        function displayTrackLyrics() {
+            if (!currentLoadedId) return;
+
+            const panel = document.getElementById("lyrics-panel");
+            const body = document.getElementById("lyrics-body");
+            document.getElementById("lyrics-track-title").innerText = currentLoadedTitle;
+
+            panel.classList.remove("opacity-0", "pointer-events-none");
+            body.innerHTML = `<div class="text-zinc-500 text-xs uppercase font-bold tracking-widest py-8"><i class="fa-solid fa-circle-notch fa-spin mr-2 text-emerald-400"></i> Loading text nodes...</div>`;
+
+            fetch(currentLyricsPath)
+                .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.text();
+                })
+                .then(text => {
+                    body.innerHTML = text.trim().split("\n").map(line => `<p class="hover:text-white transition-colors py-0.5">${line}</p>`).join('');
+                })
+                .catch(() => {
+                    body.innerHTML = `
+                        <div class="text-center py-6 space-y-2">
+                            <i class="fa-solid fa-microphone-slash text-zinc-700 text-xl"></i>
+                            <p class="text-xs text-zinc-500">No data text found at path:</p>
+                            <code class="text-[10px] bg-zinc-950 px-2 py-1 rounded border border-zinc-800 font-mono text-amber-500">${currentLyricsPath}</code>
+                        </div>`;
+                });
+        }
+
+        function closeLyricsPanel() {
+            document.getElementById("lyrics-panel").classList.add("opacity-0", "pointer-events-none");
+        }
+    </script>
 </body>
 </html>
