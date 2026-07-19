@@ -99,24 +99,24 @@
     setupUnifiedSearchEngine();
 }
 
-    function hydrateHeroBanner(hero) {
-        const heroTitle = document.getElementById("hero-title");
-        const heroArtist = document.getElementById("hero-artist");
-        const heroImg = document.getElementById("hero-thumbnail");
-  
-        if (heroImg) {
-            const videoId = hero.youtubeId || FALLBACK_STUDIO_DEMO_ID; // Fallback to custom studio demo[cite: 2]
-            heroImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-            heroImg.setAttribute("loading", "lazy"); 
-            heroImg.setAttribute("decoding", "async"); 
+   function hydrateHeroBanner(hero) {
+    const heroTitle = document.getElementById("hero-title");
+    const heroDesc = document.getElementById("hero-desc");
+    const heroImg = document.getElementById("hero-thumbnail");
 
-            // Resilient image error boundaries[cite: 2]
-            heroImg.onerror = function() {
-                this.src = COVERS_DEFAULT_IMG;
-                this.onerror = null; // Prevent infinite loop triggers
-            };
-        }
+    if (heroTitle) heroTitle.textContent = hero.title || "Featured Song";
+    if (heroDesc) heroDesc.textContent = hero.artist || "";
+
+    if (heroImg) {
+        const videoId = hero.youtubeId || FALLBACK_STUDIO_DEMO_ID;
+        heroImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+        heroImg.onerror = function () {
+            this.src = COVERS_DEFAULT_IMG;
+            this.onerror = null;
+        };
     }
+}
 
     function hydrateSongGrid(containerId, songsList) {
         const container = document.getElementById(containerId);
